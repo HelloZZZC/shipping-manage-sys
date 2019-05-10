@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -16,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'nickname', 'email', 'password', 'verified_mobile',
     ];
 
     /**
@@ -29,11 +28,12 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
+     * 转换时间格式为时间戳
+     * @param mixed $value
+     * @return false|int|null|string
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function fromDateTime($value)
+    {
+        return strtotime(parent::fromDateTime($value));
+    }
 }
