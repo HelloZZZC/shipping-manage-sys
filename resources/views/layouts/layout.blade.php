@@ -5,6 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="A Simple Shipping Manage System">
         <meta name="author" content="HelloZZZZC">
+        <!-- CSRF Token -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>ShippingMS - @yield('title')</title>
         <!-- Favicon -->
         <link href="./assets/img/brand/favicon.png" rel="icon" type="image/png">
@@ -33,17 +35,6 @@
                 <!-- User -->
                 <ul class="nav align-items-center d-md-none">
                     <li class="nav-item dropdown">
-                        <a class="nav-link nav-link-icon" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="ni ni-bell-55"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right" aria-labelledby="navbar-default_dropdown_1">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
                         <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="media align-items-center">
                       <span class="avatar avatar-sm rounded-circle">
@@ -57,24 +48,16 @@
                             </div>
                             <a href="./examples/profile.html" class="dropdown-item">
                                 <i class="ni ni-single-02"></i>
-                                <span>My profile</span>
+                                <span>我的简介</span>
                             </a>
                             <a href="./examples/profile.html" class="dropdown-item">
                                 <i class="ni ni-settings-gear-65"></i>
-                                <span>Settings</span>
-                            </a>
-                            <a href="./examples/profile.html" class="dropdown-item">
-                                <i class="ni ni-calendar-grid-58"></i>
-                                <span>Activity</span>
-                            </a>
-                            <a href="./examples/profile.html" class="dropdown-item">
-                                <i class="ni ni-support-16"></i>
-                                <span>Support</span>
+                                <span>设置</span>
                             </a>
                             <div class="dropdown-divider"></div>
                             <a href="#!" class="dropdown-item">
                                 <i class="ni ni-user-run"></i>
-                                <span>Logout</span>
+                                <span>退出登录</span>
                             </a>
                         </div>
                     </li>
@@ -120,7 +103,7 @@
                                       <img alt="Image placeholder" src="./assets/img/theme/team-4-800x800.jpg">
                                     </span>
                                     <div class="media-body ml-2 d-none d-lg-block">
-                                        <span class="mb-0 text-sm  font-weight-bold">Jessica Jones</span>
+                                        <span class="mb-0 text-sm  font-weight-bold">管理员</span>
                                     </div>
                                 </div>
                             </a>
@@ -130,24 +113,16 @@
                                 </div>
                                 <a href="./examples/profile.html" class="dropdown-item">
                                     <i class="ni ni-single-02"></i>
-                                    <span>My profile</span>
+                                    <span>我的简介</span>
                                 </a>
                                 <a href="./examples/profile.html" class="dropdown-item">
                                     <i class="ni ni-settings-gear-65"></i>
-                                    <span>Settings</span>
-                                </a>
-                                <a href="./examples/profile.html" class="dropdown-item">
-                                    <i class="ni ni-calendar-grid-58"></i>
-                                    <span>Activity</span>
-                                </a>
-                                <a href="./examples/profile.html" class="dropdown-item">
-                                    <i class="ni ni-support-16"></i>
-                                    <span>Support</span>
+                                    <span>设置</span>
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a href="#!" class="dropdown-item">
                                     <i class="ni ni-user-run"></i>
-                                    <span>Logout</span>
+                                    <span>退出登录</span>
                                 </a>
                             </div>
                         </li>
