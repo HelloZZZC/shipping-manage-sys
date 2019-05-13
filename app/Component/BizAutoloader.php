@@ -28,7 +28,7 @@ class BizAutoloader
     {
         $parts = explode(':', $alias);
         if (empty($parts) or count($parts) != 2) {
-            throw new InvalidArgumentException('service alias is invalid');
+            throw new InvalidArgumentException('Alias is invalid');
         }
 
         if (isset($this->app["@{$alias}"])) {
