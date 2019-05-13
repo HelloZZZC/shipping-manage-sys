@@ -3,10 +3,11 @@
 namespace App\Biz\Auth\Service\Impl;
 
 use App\Biz\Auth\Service\AuthService;
-use App\User;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use App\Biz\BaseService;
 
-class AuthServiceImpl implements AuthService
+class AuthServiceImpl extends BaseService implements AuthService
 {
     /**
      * @param $user
