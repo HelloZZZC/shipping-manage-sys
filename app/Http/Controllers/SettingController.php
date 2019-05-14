@@ -29,7 +29,7 @@ class SettingController extends Controller
             $setting = $this->getSettingService()->set('system_setting', $validator->validated());
         }
 
-        return view('system_setting', [
+        return view('setting.system_setting', [
             'setting' => empty($setting) ? [] : $setting,
         ]);
     }
@@ -49,7 +49,7 @@ class SettingController extends Controller
             $setting = $this->getSettingService()->set('shipping_setting', $setting);
         }
 
-        return view('shipping_setting', [
+        return view('setting.shipping_setting', [
             'setting' => empty($setting) ? [] : $setting,
         ]);
     }
