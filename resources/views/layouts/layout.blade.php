@@ -29,7 +29,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <!-- Brand -->
-                <a class="navbar-brand pt-0" href="./index.html">
+                <a class="navbar-brand pt-0" href="{{ route('homepage') }}">
                     <img src="{{ asset('./images/default/blue.png') }}" class="navbar-brand-img" alt="...">
                 </a>
                 <!-- User -->
@@ -38,7 +38,7 @@
                         <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="media align-items-center">
                       <span class="avatar avatar-sm rounded-circle">
-                        <img alt="Image placeholder" src="./assets/img/theme/team-1-800x800.jpg">
+                        <img alt="avatar" src="{{ asset('./images/default/avatar.png') }}">
                       </span>
                             </div>
                         </a>
@@ -68,7 +68,7 @@
                     <div class="navbar-collapse-header d-md-none">
                         <div class="row">
                             <div class="col-6 collapse-brand">
-                                <a href="./index.html">
+                                <a href="{{ route('homepage') }}">
                                     <img src="{{ asset('./images/default/blue.png') }}">
                                 </a>
                             </div>
@@ -100,7 +100,7 @@
                             <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <div class="media align-items-center">
                                     <span class="avatar avatar-sm rounded-circle">
-                                      <img alt="Image placeholder" src="./assets/img/theme/team-4-800x800.jpg">
+                                      <img alt="avatar" src="{{ asset('./images/default/avatar.png') }}">
                                     </span>
                                     <div class="media-body ml-2 d-none d-lg-block">
                                         <span class="mb-0 text-sm  font-weight-bold">管理员</span>

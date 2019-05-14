@@ -40,6 +40,7 @@ mix.babel(
  */
 mix.copy('node_modules/jquery-validation/dist/jquery.validate.min.js', 'public/js/libs/jquery-validation/jquery.validate.min.js');
 mix.js('resources/js/login/index.js', 'public/js/login');
+mix.js('resources/js/setting/system/index.js', 'public/js/setting/system');
 
 /**
  * 整合需要的字体
