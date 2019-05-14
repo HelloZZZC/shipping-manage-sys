@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Biz\Setting\Service\SettingService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class SettingController extends Controller
 {
@@ -20,7 +21,12 @@ class SettingController extends Controller
         $setting = $this->getSettingService()->get('system_setting');
 
         if ('POST' == $request->getMethod()) {
-            $setting = $request->request->all();
+            $rules = $this->getSystemSettingRules();
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                //do something
+            }
+            $setting = $this->getSettingService()->set('system_setting', $validator->validated());
         }
 
         return view('system_setting', [
@@ -40,11 +46,23 @@ class SettingController extends Controller
 
         if ('POST' == $request->getMethod()) {
             $setting = $request->request->all();
+            $setting = $this->getSettingService()->set('shipping_setting', $setting);
         }
 
         return view('shipping_setting', [
             'setting' => empty($setting) ? [] : $setting,
         ]);
+    }
+
+    protected function getSystemSettingRules()
+    {
+        return [
+            'exchange_rate' => 'required',
+            'commission' => 'required',
+            'e_mail_discount' => 'required',
+            'china_post_discount' => 'required',
+            'ali_standard_discount' => 'required',
+        ];
     }
 
     /**
