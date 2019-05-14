@@ -29,9 +29,15 @@ Route::middleware(['auth'])->group(function(){
      */
     Route::get('/system/setting', 'SettingController@systemSetting')->name('system_setting');
     Route::post('/system/setting', 'SettingController@systemSetting')->name('system_setting');
+
     /**
      * 物流设置获取和提交路由
      */
     Route::get('/shipping/setting', 'SettingController@shippingSetting')->name('shipping_setting');
     Route::post('/shipping/setting', 'SettingController@shippingSetting')->name('shipping_setting');
+
+    /**
+     * 物流数据导入相关路由
+     */
+    Route::get('/importer/{type}', 'ImporterController@index')->name('importer');
 });
