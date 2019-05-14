@@ -1,8 +1,8 @@
 <?php
 
-namespace Biz\Setting\Dao\Impl;
+namespace App\Biz\Setting\Dao\Impl;
 
-use Biz\Setting\Dao\SettingDao;
+use App\Biz\Setting\Dao\SettingDao;
 use App\Models\Setting;
 
 class SettingDaoImpl implements SettingDao

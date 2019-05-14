@@ -1,6 +1,6 @@
 <?php
 
-namespace Biz\Setting\Service;
+namespace App\Biz\Setting\Service;
 
 interface SettingService
 {

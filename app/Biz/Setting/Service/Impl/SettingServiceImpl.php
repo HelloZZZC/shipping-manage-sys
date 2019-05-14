@@ -2,7 +2,7 @@
 
 namespace App\Biz\Setting\Service\Impl;
 
-use Biz\Setting\Service\SettingService;
+use App\Biz\Setting\Service\SettingService;
 use App\Biz\BaseService;
 
 class SettingServiceImpl extends BaseService implements SettingService
