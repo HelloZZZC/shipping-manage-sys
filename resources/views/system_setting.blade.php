@@ -15,7 +15,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form id="system_setting_form" method="POST" action="{{ route('system_setting') }}">
+                        <form id="system-setting-form" method="POST" action="{{ route('system_setting') }}">
                             @csrf
                             <div class="form-group row">
                                 <label for="exchange_rate" class="col-md-2 col-sm-2 col-form-label">汇率</label>
@@ -50,7 +50,7 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-md-4 offset-md-2 col-sm-10">
-                                    <button type="submit" class="btn btn-primary">保存</button>
+                                    <button type="submit" class="btn btn-primary" id="submit-btn">保存</button>
                                 </div>
                             </div>
                         </form>
@@ -61,5 +61,11 @@
         <!-- Footer -->
         @include('layouts.footer')
     </div>
+@endsection
+
+@section('script')
+    @parent
+    <script src="{{ mix('js/libs/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ mix('js/setting/system/index.js') }}"></script>
 @endsection
 
