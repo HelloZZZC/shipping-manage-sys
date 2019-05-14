@@ -1,6 +1,6 @@
 <?php
 
-namespace Biz\Setting\Dao;
+namespace App\Biz\Setting\Dao;
 
 interface SettingDao
 {

@@ -24,4 +24,14 @@ Auth::routes(['register' => false, 'reset' => false, 'verify' => false]);
  */
 Route::middleware(['auth'])->group(function(){
     Route::get('/', 'HomepageController@index')->name('homepage');
+    /**
+     * 系统配置获取和提交路由
+     */
+    Route::get('/system/setting', 'SettingController@systemSetting')->name('system_setting');
+    Route::post('/system/setting', 'SettingController@systemSetting')->name('system_setting');
+    /**
+     * 物流设置获取和提交路由
+     */
+    Route::get('/shipping/setting', 'SettingController@shippingSetting')->name('shipping_setting');
+    Route::post('/shipping/setting', 'SettingController@shippingSetting')->name('shipping_setting');
 });
