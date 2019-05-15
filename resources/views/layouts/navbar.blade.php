@@ -28,17 +28,17 @@
         <div class="collapse hide" id="navbar-examples">
             <ul class="nav nav-sm flex-column">
                 <li class="nav-item">
-                    <a class="nav-link" href="">
+                    <a class="nav-link" href="{{ route('importer', ['type' => 'chinaPost']) }}">
                         中国邮政挂号小包
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">
+                    <a class="nav-link" href="{{ route('importer', ['type' => 'aliStandard']) }}">
                         AliExpress无忧物流（标准）
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">
+                    <a class="nav-link" href="{{ route('importer', ['type' => 'eMail']) }}">
                         e邮宝
                     </a>
                 </li>

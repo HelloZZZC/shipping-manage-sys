@@ -3,16 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Biz\Shipping\Service\ShippingService;
-use Illuminate\Http\Request;
+use App\Common\Utils\ShippingInfoUtil;
 
 class ImporterController extends Controller
 {
     use BizAutoload;
 
-    public function index(Request $request, $type)
+    public function index($type)
     {
-        return view('importer.blade.php', [
-            'type' => empty($type) ? ShippingService::TYPE_CHINA_POST : $type,
+        $type = empty($type) ? ShippingService::TYPE_CHINA_POST : $type;
+
+        return view('import.importer', [
+            'type' => $type,
+            'info' => ShippingInfoUtil::getInfo($type),
+        ]);
+    }
+
+    public function show($type)
+    {
+        $type = empty($type) ? ShippingService::TYPE_CHINA_POST : $type;
+
+        return view('import.importer-modal', [
+            'type' => $type,
+            'info' => ShippingInfoUtil::getInfo($type),
         ]);
     }
 

@@ -72,7 +72,7 @@
                                 </label>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary my-4" id="login-btn">登录</button>
+                                <button type="button" class="btn btn-primary my-4" id="login-btn">登录</button>
                             </div>
                         </form>
                     </div>
