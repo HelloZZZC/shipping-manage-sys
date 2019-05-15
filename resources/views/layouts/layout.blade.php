@@ -134,6 +134,8 @@
             <!-- Content Body -->
         @show
     </div>
+    <div class="modal" id="modal" tabindex="-1" role="dialog">
+    </div>
     <!-- Main JS -->
     @section('script')
         <script src="{{ mix('js/main.min.js') }}"></script>

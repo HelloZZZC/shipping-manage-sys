@@ -174,12 +174,12 @@ function () {
   }, {
     key: "initEvent",
     value: function initEvent() {
+      var _this = this;
+
       this.$btn.click(function () {
-        return function () {
-          if (this.$form.valid()) {
-            this.$form.submit();
-          }
-        };
+        if (_this.$form.valid()) {
+          _this.$form.submit();
+        }
       });
     }
   }]);

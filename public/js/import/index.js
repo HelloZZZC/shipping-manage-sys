@@ -81,15 +81,15 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/js/login/index.js":
-/*!*************************************!*\
-  !*** ./resources/js/login/index.js ***!
-  \*************************************/
+/***/ "./resources/js/import/index.js":
+/*!**************************************!*\
+  !*** ./resources/js/import/index.js ***!
+  \**************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -99,74 +99,57 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Login =
+var Import =
 /*#__PURE__*/
 function () {
-  function Login() {
-    _classCallCheck(this, Login);
+  function Import() {
+    _classCallCheck(this, Import);
 
     this.initObject();
-    this.initValidator();
     this.initEvent();
   }
 
-  _createClass(Login, [{
+  _createClass(Import, [{
     key: "initObject",
     value: function initObject() {
-      this.$form = $('#login-form');
-      this.$btn = $('#login-btn');
-    }
-    /**
-     * 约定所有的错误提示class均为invalid-tooltip保持整个系统样式统一
-     */
-
-  }, {
-    key: "initValidator",
-    value: function initValidator() {
-      this.$form.validate({
-        rules: {
-          nickname: "required",
-          password: "required"
-        },
-        messages: {
-          nickname: '请输入账号',
-          password: '请输入密码'
-        },
-        errorClass: 'invalid-tooltip',
-        errorElement: 'span',
-        highlight: function highlight(element, errorClass) {
-          $(element).removeClass(errorClass);
-        }
-      });
+      this.$btn = $('#import-btn');
+      this.$modal = $('#modal');
     }
   }, {
     key: "initEvent",
     value: function initEvent() {
       var _this = this;
 
+      var url = this.$btn.data('url');
       this.$btn.click(function () {
-        if (_this.$form.valid()) {
-          _this.$form.submit();
-        }
+        $.get(url, function (response) {
+          _this.$modal.modal({
+            backdrop: 'static'
+          });
+
+          _this.$modal.html(response);
+
+          _this.$modal.modal('show');
+        });
       });
     }
   }]);
 
-  return Login;
+  return Import;
 }();
 
-new Login();
+new Import();
 
 /***/ }),
 
-/***/ 1:
-/*!*******************************************!*\
-  !*** multi ./resources/js/login/index.js ***!
-  \*******************************************/
+/***/ 3:
+/*!********************************************!*\
+  !*** multi ./resources/js/import/index.js ***!
+  \********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /private/var/www/laravel-repository/shipping-manage-sys/resources/js/login/index.js */"./resources/js/login/index.js");
+module.exports = __webpack_require__(/*! /private/var/www/laravel-repository/shipping-manage-sys/resources/js/import/index.js */"./resources/js/import/index.js");
 
 
 /***/ })

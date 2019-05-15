@@ -40,4 +40,5 @@ Route::middleware(['auth'])->group(function(){
      * 物流数据导入相关路由
      */
     Route::get('/importer/{type}', 'ImporterController@index')->name('importer');
+    Route::get('/importer/{type}/show', 'ImporterController@show')->name('importer_show');
 });
