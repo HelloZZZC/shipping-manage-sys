@@ -33,7 +33,7 @@ class Login
     }
     
     initEvent() {
-        this.$btn.click(() => function () {
+        this.$btn.click(() => {
             if (this.$form.valid()) {
                 this.$form.submit();
             }
