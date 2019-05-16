@@ -42,6 +42,7 @@ mix.copy('node_modules/jquery-validation/dist/jquery.validate.min.js', 'public/j
 mix.js('resources/js/login/index.js', 'public/js/login');
 mix.js('resources/js/setting/system/index.js', 'public/js/setting/system');
 mix.js('resources/js/import/index.js', 'public/js/import');
+mix.js('resources/js/import/file/index.js', 'public/js/import/file');
 
 /**
  * 整合需要的字体

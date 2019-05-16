@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Biz;
+namespace App\Biz\Importer\Factory;
 
 use Illuminate\Contracts\Foundation\Application;
 use App\Component\BizAutoloader;
 
-class BaseService
+class BaseImporter
 {
     /**
      * @var Application
@@ -28,18 +28,5 @@ class BaseService
         $autoloader = $this->app->make(BizAutoloader::class);
 
         return $autoloader->load('Service', $alias);
-    }
-
-    /**
-     * 获取Biz\Dao
-     * @param $alias
-     * @return mixed
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
-    protected function createDao($alias)
-    {
-        $autoloader = $this->app->make(BizAutoloader::class);
-
-        return $autoloader->load('Dao', $alias);
     }
 }
