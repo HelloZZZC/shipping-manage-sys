@@ -15,6 +15,14 @@
                         </div>
                     </div>
                     <div class="card-body">
+                        @if (Session::has('system_setting.saved'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <span class="alert-inner--text">{{ Session::get('system_setting.saved') }}</span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
                         <form id="system-setting-form" method="POST" action="{{ route('system_setting') }}">
                             @csrf
                             <div class="form-group row">

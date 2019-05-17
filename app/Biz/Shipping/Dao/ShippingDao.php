@@ -10,4 +10,6 @@ interface ShippingDao
      * @return mixed
      */
     public function deleteByType($type);
+
+    public function batchCreate($rows);
 }

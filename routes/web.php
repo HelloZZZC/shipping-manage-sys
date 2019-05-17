@@ -40,4 +40,5 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/importer/{type}', 'ImporterController@index')->name('importer');
     Route::get('/importer/{type}/show', 'ImporterController@show')->name('importer_show');
     Route::post('/preImport/{type}', 'ImporterController@preImport')->name('pre_import');
+    Route::post('/import/{type}', 'ImporterController@import')->name('import');
 });

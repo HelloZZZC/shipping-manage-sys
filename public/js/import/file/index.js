@@ -106,6 +106,7 @@ function () {
     _classCallCheck(this, ImportFile);
 
     this.initObject();
+    this.initValidator();
     this.initEvent();
   }
 
@@ -117,6 +118,30 @@ function () {
       this.$fileInput = $('.js-file');
       this.$showFileInput = $('.js-show-file');
       this.$saveBtn = $('#save-btn');
+      this.$progress = $('.progress');
+      this.$progressBar = this.$progress.find('.progress-bar');
+      this.$formContainer = $('.js-form-container');
+      this.$jsFooter = $('.js-footer');
+    }
+  }, {
+    key: "initValidator",
+    value: function initValidator() {
+      this.$form.validate({
+        ignore: [],
+        rules: {
+          file: "required"
+        },
+        messages: {
+          file: {
+            required: '请选择一个excel文件'
+          }
+        },
+        errorClass: 'invalid-tooltip',
+        errorElement: 'span',
+        highlight: function highlight(element, errorClass) {
+          $(element).removeClass(errorClass);
+        }
+      });
     }
   }, {
     key: "initEvent",
@@ -128,8 +153,74 @@ function () {
       });
       this.$fileInput.on('change', function () {
         _this.$showFileInput.val(_this.$fileInput.val());
+
+        _this.$form.valid();
       });
-      this.$saveBtn.on('click', function () {});
+      this.$saveBtn.on('click', function () {
+        if (_this.$form.valid()) {
+          var importPrepareUrl = _this.$saveBtn.data('importPrepareUrl');
+
+          _this.$formContainer.hide();
+
+          _this.$jsFooter.hide();
+
+          _this.$progress.show();
+
+          $.post(importPrepareUrl, _this.$form.serialize(), function (response) {
+            if (!response.code) {
+              _this.$progressBar.css('width', response.data.progress + '%');
+
+              _this.$progressBar.attr('aria-valuenow', response.data.progress);
+
+              _this["import"]();
+            } else {
+              _this.showError(response.data.progress);
+            }
+          });
+        }
+      });
+    }
+  }, {
+    key: "import",
+    value: function _import() {
+      var _this2 = this;
+
+      var formData = new FormData(this.$form[0]);
+      var importUrl = this.$saveBtn.data('importUrl');
+      $.ajax({
+        url: importUrl,
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function success(response) {
+          if (!response.code) {
+            _this2.$progressBar.css('width', response.data.progress + '%');
+
+            _this2.$progressBar.attr('aria-valuenow', response.data.progress);
+
+            _this2.$progressBar.addClass('bg-success');
+
+            var dismissBtn = "<button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">\u786E\u5B9A</button>";
+
+            _this2.$jsFooter.html(dismissBtn).show();
+          } else {
+            _this2.showError(response.data.progress);
+          }
+        },
+        error: function error(response) {
+          console.log(response);
+        }
+      });
+    }
+  }, {
+    key: "showError",
+    value: function showError(progress) {
+      this.$progressBar.css('width', progress + '%');
+      this.$progressBar.attr('aria-valuenow', progress);
+      this.$progressBar.addClass('bg-danger');
+      var dismissBtn = "<button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">\u786E\u5B9A</button>";
+      this.$jsFooter.html(dismissBtn).show();
     }
   }]);
 

@@ -16,4 +16,11 @@ interface ShippingService
      * @return mixed
      */
     public function deleteShippingsByType($type);
+
+    /**
+     * 批量创建shipping数据
+     * @param $rows
+     * @return mixed
+     */
+    public function batchCreateShippings($rows);
 }

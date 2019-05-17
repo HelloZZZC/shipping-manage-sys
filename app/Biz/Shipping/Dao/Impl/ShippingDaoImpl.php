@@ -16,4 +16,14 @@ class ShippingDaoImpl implements ShippingDao
     {
         return Shipping::where('type', $type)->delete();
     }
+
+    /**
+     * 批量创建
+     * @param $rows
+     * @return mixed
+     */
+    public function batchCreate($rows)
+    {
+        return Shipping::insert($rows);
+    }
 }

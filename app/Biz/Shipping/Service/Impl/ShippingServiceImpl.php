@@ -13,6 +13,12 @@ class ShippingServiceImpl extends BaseService implements ShippingService
         ShippingService::TYPE_CHINA_POST, ShippingService::TYPE_ALI_STANDARD, ShippingService::TYPE_E_MAIL,
     ];
 
+    /**
+     * @param $type
+     * @return mixed
+     * @throws InvalidArgumentException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     public function deleteShippingsByType($type)
     {
         if (!in_array($type, $this->allowedTypes)) {
@@ -20,6 +26,20 @@ class ShippingServiceImpl extends BaseService implements ShippingService
         }
 
         return $this->getShippingDao()->deleteByType($type);
+    }
+
+    /**
+     * @param $rows
+     * @return bool|mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function batchCreateShippings($rows)
+    {
+        if (empty($rows)) {
+            return true;
+        }
+
+        return $this->getShippingDao()->batchCreate($rows);
     }
 
     /**

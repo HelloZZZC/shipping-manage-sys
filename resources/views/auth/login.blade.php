@@ -14,7 +14,7 @@
     <nav class="navbar navbar-top navbar-horizontal navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand" href="../index.html">
-                <img src="{{ asset('./images/default/white.png') }}" />
+                <img src="{{ asset('storage/images/default/white.png') }}" />
             </a>
         </div>
     </nav>

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\JsonResponse;
 
 class Controller extends BaseController
 {
@@ -14,7 +14,7 @@ class Controller extends BaseController
 
     protected function createJsonResponse($data = [], $code = 0, $message = '')
     {
-        return JsonResource::make([
+        return JsonResponse::create([
             'code' => $code,
             'data' => $data,
             'message' => $message

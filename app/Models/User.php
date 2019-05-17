@@ -26,14 +26,4 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
-    /**
-     * 转换时间格式为时间戳
-     * @param mixed $value
-     * @return false|int|null|string
-     */
-    public function fromDateTime($value)
-    {
-        return strtotime(parent::fromDateTime($value));
-    }
 }
