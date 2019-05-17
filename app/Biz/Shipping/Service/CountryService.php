@@ -27,4 +27,11 @@ interface CountryService
      * @return mixed
      */
     public function createCountry($country);
+
+    /**
+     * 根据国家中文名获取国家数据
+     * @param $nameCN
+     * @return mixed
+     */
+    public function getCountryByNameCN($nameCN);
 }

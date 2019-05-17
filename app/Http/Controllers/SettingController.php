@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Biz\Setting\Service\SettingService;
+use App\Common\Exception\InvalidArgumentException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class SettingController extends Controller
@@ -12,9 +12,9 @@ class SettingController extends Controller
     use BizAutoload;
 
     /**
-     * 系统设置页面渲染
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws InvalidArgumentException
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function systemSetting(Request $request)
@@ -25,7 +25,7 @@ class SettingController extends Controller
             $rules = $this->getSystemSettingRules();
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
-                //do something
+                throw new InvalidArgumentException('非法提交');
             }
             $setting = $this->getSettingService()->set('system_setting', $validator->validated());
             $request->session()->flash('system_setting.saved', '保存成功!');
@@ -44,18 +44,55 @@ class SettingController extends Controller
      */
     public function shippingSetting(Request $request)
     {
-        $setting = $this->getSettingService()->get('shipping_setting');
+        $currentSetting = $this->getSettingService()->get('shipping_setting');
 
         if ('POST' == $request->getMethod()) {
-            $setting = $request->request->all();
-            $setting = $this->getSettingService()->set('shipping_setting', $setting);
+            $setting = $request->request->get('setting');
+            $newSetting = [];
+            foreach ($currentSetting as $single) {
+                if (empty($setting)) {
+                    $newSetting[] = $this->buildSettingWithEmpty($single);
+                } else {
+                    $newSetting[] = $this->buildSetting($single, $setting);
+                }
+            }
+            $currentSetting = $this->getSettingService()->set('shipping_setting', $newSetting);
+            $request->session()->flash('shipping_setting.saved', '保存成功!');
         }
 
         return view('setting.shipping_setting', [
-            'setting' => empty($setting) ? [] : $setting,
+            'setting' => empty($currentSetting) ? [] : $currentSetting,
         ]);
     }
 
+    /**
+     * @param $single
+     * @return mixed
+     */
+    private function buildSettingWithEmpty($single)
+    {
+        $single['shipping'] = [];
+
+        return $single;
+    }
+
+    /**
+     * @param $single
+     * @param $setting
+     * @return mixed
+     */
+    private function buildSetting($single, $setting)
+    {
+        $countryId = $single['country_id'];
+        $single['shipping'] = empty($setting[$countryId]) ? [] : $setting[$countryId];
+
+        return $single;
+    }
+
+    /**
+     * 系统配置表单提交rule
+     * @return array
+     */
     protected function getSystemSettingRules()
     {
         return [
