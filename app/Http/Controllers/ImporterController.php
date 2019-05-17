@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Biz\File\Service\FileService;
+use App\Biz\Importer\ImporterFactory;
 use App\Biz\Shipping\Service\ShippingService;
 use App\Common\Utils\ShippingInfoUtil;
 use Illuminate\Http\Request;
@@ -55,7 +56,7 @@ class ImporterController extends Controller
             Log::error($t->getMessage(), ['code' => $t->getCode(), 'trace' => $t->getTraceAsString()]);
             return $this->createJsonResponse([
                 'progress' => 30,
-            ], $t->getCode());
+            ], 500);
         }
 
         return $this->createJsonResponse([
@@ -63,16 +64,22 @@ class ImporterController extends Controller
         ]);
     }
 
+    /**
+     * 导入shipping数据
+     * @param Request $request
+     * @param $type
+     * @return ImporterController
+     */
     public function import(Request $request, $type)
     {
         try {
             $file = $request->file('file');
-
+            ImporterFactory::createFactory($type)->import($file);
         } catch (\Throwable $t) {
             Log::error($t->getMessage(), ['code' => $t->getCode(), 'trace' => $t->getTraceAsString()]);
             return $this->createJsonResponse([
                 'progress' => 90,
-            ], $t->getCode());
+            ], 500);
         }
 
         return $this->createJsonResponse([

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Biz\Setting\Service\SettingService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class SettingController extends Controller
@@ -27,6 +28,7 @@ class SettingController extends Controller
                 //do something
             }
             $setting = $this->getSettingService()->set('system_setting', $validator->validated());
+            $request->session()->flash('system_setting.saved', '保存成功!');
         }
 
         return view('setting.system_setting', [
