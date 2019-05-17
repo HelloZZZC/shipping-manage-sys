@@ -30,7 +30,7 @@
                 </button>
                 <!-- Brand -->
                 <a class="navbar-brand pt-0" href="{{ route('homepage') }}">
-                    <img src="{{ asset('storage/images/default/blue.png') }}" class="navbar-brand-img" alt="...">
+                    <img src="{{ asset('images/blue.png') }}" class="navbar-brand-img" alt="...">
                 </a>
                 <!-- User -->
                 <ul class="nav align-items-center d-md-none">
@@ -38,7 +38,7 @@
                         <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="media align-items-center">
                       <span class="avatar avatar-sm rounded-circle">
-                        <img alt="avatar" src="{{ asset('storage/images/default/avatar.png') }}">
+                        <img alt="avatar" src="{{ asset('images/avatars/avatar.png') }}">
                       </span>
                             </div>
                         </a>
@@ -69,7 +69,7 @@
                         <div class="row">
                             <div class="col-6 collapse-brand">
                                 <a href="{{ route('homepage') }}">
-                                    <img src="{{ asset('storage/images/default/blue.png') }}">
+                                    <img src="{{ asset('images/blue.png') }}">
                                 </a>
                             </div>
                             <div class="col-6 collapse-close">
@@ -100,7 +100,7 @@
                             <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <div class="media align-items-center">
                                     <span class="avatar avatar-sm rounded-circle">
-                                      <img alt="avatar" src="{{ asset('/storage/images/default/avatar.png') }}">
+                                      <img alt="avatar" src="{{ asset('images/avatars/avatar.png') }}">
                                     </span>
                                     <div class="media-body ml-2 d-none d-lg-block">
                                         <span class="mb-0 text-sm  font-weight-bold">管理员</span>
