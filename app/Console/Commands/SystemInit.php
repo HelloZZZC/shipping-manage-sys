@@ -42,7 +42,6 @@ class SystemInit extends BaseCommands
         }
     }
 
-
     /**
      * 初始化系统超级管理员
      * @throws \Illuminate\Contracts\Container\BindingResolutionException

@@ -39,4 +39,9 @@ class CountryDaoImpl implements CountryDao
     {
         return ShippingCountry::create($country);
     }
+
+    public function getByNameCN($nameCN)
+    {
+        return ShippingCountry::where('name_cn', $nameCN)->first();
+    }
 }

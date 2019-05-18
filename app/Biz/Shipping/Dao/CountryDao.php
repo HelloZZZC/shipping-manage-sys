@@ -24,4 +24,10 @@ interface CountryDao
      * @return mixed
      */
     public function create($country);
+
+    /**
+     * @param $nameCN
+     * @return mixed
+     */
+    public function getByNameCN($nameCN);
 }

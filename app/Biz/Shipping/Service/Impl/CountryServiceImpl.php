@@ -42,6 +42,16 @@ class CountryServiceImpl extends BaseService implements CountryService
     }
 
     /**
+     * @param $nameCN
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function getCountryByNameCN($nameCN)
+    {
+        return $this->getCountryDao()->getByNameCN($nameCN);
+    }
+
+    /**
      * @return CountryDao
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
