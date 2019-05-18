@@ -2,6 +2,8 @@
 
 namespace App\Common\Utils;
 
+use App\Common\Exception\InvalidArgumentException;
+
 class ShippingCalcUtil
 {
     /**
@@ -67,5 +69,23 @@ class ShippingCalcUtil
     public static function calcGrossProfit($price, $fixedGrossMargin)
     {
         return $price * ((float)$fixedGrossMargin / 100);
+    }
+
+    /**
+     * 获取运费相关数据通过重量
+     * @param $weight
+     * @param $costs
+     * @return mixed
+     * @throws InvalidArgumentException
+     */
+    public static function getCostByWeight($weight, $costs)
+    {
+        foreach ($costs as $cost) {
+            if ($weight >= $cost['min'] && $weight <= $cost['max']) {
+                return $cost;
+            }
+        }
+
+        throw new InvalidArgumentException("weight not in any range");
     }
 }

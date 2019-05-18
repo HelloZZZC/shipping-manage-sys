@@ -26,4 +26,60 @@ class ShippingDaoImpl implements ShippingDao
     {
         return Shipping::insert($rows);
     }
+
+    /**
+     * @param $conditions
+     * @return mixed
+     */
+    public function count($conditions)
+    {
+        $stmt = Shipping::select('*');
+
+        return $this->buildQueryStatement($conditions, $stmt)->count();
+    }
+
+    /**
+     * @param $conditions
+     * @param $orderBy
+     * @param $offset
+     * @param $limit
+     * @return mixed
+     */
+    public function search($conditions, $orderBy, $offset, $limit)
+    {
+        $offset = (int) $offset;
+        $limit = (int) $limit;
+
+        $stmt = Shipping::select('*');
+
+        return $this->buildQueryStatement($conditions, $stmt)->orderBy($orderBy[0], $orderBy[1])->offset($offset)->limit($limit)->get();
+    }
+
+    /**
+     * @param $type
+     * @param $countryId
+     * @return mixed
+     */
+    public function getByTypeAndCountryId($type, $countryId)
+    {
+        return Shipping::where('type', $type)->where('country_id', $countryId)->first();
+    }
+
+    /**
+     * @param $conditions
+     * @param $stmt
+     * @return mixed
+     */
+    protected function buildQueryStatement($conditions, $stmt)
+    {
+        if (isset($conditions['types'])) {
+            $stmt = $stmt->whereIn('type', $conditions['types']);
+        }
+
+        if (isset($conditions['country_ids'])) {
+            $stmt = $stmt->whereIn('country_id', $conditions['country_ids']);
+        }
+
+        return $stmt;
+    }
 }
