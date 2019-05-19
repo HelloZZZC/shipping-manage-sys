@@ -43,6 +43,7 @@ mix.js('resources/js/login/index.js', 'public/js/login');
 mix.js('resources/js/setting/system/index.js', 'public/js/setting/system');
 mix.js('resources/js/import/index.js', 'public/js/import');
 mix.js('resources/js/import/file/index.js', 'public/js/import/file');
+mix.js('resources/js/shipping/index.js', 'public/js/shipping');
 
 /**
  * 整合需要的字体

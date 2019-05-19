@@ -46,7 +46,7 @@
         </div>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="./examples/tables.html">
+        <a class="nav-link" href="{{ route('shipping') }}">
             <i class="ni ni-laptop text-primary"></i>价格计算器
         </a>
     </li>

@@ -16,14 +16,15 @@ class ShippingController extends Controller
     /**
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws InvalidArgumentException
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function index(Request $request)
     {
         $conditions = $request->query->all();
         if (!$this->isQueryValid($conditions)) {
-            throw new InvalidArgumentException('查询条件非法');
+            return view('shipping', [
+                'detail' => [],
+            ]);
         }
         $setting = $this->getSettingService()->get('shipping_setting');
         $shippings = $this->getShippingService()->findShippingBySetting($setting);
@@ -31,7 +32,7 @@ class ShippingController extends Controller
 
         $detail = $this->getShippingService()->buildDetail($conditions, $group, $setting);
 
-        return view('shipping.blade.php', [
+        return view('shipping', [
             'detail' => $detail,
         ]);
     }

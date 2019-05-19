@@ -7,6 +7,7 @@ use App\Biz\Shipping\Dao\ShippingDao;
 use App\Biz\Shipping\Service\CountryService;
 use App\Biz\Shipping\Service\ShippingService;
 use App\Biz\Shipping\Strategy\ShippingCalcFactory;
+use App\Common\CustomErrorCode;
 use App\Common\Exception\InvalidArgumentException;
 use App\Common\Exception\NotFoundException;
 use App\Common\Utils\ArrayUtil;
@@ -108,14 +109,18 @@ class ShippingServiceImpl extends BaseService implements ShippingService
     {
         $detail = [];
         foreach ($setting as $single) {
-            if (empty($setting['shipping']) || empty($group[$setting['country_id']])) {
+            if (empty($single['shipping']) || empty($group[$single['country_id']])) {
                 continue;
             }
 
             $shippings = $group[$single['country_id']];
             $shippings = ArrayUtil::index($shippings, 'type');
 
-            $detail[] = $single['country_cn'] == env('BASIC_COUNTRY_NAME_CN') ? $this->handleBasicCountryDetail($conditions, $single) : $this->handleOtherCountryDetail($conditions, $shippings, $single);
+            if ($single['country_cn'] == env('BASIC_COUNTRY_NAME_CN')) {
+                $detail[] = $this->handleBasicCountryDetail($conditions, $single);
+            } else {
+                $detail[] = $this->handleOtherCountryDetail($conditions, $shippings, $single);
+            }
         }
 
         return $detail;
@@ -142,6 +147,7 @@ class ShippingServiceImpl extends BaseService implements ShippingService
      * @param $setting
      * @return array
      * @throws InvalidArgumentException
+     * @throws NotFoundException
      */
     private function handleOtherCountryDetail($conditions, $shippings, $setting)
     {
@@ -151,7 +157,7 @@ class ShippingServiceImpl extends BaseService implements ShippingService
 
         foreach ($keys as $key) {
             if (empty($shippings[$settingMap[$key]])) {
-                continue;
+                throw new NotFoundException('Import Data Lack', CustomErrorCode::LACK_IMPORT_DATA);
             }
             $shipping = $shippings[$settingMap[$key]];
             $detailParams = $this->buildParamsForOtherCountry($shipping, $conditions);
@@ -160,7 +166,7 @@ class ShippingServiceImpl extends BaseService implements ShippingService
 
         $freights = ArrayUtil::column($details, 'freight');
         array_multisort($freights, SORT_ASC, $details);
-        return array_merge(array('countryCN' => $setting['countryCN']), $details[0]);
+        return array_merge(array('country_cn' => $setting['country_cn']), $details[0]);
     }
 
     /**
@@ -193,8 +199,8 @@ class ShippingServiceImpl extends BaseService implements ShippingService
         }
         $params = [
             'weight' => $fields['weight'],
-            'priceBasisNumOne' => $priceBasisNumOne,
-            'priceBasisNumTwo' => $priceBasisNumTwo,
+            'price_basis_num_one' => $priceBasisNumOne,
+            'price_basis_num_two' => $priceBasisNumTwo,
             'profit' => $fields['profit'],
             'discount_rate' => $fields['discount_rate'],
             'shipping_discount' => $shippingDiscount,
@@ -247,7 +253,7 @@ class ShippingServiceImpl extends BaseService implements ShippingService
     {
         $shipping = $this->getShippingDao()->getByTypeAndCountryId($type, $countryId);
         if (empty($shipping)) {
-            throw new NotFoundException("Resource Not Found");
+            throw new NotFoundException("Resource Not Found", CustomErrorCode::LACK_IMPORT_DATA);
         }
 
         $costs = json_decode($shipping['cost'], true);
