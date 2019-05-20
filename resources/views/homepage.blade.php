@@ -47,8 +47,8 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col">
-                                        <h5 class="card-title text-uppercase text-muted mb-0">华盛顿时间</h5>
-                                        <span class="h3 font-weight-bold mb-0 js-newyork-time"></span>
+                                        <h5 class="card-title text-uppercase text-muted mb-0">美国太平洋时间</h5>
+                                        <span class="h3 font-weight-bold mb-0 js-usa-time"></span>
                                     </div>
                                     <div class="col-auto">
                                         <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">

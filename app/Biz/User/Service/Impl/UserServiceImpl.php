@@ -45,19 +45,67 @@ class UserServiceImpl extends BaseService implements UserService
         return $this->getUserDao()->search($conditions, $orderBy, $offset, $limit);
     }
 
+    /**
+     * @param $email
+     * @param null $exclude
+     * @return bool|mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     public function isEmailAvailable($email, $exclude = null)
     {
-        // TODO: Implement isEmailAvailable() method.
+        if (empty($email)) {
+            return false;
+        }
+
+        if ($email == $exclude) {
+            return true;
+        }
+
+        $user = $this->getUserDao()->getByEmail($email);
+
+        return empty($user);
     }
 
+    /**
+     * @param $mobile
+     * @param null $exclude
+     * @return bool|mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     public function isMobileAvailable($mobile, $exclude = null)
     {
-        // TODO: Implement isMobileAvailable() method.
+        if (empty($mobile)) {
+            return false;
+        }
+
+        if ($mobile == $exclude) {
+            return true;
+        }
+
+        $user = $this->getUserDao()->getByMobile($mobile);
+
+        return empty($user);
     }
 
+    /**
+     * @param $nickname
+     * @param null $exclude
+     * @return bool|mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     public function isNicknameAvailable($nickname, $exclude = null)
     {
-        // TODO: Implement isNicknameAvailable() method.
+        if (empty($nickname)) {
+            return false;
+        }
+
+        if ($nickname == $exclude) {
+            return true;
+        }
+
+        $user = $this->getUserDao()->getByNickname($nickname);
+
+        return empty($user);
     }
 
     /**

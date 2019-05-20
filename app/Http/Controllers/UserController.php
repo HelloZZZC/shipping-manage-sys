@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Biz\Auth\Service\AuthService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Biz\User\Service\UserService;
 use Illuminate\Support\Facades\Validator;
 use App\Common\Exception\InvalidArgumentException;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -33,7 +35,9 @@ class UserController extends Controller
             if ($validator->fails()) {
                 throw new InvalidArgumentException('非法提交');
             }
-            $this->getAuthService()->register($validator->validated());
+
+            $registration = $this->buildRegistration($validator->validated());
+            $this->getAuthService()->register($registration);
 
             return $this->createJsonResponse([], 0, '用户创建成功');
         }
@@ -43,26 +47,49 @@ class UserController extends Controller
 
     public function checkNickname(Request $request)
     {
+        $value = $request->query->get('nickname');
+        $result = $this->getUserService()->isNicknameAvailable($value);
 
+        return JsonResponse::create($result);
     }
 
     public function checkMobile(Request $request)
     {
+        $value = $request->query->get('mobile');
+        $result = $this->getUserService()->isMobileAvailable($value);
 
+        return JsonResponse::create($result);
     }
 
     public function checkEmail(Request $request)
     {
+        $value = $request->query->get('email');
+        $result = $this->getUserService()->isEmailAvailable($value);
 
+        return JsonResponse::create($result);
+    }
+
+    protected function buildRegistration($registration)
+    {
+        $registration['verified_mobile'] = $registration['mobile'];
+        $registration['password'] = Hash::make($registration['password']);
+        /**
+         * 去掉无用字段
+         */
+        unset($registration['mobile']);
+        unset($registration['confirm_password']);
+
+        return $registration;
     }
 
     protected function getUserRules()
     {
         return [
-            'nickname' => 'required',
+            'nickname' => 'required|alpha_num',
             'password' => 'required',
-            'email' => 'required',
-            'verified_mobile' => 'required',
+            'email' => 'required|email',
+            'mobile' => 'required',
+            'confirm_password' => 'required|same:password'
         ];
     }
 

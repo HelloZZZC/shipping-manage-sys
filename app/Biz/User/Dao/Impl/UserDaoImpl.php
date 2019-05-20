@@ -27,11 +27,45 @@ class UserDaoImpl implements UserDao
         return $this->buildQueryStatement($conditions, $stmt)->count();
     }
 
+    /**
+     * @param $conditions
+     * @param $orderBy
+     * @param $offset
+     * @param $limit
+     * @return mixed\
+     */
     public function search($conditions, $orderBy, $offset, $limit)
     {
         $stmt = User::select('*');
 
         return $this->buildQueryStatement($conditions, $stmt)->orderBy($orderBy[0], $orderBy[1])->offset($offset)->limit($limit)->get();
+    }
+
+    /**
+     * @param $email
+     * @return mixed
+     */
+    public function getByEmail($email)
+    {
+        return User::where('email', $email)->first();
+    }
+
+    /**
+     * @param $mobile
+     * @return mixed
+     */
+    public function getByMobile($mobile)
+    {
+        return User::where('verified_mobile', $mobile)->first();
+    }
+
+    /**
+     * @param $nickname
+     * @return mixed
+     */
+    public function getByNickname($nickname)
+    {
+        return User::where('nickname', $nickname)->first();
     }
 
     /**

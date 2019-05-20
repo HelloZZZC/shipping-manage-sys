@@ -7,7 +7,7 @@ class Homepage {
     initObject() {
         this.$beijingTimer = $('.js-beijing-time');
         this.$moscowTimer = $('.js-moscow-time');
-        this.$newyorkTimer = $('.js-newyork-time');
+        this.$USATimer = $('.js-usa-time');
     }
 
     initTimer() {
@@ -19,7 +19,7 @@ class Homepage {
     setHomepageDate() {
         this.$beijingTimer.html(this.getLocaleTime(8));
         this.$moscowTimer.html(this.getLocaleTime(3));
-        this.$newyorkTimer.html(this.getLocaleTime(-5));
+        this.$USATimer.html(this.getLocaleTime(-8));
     }
 
     getLocaleTime(index) {
