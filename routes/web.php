@@ -46,4 +46,13 @@ Route::middleware(['auth'])->group(function(){
      * 价格计算器路由
      */
     Route::get('/shipping', 'ShippingController@index')->name('shipping');
+
+    /**
+     * 用户管理路由
+     */
+    Route::get('/user', 'UserController@index')->name('user');
+    Route::match(['get', 'post'], '/user/create', 'UserController@create')->name('user_create');
+    Route::get('/user/nickname/check', 'UserController@checkNickname')->name('user_nickname_check');
+    Route::get('/user/mobile/check', 'UserController@checkMobile')->name('user_mobile_check');
+    Route::get('/user/email/check', 'UserController@checkEmail')->name('user_email_check');
 });

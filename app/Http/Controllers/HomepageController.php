@@ -2,14 +2,32 @@
 
 namespace App\Http\Controllers;
 
-class HomepageController
+use App\Biz\User\Service\UserService;
+
+class HomepageController extends Controller
 {
+    use BizAutoload;
+
     /**
-     * 显示主页
+     * 展示主页数据
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function index()
     {
-        return view('homepage');
+        $userCount = $this->getUserService()->countUsers(['without_deleted' => true]);
+
+        return view('homepage', [
+            'userCount' => $userCount,
+        ]);
+    }
+
+    /**
+     * @return UserService
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    protected function getUserService()
+    {
+        return $this->createService('User:UserService');
     }
 }

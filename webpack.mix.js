@@ -44,6 +44,9 @@ mix.js('resources/js/setting/system/index.js', 'public/js/setting/system');
 mix.js('resources/js/import/index.js', 'public/js/import');
 mix.js('resources/js/import/file/index.js', 'public/js/import/file');
 mix.js('resources/js/shipping/index.js', 'public/js/shipping');
+mix.js('resources/js/homepage/index.js', 'public/js/homepage');
+mix.js('resources/js/user/index.js', 'public/js/user');
+mix.js('resources/js/user/create/index.js', 'public/js/user/create');
 
 /**
  * 整合需要的字体

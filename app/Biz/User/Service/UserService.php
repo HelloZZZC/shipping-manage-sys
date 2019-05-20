@@ -10,4 +10,45 @@ interface UserService
      * @return mixed
      */
     public function getUser($id);
+
+    /**
+     * 获取用户数量
+     * @param $conditions
+     * @return mixed
+     */
+    public function countUsers($conditions);
+
+    /**
+     * 获取用户
+     * @param $conditions
+     * @param $orderBy
+     * @param $offset
+     * @param $limit
+     * @return mixed
+     */
+    public function searchUsers($conditions, $orderBy, $offset, $limit);
+
+    /**
+     * 校验nickname是否合法
+     * @param $nickname
+     * @param null $exclude
+     * @return mixed
+     */
+    public function isNicknameAvailable($nickname, $exclude = null);
+
+    /**
+     * 校验手机号是否合法
+     * @param $mobile
+     * @param null $exclude
+     * @return mixed
+     */
+    public function isMobileAvailable($mobile, $exclude = null);
+
+    /**
+     * 校验邮箱是否合法
+     * @param $email
+     * @param null $exclude
+     * @return mixed
+     */
+    public function isEmailAvailable($email, $exclude = null);
 }

@@ -81,15 +81,15 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/js/shipping/index.js":
-/*!****************************************!*\
-  !*** ./resources/js/shipping/index.js ***!
-  \****************************************/
+/***/ "./resources/js/user/create/index.js":
+/*!*******************************************!*\
+  !*** ./resources/js/user/create/index.js ***!
+  \*******************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -99,54 +99,80 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Shipping =
+var CreateUser =
 /*#__PURE__*/
 function () {
-  function Shipping() {
-    _classCallCheck(this, Shipping);
+  function CreateUser() {
+    _classCallCheck(this, CreateUser);
 
     this.initObject();
+    this.initRules();
     this.initValidator();
     this.initEvent();
-    this.fixTableColumn();
   }
 
-  _createClass(Shipping, [{
+  _createClass(CreateUser, [{
     key: "initObject",
     value: function initObject() {
-      this.$form = $('#price-calculate-form');
-      this.$radio = $('[ name = "calc_mode"]');
-      this.$priceInput = $('[ name = "price"]');
-      this.$fixedGrossMarginInput = $('[ name = "fixed_gross_margin"]');
-      this.$btn = $('#search-btn');
-      this.$table = $('.table');
+      this.$form = $('#create-user-form');
+      this.$btn = $('#save-btn');
+    }
+  }, {
+    key: "initRules",
+    value: function initRules() {
+      jQuery.validator.addMethod('mobile', function (value, element) {
+        var reg = /^1\d{10}$/;
+        return this.optional(element) || reg.test(value);
+      }, '请输入正确的手机号格式');
+      jQuery.validator.addMethod('nickname', function (value, element) {
+        var reg = /^[a-zA-Z0-9_]+$/i;
+        return this.optional(element) || reg.test(value);
+      }, '账号必须是英文字母、数字及下划线组成');
     }
   }, {
     key: "initValidator",
     value: function initValidator() {
       this.$form.validate({
         rules: {
-          price_basis_type: "required",
-          discount_rate: "required",
-          weight: "required",
-          profit: "required",
-          fixed_gross_margin: "required"
+          nickname: {
+            required: true,
+            nickname: true
+          },
+          email: {
+            required: true,
+            email: true
+          },
+          mobile: {
+            required: true,
+            mobile: true
+          },
+          password: {
+            required: true,
+            minlength: 6
+          },
+          confirm_password: {
+            required: true,
+            equalTo: "#password"
+          }
         },
         messages: {
-          price_basis_type: {
-            required: '请选择重量范围'
+          nickname: {
+            required: '请输入账号'
           },
-          discount_rate: {
-            required: '请输入平台折扣率'
+          email: {
+            required: '请输入邮箱',
+            email: '请输入正确格式的邮箱'
           },
-          weight: {
-            required: '请输入重量'
+          mobile: {
+            required: '请输入手机号'
           },
-          profit: {
-            required: '请输入产品成本'
+          password: {
+            required: '请输入密码',
+            minlength: '密码长度不能小于6位'
           },
-          fixed_gross_margin: {
-            required: '请输入固定毛利率'
+          confirm_password: {
+            required: '请输入确认密码',
+            equalTo: '两次输入的确认密码不一致，请重新输入'
           }
         },
         errorClass: 'invalid-tooltip',
@@ -166,72 +192,24 @@ function () {
           _this.$form.submit();
         }
       });
-      this.$radio.click(function () {
-        var mode = $('[ name = "calc_mode"]:checked').val();
-
-        if (mode === 'fixed_gross_margin') {
-          _this.$priceInput.val('').attr("disabled", true);
-
-          _this.$fixedGrossMarginInput.attr("disabled", false);
-
-          _this.$fixedGrossMarginInput.rules('add', {
-            required: true,
-            messages: {
-              required: '请输入固定毛利率'
-            }
-          });
-
-          _this.$priceInput.rules('remove', 'required');
-        } else {
-          _this.$priceInput.attr("disabled", false);
-
-          _this.$fixedGrossMarginInput.val('').attr("disabled", true);
-
-          _this.$priceInput.rules('add', {
-            required: true,
-            messages: {
-              required: '请输入售价'
-            }
-          });
-
-          _this.$fixedGrossMarginInput.rules('remove', 'required');
-        }
-
-        _this.$form.valid();
-      });
-    }
-    /**
-     * 将第一列固定在最左侧仅在手机下显示
-     */
-
-  }, {
-    key: "fixTableColumn",
-    value: function fixTableColumn() {
-      var _this2 = this;
-
-      var $fixedColumn = this.$table.clone().insertBefore(this.$table).addClass('fixed-column');
-      $fixedColumn.find('th:not(:first-child),td:not(:first-child)').remove();
-      $fixedColumn.find('tr').each(function (i) {
-        $(_this2).height(_this2.$table.find('tr:eq(' + i + ')').height());
-      });
     }
   }]);
 
-  return Shipping;
+  return CreateUser;
 }();
 
-new Shipping();
+new CreateUser();
 
 /***/ }),
 
-/***/ 5:
-/*!**********************************************!*\
-  !*** multi ./resources/js/shipping/index.js ***!
-  \**********************************************/
+/***/ 8:
+/*!*************************************************!*\
+  !*** multi ./resources/js/user/create/index.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /private/var/www/laravel-repository/shipping-manage-sys/resources/js/shipping/index.js */"./resources/js/shipping/index.js");
+module.exports = __webpack_require__(/*! /private/var/www/laravel-repository/shipping-manage-sys/resources/js/user/create/index.js */"./resources/js/user/create/index.js");
 
 
 /***/ })

@@ -5,8 +5,8 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="./examples/icons.html">
-            <i class="fas fa-users text-primary"></i>伙伴
+        <a class="nav-link" href="{{ route('user') }}">
+            <i class="fas fa-users text-primary"></i>员工
         </a>
     </li>
     <li class="nav-item">

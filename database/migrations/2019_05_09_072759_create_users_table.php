@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('verified_mobile', 32)->unique()->comment('用户手机号');
             $table->string('password', 255)->comment('用户密码');
             $table->rememberToken();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
