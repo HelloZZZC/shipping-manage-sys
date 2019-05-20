@@ -13,7 +13,9 @@ class CountryDaoImpl implements CountryDao
      */
     public function count($conditions)
     {
-        return ShippingCountry::where($conditions)->count();
+        $stmt = ShippingCountry::select('*');
+
+        return $this->buildQueryStatement($conditions, $stmt)->count();
     }
 
     /**
@@ -28,7 +30,9 @@ class CountryDaoImpl implements CountryDao
         $offset = (int) $offset;
         $limit = (int) $limit;
 
-        return ShippingCountry::where($conditions)->orderBy($orderBy[0], $orderBy[1])->offset($offset)->limit($limit)->get();
+        $stmt = ShippingCountry::select('*');
+
+        return $this->buildQueryStatement($conditions, $stmt)->orderBy($orderBy[0], $orderBy[1])->offset($offset)->limit($limit)->get();
     }
 
     /**
@@ -43,5 +47,15 @@ class CountryDaoImpl implements CountryDao
     public function getByNameCN($nameCN)
     {
         return ShippingCountry::where('name_cn', $nameCN)->first();
+    }
+
+    /**
+     * @param $conditions
+     * @param $stmt
+     * @return mixed
+     */
+    protected function buildQueryStatement($conditions, $stmt)
+    {
+        return $stmt;
     }
 }
