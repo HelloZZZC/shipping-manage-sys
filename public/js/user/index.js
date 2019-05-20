@@ -81,15 +81,15 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/js/shipping/index.js":
-/*!****************************************!*\
-  !*** ./resources/js/shipping/index.js ***!
-  \****************************************/
+/***/ "./resources/js/user/index.js":
+/*!************************************!*\
+  !*** ./resources/js/user/index.js ***!
+  \************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -99,105 +99,36 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Shipping =
+var User =
 /*#__PURE__*/
 function () {
-  function Shipping() {
-    _classCallCheck(this, Shipping);
+  function User() {
+    _classCallCheck(this, User);
 
     this.initObject();
-    this.initValidator();
     this.initEvent();
     this.fixTableColumn();
   }
 
-  _createClass(Shipping, [{
+  _createClass(User, [{
     key: "initObject",
     value: function initObject() {
-      this.$form = $('#price-calculate-form');
-      this.$radio = $('[ name = "calc_mode"]');
-      this.$priceInput = $('[ name = "price"]');
-      this.$fixedGrossMarginInput = $('[ name = "fixed_gross_margin"]');
-      this.$btn = $('#search-btn');
       this.$table = $('.table');
-    }
-  }, {
-    key: "initValidator",
-    value: function initValidator() {
-      this.$form.validate({
-        rules: {
-          price_basis_type: "required",
-          discount_rate: "required",
-          weight: "required",
-          profit: "required",
-          fixed_gross_margin: "required"
-        },
-        messages: {
-          price_basis_type: {
-            required: '请选择重量范围'
-          },
-          discount_rate: {
-            required: '请输入平台折扣率'
-          },
-          weight: {
-            required: '请输入重量'
-          },
-          profit: {
-            required: '请输入产品成本'
-          },
-          fixed_gross_margin: {
-            required: '请输入固定毛利率'
-          }
-        },
-        errorClass: 'invalid-tooltip',
-        errorElement: 'span',
-        highlight: function highlight(element, errorClass) {
-          $(element).removeClass(errorClass);
-        }
-      });
+      this.$createBtn = $('#create-user-btn');
+      this.$modal = $('#modal');
     }
   }, {
     key: "initEvent",
     value: function initEvent() {
       var _this = this;
 
-      this.$btn.click(function () {
-        if (_this.$form.valid()) {
-          _this.$form.submit();
-        }
-      });
-      this.$radio.click(function () {
-        var mode = $('[ name = "calc_mode"]:checked').val();
+      var url = this.$createBtn.data('url');
+      this.$createBtn.click(function () {
+        $.get(url, function (response) {
+          _this.$modal.html(response);
 
-        if (mode === 'fixed_gross_margin') {
-          _this.$priceInput.val('').attr("disabled", true);
-
-          _this.$fixedGrossMarginInput.attr("disabled", false);
-
-          _this.$fixedGrossMarginInput.rules('add', {
-            required: true,
-            messages: {
-              required: '请输入固定毛利率'
-            }
-          });
-
-          _this.$priceInput.rules('remove', 'required');
-        } else {
-          _this.$priceInput.attr("disabled", false);
-
-          _this.$fixedGrossMarginInput.val('').attr("disabled", true);
-
-          _this.$priceInput.rules('add', {
-            required: true,
-            messages: {
-              required: '请输入售价'
-            }
-          });
-
-          _this.$fixedGrossMarginInput.rules('remove', 'required');
-        }
-
-        _this.$form.valid();
+          _this.$modal.modal('show');
+        });
       });
     }
     /**
@@ -217,21 +148,21 @@ function () {
     }
   }]);
 
-  return Shipping;
+  return User;
 }();
 
-new Shipping();
+new User();
 
 /***/ }),
 
-/***/ 5:
-/*!**********************************************!*\
-  !*** multi ./resources/js/shipping/index.js ***!
-  \**********************************************/
+/***/ 7:
+/*!******************************************!*\
+  !*** multi ./resources/js/user/index.js ***!
+  \******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /private/var/www/laravel-repository/shipping-manage-sys/resources/js/shipping/index.js */"./resources/js/shipping/index.js");
+module.exports = __webpack_require__(/*! /private/var/www/laravel-repository/shipping-manage-sys/resources/js/user/index.js */"./resources/js/user/index.js");
 
 
 /***/ })

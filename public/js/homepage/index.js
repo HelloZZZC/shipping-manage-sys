@@ -81,14 +81,14 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/js/shipping/index.js":
+/***/ "./resources/js/homepage/index.js":
 /*!****************************************!*\
-  !*** ./resources/js/shipping/index.js ***!
+  !*** ./resources/js/homepage/index.js ***!
   \****************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
@@ -99,139 +99,86 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Shipping =
+var Homepage =
 /*#__PURE__*/
 function () {
-  function Shipping() {
-    _classCallCheck(this, Shipping);
+  function Homepage() {
+    _classCallCheck(this, Homepage);
 
     this.initObject();
-    this.initValidator();
-    this.initEvent();
-    this.fixTableColumn();
+    this.initTimer();
   }
 
-  _createClass(Shipping, [{
+  _createClass(Homepage, [{
     key: "initObject",
     value: function initObject() {
-      this.$form = $('#price-calculate-form');
-      this.$radio = $('[ name = "calc_mode"]');
-      this.$priceInput = $('[ name = "price"]');
-      this.$fixedGrossMarginInput = $('[ name = "fixed_gross_margin"]');
-      this.$btn = $('#search-btn');
-      this.$table = $('.table');
+      this.$beijingTimer = $('.js-beijing-time');
+      this.$moscowTimer = $('.js-moscow-time');
+      this.$newyorkTimer = $('.js-newyork-time');
     }
   }, {
-    key: "initValidator",
-    value: function initValidator() {
-      this.$form.validate({
-        rules: {
-          price_basis_type: "required",
-          discount_rate: "required",
-          weight: "required",
-          profit: "required",
-          fixed_gross_margin: "required"
-        },
-        messages: {
-          price_basis_type: {
-            required: '请选择重量范围'
-          },
-          discount_rate: {
-            required: '请输入平台折扣率'
-          },
-          weight: {
-            required: '请输入重量'
-          },
-          profit: {
-            required: '请输入产品成本'
-          },
-          fixed_gross_margin: {
-            required: '请输入固定毛利率'
-          }
-        },
-        errorClass: 'invalid-tooltip',
-        errorElement: 'span',
-        highlight: function highlight(element, errorClass) {
-          $(element).removeClass(errorClass);
-        }
-      });
-    }
-  }, {
-    key: "initEvent",
-    value: function initEvent() {
+    key: "initTimer",
+    value: function initTimer() {
       var _this = this;
 
-      this.$btn.click(function () {
-        if (_this.$form.valid()) {
-          _this.$form.submit();
-        }
-      });
-      this.$radio.click(function () {
-        var mode = $('[ name = "calc_mode"]:checked').val();
-
-        if (mode === 'fixed_gross_margin') {
-          _this.$priceInput.val('').attr("disabled", true);
-
-          _this.$fixedGrossMarginInput.attr("disabled", false);
-
-          _this.$fixedGrossMarginInput.rules('add', {
-            required: true,
-            messages: {
-              required: '请输入固定毛利率'
-            }
-          });
-
-          _this.$priceInput.rules('remove', 'required');
-        } else {
-          _this.$priceInput.attr("disabled", false);
-
-          _this.$fixedGrossMarginInput.val('').attr("disabled", true);
-
-          _this.$priceInput.rules('add', {
-            required: true,
-            messages: {
-              required: '请输入售价'
-            }
-          });
-
-          _this.$fixedGrossMarginInput.rules('remove', 'required');
-        }
-
-        _this.$form.valid();
-      });
+      setInterval(function () {
+        _this.setHomepageDate();
+      }, 1000);
     }
-    /**
-     * 将第一列固定在最左侧仅在手机下显示
-     */
-
   }, {
-    key: "fixTableColumn",
-    value: function fixTableColumn() {
-      var _this2 = this;
+    key: "setHomepageDate",
+    value: function setHomepageDate() {
+      this.$beijingTimer.html(this.getLocaleTime(8));
+      this.$moscowTimer.html(this.getLocaleTime(3));
+      this.$newyorkTimer.html(this.getLocaleTime(-5));
+    }
+  }, {
+    key: "getLocaleTime",
+    value: function getLocaleTime(index) {
+      var $date = new Date();
+      var len = $date.getTime();
+      var offset = $date.getTimezoneOffset() * 60000;
+      var UTCTime = len + offset;
+      return this.transformTime('MM-dd hh:mm:ss', UTCTime + 3600000 * index);
+    }
+  }, {
+    key: "transformTime",
+    value: function transformTime(format, date) {
+      var $date = new Date(date);
+      var $format = {
+        "M+": $date.getMonth() + 1,
+        "d+": $date.getDate(),
+        "h+": $date.getHours(),
+        "m+": $date.getMinutes(),
+        "s+": $date.getSeconds(),
+        "q+": Math.floor(($date.getMonth() + 3) / 3),
+        "S": $date.getMilliseconds()
+      };
+      if (/(y+)/.test(format)) format = format.replace(RegExp.$1, ($date.getFullYear() + "").substr(4 - RegExp.$1.length));
 
-      var $fixedColumn = this.$table.clone().insertBefore(this.$table).addClass('fixed-column');
-      $fixedColumn.find('th:not(:first-child),td:not(:first-child)').remove();
-      $fixedColumn.find('tr').each(function (i) {
-        $(_this2).height(_this2.$table.find('tr:eq(' + i + ')').height());
-      });
+      for (var index in $format) {
+        if (new RegExp("(" + index + ")").test(format)) format = format.replace(RegExp.$1, RegExp.$1.length === 1 ? $format[index] : ("00" + $format[index]).substr(("" + $format[index]).length));
+      }
+
+      return format;
     }
   }]);
 
-  return Shipping;
+  return Homepage;
 }();
 
-new Shipping();
+new Homepage();
 
 /***/ }),
 
-/***/ 5:
+/***/ 6:
 /*!**********************************************!*\
-  !*** multi ./resources/js/shipping/index.js ***!
+  !*** multi ./resources/js/homepage/index.js ***!
   \**********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /private/var/www/laravel-repository/shipping-manage-sys/resources/js/shipping/index.js */"./resources/js/shipping/index.js");
+module.exports = __webpack_require__(/*! /private/var/www/laravel-repository/shipping-manage-sys/resources/js/homepage/index.js */"./resources/js/homepage/index.js");
 
 
 /***/ })
