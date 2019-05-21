@@ -1,5 +1,7 @@
 @extends('layouts.layout')
 
+<?php $nav = 'homepage'; ?>
+
 @section('title', '首页')
 
 @section('body')

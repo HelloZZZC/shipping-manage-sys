@@ -6,6 +6,7 @@ use App\Biz\Importer\Factory\AliStandardImporter;
 use App\Biz\Importer\Factory\BaseImporter;
 use App\Biz\Importer\Factory\ChinaPostImporter;
 use App\Biz\Importer\Factory\EMailImporter;
+use App\Biz\Importer\Factory\UserImporter;
 use App\Common\Exception\InvalidArgumentException;
 
 class ImporterFactory
@@ -38,6 +39,7 @@ class ImporterFactory
             'chinaPost' => ChinaPostImporter::class,
             'eMail' => EMailImporter::class,
             'aliStandard' => AliStandardImporter::class,
+            'user' => UserImporter::class,
         ];
     }
 }

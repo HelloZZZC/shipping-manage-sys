@@ -1,5 +1,7 @@
 @extends('layouts.layout')
 
+<?php $nav = 'shipping'; ?>
+
 @section('title', '物流计算')
 
 @section('body')

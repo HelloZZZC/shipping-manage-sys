@@ -43,5 +43,13 @@ interface UserDao
      * @return mixed
      */
     public function getByMobile($mobile);
+
+    /**
+     * @param $conditions
+     * @param $orderBy
+     * @param $limit
+     * @return mixed
+     */
+    public function paging($conditions, $orderBy, $limit);
 }
 

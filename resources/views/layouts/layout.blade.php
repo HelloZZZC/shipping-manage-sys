@@ -136,6 +136,8 @@
     </div>
     <div class="modal" id="modal" tabindex="-1" role="dialog">
     </div>
+    <div class="modal" id="static-modal" tabindex="-1" role="dialog" data-backdrop="static">
+    </div>
     <!-- Main JS -->
     @section('script')
         <script src="{{ mix('js/main.min.js') }}"></script>

@@ -9,6 +9,12 @@ use App\Common\Utils\ShippingInfoUtil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
+/**
+ * 物流数据导入控制器
+ * @TODO 将该控制器移到Shipping模块下或者将其重构的更加通用化
+ * Class ImporterController
+ * @package App\Http\Controllers
+ */
 class ImporterController extends Controller
 {
     use BizAutoload;

@@ -115,7 +115,9 @@ function () {
     value: function initObject() {
       this.$table = $('.table');
       this.$createBtn = $('#create-user-btn');
+      this.$importBtn = $('#import-user-btn');
       this.$modal = $('#modal');
+      this.$staticModal = $('#static-modal');
     }
   }, {
     key: "initEvent",
@@ -128,6 +130,14 @@ function () {
           _this.$modal.html(response);
 
           _this.$modal.modal('show');
+        });
+      });
+      var importUrl = this.$importBtn.data('url');
+      this.$importBtn.click(function () {
+        $.get(importUrl, function (response) {
+          _this.$staticModal.html(response);
+
+          _this.$staticModal.modal('show');
         });
       });
     }

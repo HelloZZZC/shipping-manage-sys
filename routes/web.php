@@ -55,4 +55,6 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/user/nickname/check', 'UserController@checkNickname')->name('user_nickname_check');
     Route::get('/user/mobile/check', 'UserController@checkMobile')->name('user_mobile_check');
     Route::get('/user/email/check', 'UserController@checkEmail')->name('user_email_check');
+    Route::get('/user/importer/show', 'UserController@userImporterShow')->name('user_importer_show');
+    Route::post('/user/import', 'UserController@userImport')->name('user_import');
 });

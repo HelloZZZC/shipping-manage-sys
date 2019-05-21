@@ -3,6 +3,7 @@
 @section('title', '登录')
 
 @section('sidenav')
+    <?php $nav = ''; ?>
 @endsection
 
 @section('topnavbar')

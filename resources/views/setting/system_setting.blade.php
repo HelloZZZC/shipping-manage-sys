@@ -1,5 +1,7 @@
 @extends('layouts.layout')
 
+<?php $nav = 'setting'; ?>
+
 @section('title', '系统设置')
 
 @section('body')

@@ -93,11 +93,14 @@ class CreateUser {
     initEvent() {
         this.$btn.click(() => {
             if (this.$form.valid()) {
-                this.$form.submit();
+                $.post(this.$form.attr('action'), this.$form.serialize(), (response) => {
+                    if (!response.code) {
+                        window.location.reload();
+                    }
+                });
             }
         });
     }
-
 }
 
 new CreateUser();
