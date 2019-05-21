@@ -16,13 +16,26 @@ class UserController extends Controller
 {
     use BizAutoload;
 
+    /**
+     * 用户管理页面渲染
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     public function index(Request $request)
     {
+        $default = [
+            'with_deleted' => true,
+        ];
         $conditions = $request->query->all();
+        $conditions = array_merge($default, $conditions);
+
+        $count = $this->getUserService()->countUsers($conditions);
         $users = $this->getUserService()->pagingUsers($conditions, ['id', 'desc'], 10);
 
         return view('user.user', [
             'users' => $users,
+            'count' => $count,
         ]);
     }
 

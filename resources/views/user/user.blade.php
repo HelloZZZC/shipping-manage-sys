@@ -21,6 +21,36 @@
                         </div>
                     </div>
                     <div class="card-body">
+                        <form id="price-calculate-form" method="GET" novalidate>
+                            <div class="form-row align-items-center">
+                                <div class="col-auto">
+                                    <select class="form-control mb-2" id="type" name="keyword_type" id="keyword_type">
+                                        <?php $select=['nickname' => '账号', 'email' => '邮箱', 'verified_mobile' => '手机号'] ?>
+                                        <option value="">请选择关键词类型</option>
+                                        @foreach($select as $index => $single)
+                                            <option value="{{ $index }}" {{ Request::offsetGet('keyword_type') == $index ? 'selected' : '' }}>{{ $single }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="input-group mb-2">
+                                        <input type="text" class="form-control" id="keyword" name="keyword" value="{{ Request::offsetGet('keyword') }}" placeholder="请输入关键词">
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <select class="form-control mb-2" id="type" name="deleted_status" id="deleted_status">
+                                        <?php $select=['without_deleted' => '在职', 'only_deleted' => '离职'] ?>
+                                        <option value="">在职状态</option>
+                                        @foreach($select as $index => $single)
+                                            <option value="{{ $index }}" {{ Request::offsetGet('deleted_status') == $index ? 'selected' : '' }}>{{ $single }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-auto">
+                                    <button class="btn btn-primary mb-2" type="submit" id="search-btn">搜索</button>
+                                </div>
+                            </div>
+                        </form>
                         <div class="table-responsive">
                             <table class="table align-items-center table-dark">
                                 <thead class="thead-dark">
@@ -34,7 +64,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @if (!empty($users))
+                                @if ($count)
                                     @foreach($users as $user)
                                         <tr>
                                             <td>{{ $user->nickname }}</td>
@@ -59,7 +89,7 @@
                     </div>
                     <div class="card-footer py-4">
                         <nav class="d-flex justify-content-end" aria-label="...">
-                            {{ $users->links() }}
+                            {{ $users->appends(request()->all())->links() }}
                         </nav>
                     </div>
                 </div>

@@ -159,6 +159,22 @@ class UserServiceImpl extends BaseService implements UserService
             return !empty($value);
         });
 
+        if (isset($conditions['keyword_type']) && isset($conditions['keyword'])) {
+            $conditions["like_{$conditions['keyword_type']}"] = $conditions['keyword'];
+            unset($conditions['keyword']);
+            unset($conditions['keyword_type']);
+        }
+
+        if (isset($conditions['deleted_status']) && $conditions['deleted_status'] == 'only_deleted') {
+            $conditions[$conditions['deleted_status']] = true;
+            unset($conditions['deleted_status']);
+        }
+
+        if (isset($conditions['deleted_status']) && $conditions['deleted_status'] == 'without_deleted') {
+            unset($conditions['with_deleted']);
+            unset($conditions['deleted_status']);
+        }
+
         return $conditions;
     }
 

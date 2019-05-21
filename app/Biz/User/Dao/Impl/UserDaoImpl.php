@@ -87,20 +87,29 @@ class UserDaoImpl implements UserDao
      */
     protected function buildQueryStatement($conditions, $stmt)
     {
-        if (isset($conditions['without_deleted']) && $conditions['without_deleted']) {
+        if (isset($conditions['with_deleted']) && $conditions['with_deleted']) {
             $stmt = $stmt->withTrashed();
         }
-
+        if (isset($conditions['only_deleted']) && $conditions['only_deleted']) {
+            $stmt = $stmt->onlyTrashed();
+        }
         if (isset($conditions['nickname'])) {
             $stmt = $stmt->where('nickname', $conditions['nickname']);
         }
-
         if (isset($conditions['or_email'])) {
             $stmt = $stmt->orWhere('email', $conditions['or_email']);
         }
-
         if (isset($conditions['or_verified_mobile'])) {
             $stmt = $stmt->orWhere('verified_mobile', $conditions['or_verified_mobile']);
+        }
+        if (isset($conditions['like_nickname'])) {
+            $stmt = $stmt->where('nickname', 'like', '%'.$conditions['like_nickname'].'%');
+        }
+        if (isset($conditions['like_email'])) {
+            $stmt = $stmt->where('email', 'like', '%'.$conditions['like_email'].'%');
+        }
+        if (isset($conditions['like_verified_mobile'])) {
+            $stmt = $stmt->where('verified_mobile', 'like', '%'.$conditions['like_verified_mobile'].'%');
         }
 
         return $stmt;
