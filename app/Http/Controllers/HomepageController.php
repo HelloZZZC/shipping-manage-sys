@@ -15,7 +15,7 @@ class HomepageController extends Controller
      */
     public function index()
     {
-        $userCount = $this->getUserService()->countUsers(['without_deleted' => true]);
+        $userCount = $this->getUserService()->countUsers([]);
 
         return view('homepage', [
             'userCount' => $userCount,
