@@ -8,7 +8,9 @@ class User {
     initObject() {
         this.$table = $('.table');
         this.$createBtn = $('#create-user-btn');
+        this.$importBtn = $('#import-user-btn');
         this.$modal = $('#modal');
+        this.$staticModal = $('#static-modal');
     }
 
     initEvent() {
@@ -17,6 +19,14 @@ class User {
             $.get(url, (response) => {
                 this.$modal.html(response);
                 this.$modal.modal('show');
+            });
+        });
+
+        let importUrl = this.$importBtn.data('url');
+        this.$importBtn.click(() => {
+            $.get(importUrl, (response) => {
+                this.$staticModal.html(response);
+                this.$staticModal.modal('show');
             });
         });
     }

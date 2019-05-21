@@ -5,6 +5,8 @@ namespace App\Biz\User\Service\Impl;
 use App\Biz\User\Service\UserService;
 use App\Biz\BaseService;
 use App\Biz\User\Dao\UserDao;
+use App\Common\Exception\InvalidArgumentException;
+use App\Common\Utils\ArrayUtil;
 
 class UserServiceImpl extends BaseService implements UserService
 {
@@ -106,6 +108,41 @@ class UserServiceImpl extends BaseService implements UserService
         $user = $this->getUserDao()->getByNickname($nickname);
 
         return empty($user);
+    }
+
+    /**
+     * @param $registration
+     * @return bool|mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function isUserRegistrationAvailable($registration)
+    {
+        if (!ArrayUtil::requireds($registration, ['nickname', 'email', 'password', 'verified_mobile'])) {
+            return false;
+        }
+
+        $conditions = [
+            'nickname' => $registration['nickname'],
+            'or_email' => $registration['email'],
+            'or_verified_mobile' => $registration['verified_mobile'],
+        ];
+        $count = $this->getUserDao()->count($conditions);
+
+        return !$count;
+    }
+
+    /**
+     * @param $conditions
+     * @param $orderBy
+     * @param $limit
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function pagingUsers($conditions, $orderBy, $limit)
+    {
+        $conditions = $this->prepareConditions($conditions);
+
+        return $this->getUserDao()->paging($conditions, $orderBy, $limit);
     }
 
     /**

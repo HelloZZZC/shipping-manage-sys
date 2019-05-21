@@ -81,15 +81,15 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/js/user/create/index.js":
-/*!*******************************************!*\
-  !*** ./resources/js/user/create/index.js ***!
-  \*******************************************/
+/***/ "./resources/js/user/import-file/index.js":
+/*!************************************************!*\
+  !*** ./resources/js/user/import-file/index.js ***!
+  \************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -99,95 +99,42 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var CreateUser =
+var UserImportFile =
 /*#__PURE__*/
 function () {
-  function CreateUser() {
-    _classCallCheck(this, CreateUser);
+  function UserImportFile() {
+    _classCallCheck(this, UserImportFile);
 
     this.initObject();
-    this.initRules();
     this.initValidator();
     this.initEvent();
   }
 
-  _createClass(CreateUser, [{
+  _createClass(UserImportFile, [{
     key: "initObject",
     value: function initObject() {
-      this.$form = $('#create-user-form');
-      this.$btn = $('#save-btn');
-    }
-  }, {
-    key: "initRules",
-    value: function initRules() {
-      jQuery.validator.addMethod('mobile', function (value, element) {
-        var reg = /^1\d{10}$/;
-        return this.optional(element) || reg.test(value);
-      }, '请输入正确的手机号格式');
-      jQuery.validator.addMethod('nickname', function (value, element) {
-        var reg = /^[a-zA-Z0-9]+$/i;
-        return this.optional(element) || reg.test(value);
-      }, '账号必须是英文字母、数字组成');
+      this.$form = $('#import-form');
+      this.$selectFileInput = $('.js-select-file');
+      this.$fileInput = $('.js-file');
+      this.$showFileInput = $('.js-show-file');
+      this.$saveBtn = $('#save-btn');
+      this.$progress = $('.progress');
+      this.$progressBar = this.$progress.find('.progress-bar');
+      this.$formContainer = $('.js-form-container');
+      this.$jsFooter = $('.js-footer');
+      this.$jsImportMessage = $('.js-import-message');
     }
   }, {
     key: "initValidator",
     value: function initValidator() {
       this.$form.validate({
+        ignore: [],
         rules: {
-          nickname: {
-            required: true,
-            nickname: true,
-            remote: {
-              url: $('#nickname').data('url'),
-              type: 'get'
-            }
-          },
-          email: {
-            required: true,
-            email: true,
-            remote: {
-              url: $('#email').data('url'),
-              type: 'get'
-            }
-          },
-          mobile: {
-            required: true,
-            mobile: true,
-            remote: {
-              url: $('#mobile').data('url'),
-              type: 'get'
-            }
-          },
-          password: {
-            required: true,
-            minlength: 6
-          },
-          confirm_password: {
-            required: true,
-            equalTo: "#password"
-          }
+          file: "required"
         },
         messages: {
-          nickname: {
-            required: '请输入账号',
-            remote: '该账号已被注册，请换一个账号输入'
-          },
-          email: {
-            required: '请输入邮箱',
-            email: '请输入正确格式的邮箱',
-            remote: '该邮箱已被注册，请换一个邮箱输入'
-          },
-          mobile: {
-            required: '请输入手机号',
-            remote: '该手机号已被注册，请换一个手机号输入'
-          },
-          password: {
-            required: '请输入密码',
-            minlength: '密码长度不能小于6位'
-          },
-          confirm_password: {
-            required: '请输入确认密码',
-            equalTo: '两次输入的确认密码不一致，请重新输入'
+          file: {
+            required: '请选择一个excel文件'
           }
         },
         errorClass: 'invalid-tooltip',
@@ -202,33 +149,87 @@ function () {
     value: function initEvent() {
       var _this = this;
 
-      this.$btn.click(function () {
+      this.$selectFileInput.on('click', function () {
+        _this.$fileInput.click();
+      });
+      this.$fileInput.on('change', function () {
+        _this.$showFileInput.val(_this.$fileInput.val());
+
+        _this.$form.valid();
+      });
+      this.$saveBtn.on('click', function () {
         if (_this.$form.valid()) {
-          $.post(_this.$form.attr('action'), _this.$form.serialize(), function (response) {
-            if (!response.code) {
-              window.location.reload();
-            }
-          });
+          _this.$formContainer.hide();
+
+          _this.$jsFooter.hide();
+
+          _this.$progress.show();
+
+          _this["import"]();
         }
       });
     }
+  }, {
+    key: "import",
+    value: function _import() {
+      var _this2 = this;
+
+      var formData = new FormData(this.$form[0]);
+      var importUrl = this.$saveBtn.data('importUrl');
+      $.ajax({
+        url: importUrl,
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function success(response) {
+          if (!response.code) {
+            _this2.$progressBar.css('width', response.data.progress + '%');
+
+            _this2.$progressBar.attr('aria-valuenow', response.data.progress);
+
+            _this2.$progressBar.addClass('bg-success');
+
+            _this2.$jsImportMessage.html(response.data.importMsg);
+
+            var dismissBtn = "<button type=\"button\" class=\"btn btn-primary\" onClick=\"window.location.reload();\">\u786E\u5B9A</button>";
+
+            _this2.$jsFooter.html(dismissBtn).show();
+          } else {
+            _this2.showError(response.data.progress);
+          }
+        },
+        error: function error(response) {
+          console.log(response);
+        }
+      });
+    }
+  }, {
+    key: "showError",
+    value: function showError(progress) {
+      this.$progressBar.css('width', progress + '%');
+      this.$progressBar.attr('aria-valuenow', progress);
+      this.$progressBar.addClass('bg-danger');
+      var dismissBtn = "<button type=\"button\" class=\"btn btn-primary\" onClick=\"window.location.reload();\">\u786E\u5B9A</button>";
+      this.$jsFooter.html(dismissBtn).show();
+    }
   }]);
 
-  return CreateUser;
+  return UserImportFile;
 }();
 
-new CreateUser();
+new UserImportFile();
 
 /***/ }),
 
-/***/ 8:
-/*!*************************************************!*\
-  !*** multi ./resources/js/user/create/index.js ***!
-  \*************************************************/
+/***/ 9:
+/*!******************************************************!*\
+  !*** multi ./resources/js/user/import-file/index.js ***!
+  \******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /private/var/www/laravel-repository/shipping-manage-sys/resources/js/user/create/index.js */"./resources/js/user/create/index.js");
+module.exports = __webpack_require__(/*! /private/var/www/laravel-repository/shipping-manage-sys/resources/js/user/import-file/index.js */"./resources/js/user/import-file/index.js");
 
 
 /***/ })

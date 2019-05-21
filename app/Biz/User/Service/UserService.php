@@ -51,4 +51,20 @@ interface UserService
      * @return mixed
      */
     public function isEmailAvailable($email, $exclude = null);
+
+    /**
+     * 校验用户字段注册是否符合
+     * @param $registration
+     * @return mixed
+     */
+    public function isUserRegistrationAvailable($registration);
+
+    /**
+     * 用户分页查询
+     * @param $conditions
+     * @param $orderBy
+     * @param $limit
+     * @return mixed
+     */
+    public function pagingUsers($conditions, $orderBy, $limit);
 }

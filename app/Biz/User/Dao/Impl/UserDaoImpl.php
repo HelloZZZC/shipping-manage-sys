@@ -36,6 +36,9 @@ class UserDaoImpl implements UserDao
      */
     public function search($conditions, $orderBy, $offset, $limit)
     {
+        $offset = (int) $offset;
+        $limit = (int) $limit;
+
         $stmt = User::select('*');
 
         return $this->buildQueryStatement($conditions, $stmt)->orderBy($orderBy[0], $orderBy[1])->offset($offset)->limit($limit)->get();
@@ -68,6 +71,15 @@ class UserDaoImpl implements UserDao
         return User::where('nickname', $nickname)->first();
     }
 
+    public function paging($conditions, $orderBy, $limit)
+    {
+        $limit = (int) $limit;
+
+        $stmt = User::select('*');
+
+        return $this->buildQueryStatement($conditions, $stmt)->orderBy($orderBy[0], $orderBy[1])->paginate($limit);
+    }
+
     /**
      * @param $conditions
      * @param $stmt
@@ -77,6 +89,18 @@ class UserDaoImpl implements UserDao
     {
         if (isset($conditions['without_deleted']) && $conditions['without_deleted']) {
             $stmt = $stmt->withTrashed();
+        }
+
+        if (isset($conditions['nickname'])) {
+            $stmt = $stmt->where('nickname', $conditions['nickname']);
+        }
+
+        if (isset($conditions['or_email'])) {
+            $stmt = $stmt->orWhere('email', $conditions['or_email']);
+        }
+
+        if (isset($conditions['or_verified_mobile'])) {
+            $stmt = $stmt->orWhere('verified_mobile', $conditions['or_verified_mobile']);
         }
 
         return $stmt;
