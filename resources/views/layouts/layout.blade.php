@@ -55,7 +55,8 @@
                                 <span>设置</span>
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a href="#!" class="dropdown-item">
+                            <a href="javascript:" class="dropdown-item js-logout">
+                                <form class="js-logout-form" action="{{ route('logout') }}" method="post" hidden>@csrf</form>
                                 <i class="ni ni-user-run"></i>
                                 <span>退出登录</span>
                             </a>
@@ -120,7 +121,8 @@
                                     <span>设置</span>
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a href="#!" class="dropdown-item">
+                                <a href="javascript:" class="dropdown-item js-logout">
+                                    <form class="js-logout-form" action="{{ route('logout') }}" method="post" hidden>@csrf</form>
                                     <i class="ni ni-user-run"></i>
                                     <span>退出登录</span>
                                 </a>
@@ -141,6 +143,7 @@
     <!-- Main JS -->
     @section('script')
         <script src="{{ mix('js/main.min.js') }}"></script>
+        <script src="{{ mix('js/app/index.js') }}"></script>
     @show
     </body>
 </html>

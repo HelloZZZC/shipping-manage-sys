@@ -81,15 +81,15 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/js/login/index.js":
-/*!*************************************!*\
-  !*** ./resources/js/login/index.js ***!
-  \*************************************/
+/***/ "./resources/js/app/index.js":
+/*!***********************************!*\
+  !*** ./resources/js/app/index.js ***!
+  \***********************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -99,74 +99,48 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Login =
+var App =
 /*#__PURE__*/
 function () {
-  function Login() {
-    _classCallCheck(this, Login);
+  function App() {
+    _classCallCheck(this, App);
 
     this.initObject();
-    this.initValidator();
     this.initEvent();
   }
 
-  _createClass(Login, [{
+  _createClass(App, [{
     key: "initObject",
     value: function initObject() {
-      this.$form = $('#login-form');
-      this.$btn = $('#login-btn');
-    }
-    /**
-     * 约定所有的错误提示class均为invalid-tooltip保持整个系统样式统一
-     */
-
-  }, {
-    key: "initValidator",
-    value: function initValidator() {
-      this.$form.validate({
-        rules: {
-          nickname: "required",
-          password: "required"
-        },
-        messages: {
-          nickname: '请输入账号',
-          password: '请输入密码'
-        },
-        errorClass: 'invalid-tooltip',
-        errorElement: 'span',
-        highlight: function highlight(element, errorClass) {
-          $(element).removeClass(errorClass);
-        }
-      });
+      this.$logout = $('.js-logout');
+      this.$form = $('.js-logout-form');
     }
   }, {
     key: "initEvent",
     value: function initEvent() {
       var _this = this;
 
-      this.$btn.click(function () {
-        if (_this.$form.valid()) {
-          _this.$form.submit();
-        }
+      this.$logout.click(function () {
+        _this.$form.submit();
       });
     }
   }]);
 
-  return Login;
+  return App;
 }();
 
-new Login();
+new App();
 
 /***/ }),
 
-/***/ 2:
-/*!*******************************************!*\
-  !*** multi ./resources/js/login/index.js ***!
-  \*******************************************/
+/***/ 1:
+/*!**************************************!*\
+  !*** multi ./resources/js/app/index ***!
+  \**************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /private/var/www/laravel-repository/shipping-manage-sys/resources/js/login/index.js */"./resources/js/login/index.js");
+module.exports = __webpack_require__(/*! /private/var/www/laravel-repository/shipping-manage-sys/resources/js/app/index */"./resources/js/app/index.js");
 
 
 /***/ })
