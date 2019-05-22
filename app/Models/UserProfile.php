@@ -13,6 +13,6 @@ class UserProfile extends Model
     protected $table = 'user_profiles';
 
     protected $fillable = [
-        'id',
+        'real_name', 'age', 'gender', 'address', 'birthday', 'qq', 'wechat', 'about',
     ];
 }

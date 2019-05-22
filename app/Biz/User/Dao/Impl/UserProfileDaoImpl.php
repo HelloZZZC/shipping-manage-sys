@@ -22,6 +22,6 @@ class UserProfileDaoImpl implements UserProfileDao
      */
     public function create($userProfile)
     {
-        return UserProfile::insert($userProfile);
+        return UserProfile::create($userProfile);
     }
 }
