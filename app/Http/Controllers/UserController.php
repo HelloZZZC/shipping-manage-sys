@@ -73,6 +73,7 @@ class UserController extends Controller
     public function checkNickname(Request $request)
     {
         $value = $request->query->get('nickname');
+
         $result = $this->getUserService()->isNicknameAvailable($value);
 
         return JsonResponse::create($result);
@@ -87,7 +88,10 @@ class UserController extends Controller
     public function checkMobile(Request $request)
     {
         $value = $request->query->get('mobile');
-        $result = $this->getUserService()->isMobileAvailable($value);
+        $exclude = $request->query->get('exclude');
+        $exclude = empty($exclude) ? null : $exclude;
+
+        $result = $this->getUserService()->isMobileAvailable($value, $exclude);
 
         return JsonResponse::create($result);
     }
@@ -101,7 +105,10 @@ class UserController extends Controller
     public function checkEmail(Request $request)
     {
         $value = $request->query->get('email');
-        $result = $this->getUserService()->isEmailAvailable($value);
+        $exclude = $request->query->get('exclude');
+        $exclude = empty($exclude) ? null : $exclude;
+
+        $result = $this->getUserService()->isEmailAvailable($value, $exclude);
 
         return JsonResponse::create($result);
     }

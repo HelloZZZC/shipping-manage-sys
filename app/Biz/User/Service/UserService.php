@@ -74,4 +74,12 @@ interface UserService
      * @return mixed
      */
     public function createUser($user);
+
+    /**
+     * 更新用户主页数据
+     * @param $id
+     * @param $info
+     * @return mixed
+     */
+    public function updateUserHomepage($id, $info);
 }

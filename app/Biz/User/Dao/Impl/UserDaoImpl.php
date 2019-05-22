@@ -95,6 +95,11 @@ class UserDaoImpl implements UserDao
         return User::create($user);
     }
 
+    public function update($id, $fields)
+    {
+        return User::where('id', $id)->update($fields);
+    }
+
     /**
      * @param $conditions
      * @param $stmt

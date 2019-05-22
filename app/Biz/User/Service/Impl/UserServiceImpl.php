@@ -2,11 +2,14 @@
 
 namespace App\Biz\User\Service\Impl;
 
+use App\Biz\User\Service\UserProfileService;
 use App\Biz\User\Service\UserService;
 use App\Biz\BaseService;
 use App\Biz\User\Dao\UserDao;
 use App\Common\Exception\InvalidArgumentException;
 use App\Common\Utils\ArrayUtil;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class UserServiceImpl extends BaseService implements UserService
@@ -165,6 +168,47 @@ class UserServiceImpl extends BaseService implements UserService
     }
 
     /**
+     * @param $id
+     * @param $info
+     * @return mixed|void
+     * @throws \Throwable
+     */
+    public function updateUserHomepage($id, $info)
+    {
+        $currentUser = Auth::user();
+
+        $rules = $this->getCreateUserRules();
+        unset($rules['password']);
+        unset($rules['nickname']);
+
+        try {
+            DB::beginTransaction();
+
+            $validator = Validator::make($info, $rules);
+            if ($validator->fails()) {
+                throw new InvalidArgumentException("缺少必要字段");
+            }
+            $user = $validator->validated();
+            if ($currentUser->email != $user['email'] ||
+                $currentUser->verified_mobile != $user['verified_mobile']
+            ) {
+                $this->getUserDao()->update($id, $user);
+            }
+
+            unset($info['email']);
+            unset($info['verified_mobile']);
+            unset($info['_token']);
+
+            $this->getUserProfileService()->updateUserProfile($id, $info);
+
+            DB::commit();
+        } catch (\Throwable $t) {
+            DB::rollBack();
+            throw $t;
+        }
+    }
+
+    /**
      * @return array
      */
     protected function getCreateUserRules()
@@ -208,6 +252,15 @@ class UserServiceImpl extends BaseService implements UserService
         }
 
         return $conditions;
+    }
+
+    /**
+     * @return UserProfileService
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    protected function getUserProfileService()
+    {
+        return $this->createService('User:UserProfileService');
     }
 
     /**

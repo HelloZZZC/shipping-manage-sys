@@ -17,4 +17,12 @@ interface UserProfileService
      * @return mixed
      */
     public function createUserProfile($profile);
+
+    /**
+     * 更新用户简介
+     * @param $id
+     * @param $profile
+     * @return mixed
+     */
+    public function updateUserProfile($id, $profile);
 }

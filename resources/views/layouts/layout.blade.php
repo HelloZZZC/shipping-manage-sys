@@ -9,7 +9,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>ShippingMS - @yield('title')</title>
         <!-- Favicon -->
-        <link href="./assets/img/brand/favicon.png" rel="icon" type="image/png">
+        {{--<link href="./assets/img/brand/favicon.png" rel="icon" type="image/png">--}}
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
         <!-- Main CSS -->
@@ -50,7 +50,7 @@
                                 <i class="ni ni-single-02"></i>
                                 <span>我的简介</span>
                             </a>
-                            <a href="./examples/profile.html" class="dropdown-item">
+                            <a href="{{ route('my_password_change') }}" class="dropdown-item">
                                 <i class="ni ni-settings-gear-65"></i>
                                 <span>密码修改</span>
                             </a>
@@ -116,7 +116,7 @@
                                     <i class="ni ni-single-02"></i>
                                     <span>我的简介</span>
                                 </a>
-                                <a href="./examples/profile.html" class="dropdown-item">
+                                <a href="{{ route('my_password_change') }}" class="dropdown-item">
                                     <i class="ni ni-settings-gear-65"></i>
                                     <span>密码修改</span>
                                 </a>

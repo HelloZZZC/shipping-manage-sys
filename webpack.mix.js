@@ -39,6 +39,7 @@ mix.babel(
  * 将一些组件js拷贝到libs目录下方便引用
  */
 mix.copy('node_modules/jquery-validation/dist/jquery.validate.min.js', 'public/js/libs/jquery-validation/jquery.validate.min.js');
+mix.copy('node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js', 'public/js/libs/bootstrap-datepicker/bootstrap-datepicker.min.js');
 mix.js('resources/js/app/index', 'public/js/app');
 mix.js('resources/js/login/index.js', 'public/js/login');
 mix.js('resources/js/setting/system/index.js', 'public/js/setting/system');
@@ -49,6 +50,7 @@ mix.js('resources/js/homepage/index.js', 'public/js/homepage');
 mix.js('resources/js/user/index.js', 'public/js/user');
 mix.js('resources/js/user/create/index.js', 'public/js/user/create');
 mix.js('resources/js/user/import-file/index.js', 'public/js/user/import-file');
+mix.js('resources/js/my/homepage/index.js', 'js/my/homepage/index.js');
 
 /**
  * 整合需要的字体
