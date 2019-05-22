@@ -7,6 +7,7 @@ use App\Biz\BaseService;
 use App\Biz\User\Dao\UserDao;
 use App\Common\Exception\InvalidArgumentException;
 use App\Common\Utils\ArrayUtil;
+use Illuminate\Support\Facades\Validator;
 
 class UserServiceImpl extends BaseService implements UserService
 {
@@ -143,6 +144,37 @@ class UserServiceImpl extends BaseService implements UserService
         $conditions = $this->prepareConditions($conditions);
 
         return $this->getUserDao()->paging($conditions, $orderBy, $limit);
+    }
+
+    /**
+     * @param $user
+     * @return mixed
+     * @throws InvalidArgumentException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function createUser($user)
+    {
+        $rules = $this->getCreateUserRules();
+        $validator = Validator::make($user, $rules);
+        if ($validator->fails()) {
+            throw new InvalidArgumentException("创建用户字段验证失败");
+        }
+        $user = $validator->validated();
+
+        return $this->getUserDao()->create($user);
+    }
+
+    /**
+     * @return array
+     */
+    protected function getCreateUserRules()
+    {
+        return [
+            'nickname' => 'required|alpha_num',
+            'password' => 'required',
+            'email' => 'required|email',
+            'verified_mobile' => 'required',
+        ];
     }
 
     /**

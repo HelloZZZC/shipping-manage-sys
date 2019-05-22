@@ -46,13 +46,13 @@
                             <div class=" dropdown-header noti-title">
                                 <h6 class="text-overflow m-0">Welcome!</h6>
                             </div>
-                            <a href="./examples/profile.html" class="dropdown-item">
+                            <a href="{{ route('my_homepage') }}" class="dropdown-item">
                                 <i class="ni ni-single-02"></i>
                                 <span>我的简介</span>
                             </a>
                             <a href="./examples/profile.html" class="dropdown-item">
                                 <i class="ni ni-settings-gear-65"></i>
-                                <span>设置</span>
+                                <span>密码修改</span>
                             </a>
                             <div class="dropdown-divider"></div>
                             <a href="javascript:" class="dropdown-item js-logout">
@@ -112,13 +112,13 @@
                                 <div class=" dropdown-header noti-title">
                                     <h6 class="text-overflow m-0">Welcome!</h6>
                                 </div>
-                                <a href="./examples/profile.html" class="dropdown-item">
+                                <a href="{{ route('my_homepage') }}" class="dropdown-item">
                                     <i class="ni ni-single-02"></i>
                                     <span>我的简介</span>
                                 </a>
                                 <a href="./examples/profile.html" class="dropdown-item">
                                     <i class="ni ni-settings-gear-65"></i>
-                                    <span>设置</span>
+                                    <span>密码修改</span>
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a href="javascript:" class="dropdown-item js-logout">
