@@ -16,5 +16,5 @@ interface UserProfileService
      * @param $profile
      * @return mixed
      */
-    public function crateUserProfile($profile);
+    public function createUserProfile($profile);
 }

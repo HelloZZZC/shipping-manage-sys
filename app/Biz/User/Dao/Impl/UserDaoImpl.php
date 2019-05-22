@@ -92,7 +92,7 @@ class UserDaoImpl implements UserDao
      */
     public function create($user)
     {
-        return User::insert($user);
+        return User::create($user);
     }
 
     /**

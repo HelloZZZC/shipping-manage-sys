@@ -20,10 +20,7 @@ class AuthServiceImpl extends BaseService implements AuthService
         try {
             DB::beginTransaction();
             $user = $this->getUserService()->createUser($user);
-            $userProfile = [
-                'id' => $user['id'],
-            ];
-            $this->getUserProfileService()->createUserProfile($userProfile);
+            $this->getUserProfileService()->createUserProfile(['gender' => 'secret']);
             DB::commit();
         } catch (\Throwable $t) {
             DB::rollBack();

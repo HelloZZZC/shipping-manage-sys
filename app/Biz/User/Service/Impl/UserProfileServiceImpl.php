@@ -23,7 +23,7 @@ class UserProfileServiceImpl extends BaseService implements UserProfileService
      * @return mixed
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function crateUserProfile($userProfile)
+    public function createUserProfile($userProfile)
     {
         return $this->getUserProfileDao()->create($userProfile);
     }

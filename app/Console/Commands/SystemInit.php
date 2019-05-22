@@ -52,11 +52,11 @@ class SystemInit extends BaseCommands
         $tempPW = $admin['password'];
         $admin['password'] = Hash::make($admin['password']);
 
-        $user = $this->getAuthService()->register($admin);
+        $this->getAuthService()->register($admin);
 
         $this->info('初始化超级管理员成功');
         $this->table(['nickname', 'email', 'verified_mobile', 'password'], [
-            [$user['nickname'], $user['email'], $user['verified_mobile'], $tempPW]
+            [$admin['nickname'], $admin['email'], $admin['verified_mobile'], $tempPW]
         ]);
     }
 
