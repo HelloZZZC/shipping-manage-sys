@@ -3,7 +3,8 @@
 namespace App\Biz\Auth\Service\Impl;
 
 use App\Biz\Auth\Service\AuthService;
-use App\Models\User;
+use App\Biz\User\Service\UserProfileService;
+use App\Biz\User\Service\UserService;
 use Illuminate\Support\Facades\DB;
 use App\Biz\BaseService;
 
@@ -18,12 +19,34 @@ class AuthServiceImpl extends BaseService implements AuthService
     {
         try {
             DB::beginTransaction();
-            $user = User::create($user);
+            $user = $this->getUserService()->createUser($user);
+            $userProfile = [
+                'id' => $user['id'],
+            ];
+            $this->getUserProfileService()->createUserProfile($userProfile);
             DB::commit();
         } catch (\Throwable $t) {
             DB::rollBack();
             throw $t;
         }
         return $user;
+    }
+
+    /**
+     * @return UserService
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    protected function getUserService()
+    {
+        return $this->createService('User:UserService');
+    }
+
+    /**
+     * @return UserProfileService
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    protected function getUserProfileService()
+    {
+        return $this->createService('User:UserProfileService');
     }
 }

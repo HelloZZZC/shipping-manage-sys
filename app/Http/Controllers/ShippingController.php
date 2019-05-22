@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Biz\Setting\Service\SettingService;
 use App\Biz\Shipping\Service\ShippingService;
-use App\Common\Exception\InvalidArgumentException;
 use App\Common\Utils\ArrayUtil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;

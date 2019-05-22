@@ -67,4 +67,11 @@ interface UserService
      * @return mixed
      */
     public function pagingUsers($conditions, $orderBy, $limit);
+
+    /**
+     * 创建用户
+     * @param $user
+     * @return mixed
+     */
+    public function createUser($user);
 }

@@ -71,6 +71,12 @@ class UserDaoImpl implements UserDao
         return User::where('nickname', $nickname)->first();
     }
 
+    /**
+     * @param $conditions
+     * @param $orderBy
+     * @param $limit
+     * @return mixed
+     */
     public function paging($conditions, $orderBy, $limit)
     {
         $limit = (int) $limit;
@@ -78,6 +84,15 @@ class UserDaoImpl implements UserDao
         $stmt = User::select('*');
 
         return $this->buildQueryStatement($conditions, $stmt)->orderBy($orderBy[0], $orderBy[1])->paginate($limit);
+    }
+
+    /**
+     * @param $user
+     * @return mixed
+     */
+    public function create($user)
+    {
+        return User::insert($user);
     }
 
     /**

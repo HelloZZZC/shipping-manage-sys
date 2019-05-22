@@ -34,3 +34,10 @@
   }
 }
 
+.header-profile-background {
+  min-height: 600px;
+  background-image: url(/images/profile-cover.jpg?7389b369ceb30d01d4d852907099e458);
+  background-size: cover;
+  background-position: center top;
+}
+

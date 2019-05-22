@@ -57,4 +57,9 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/user/email/check', 'UserController@checkEmail')->name('user_email_check');
     Route::get('/user/importer/show', 'UserController@userImporterShow')->name('user_importer_show');
     Route::post('/user/import', 'UserController@userImport')->name('user_import');
+
+    /**
+     * 我的相关路由
+     */
+    Route::get('/my/homepage', 'MyController@homepage')->name('my_homepage');
 });

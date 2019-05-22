@@ -51,5 +51,11 @@ interface UserDao
      * @return mixed
      */
     public function paging($conditions, $orderBy, $limit);
+
+    /**
+     * @param $user
+     * @return mixed
+     */
+    public function create($user);
 }
 
