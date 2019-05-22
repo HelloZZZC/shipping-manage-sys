@@ -90,13 +90,13 @@
 /*!***********************************************!*\
   !*** ./resources/js/common/validator-rule.js ***!
   \***********************************************/
-/*! exports provided: initValidatorRules */
+/*! exports provided: init */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initValidatorRules", function() { return initValidatorRules; });
-function initValidatorRules() {
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "init", function() { return init; });
+function init() {
   jQuery.validator.addMethod('mobile', function (value, element) {
     var reg = /^1\d{10}$/;
     return this.optional(element) || reg.test(value);
@@ -145,20 +145,22 @@ function () {
       this.$form = $('#my-profile-form');
       this.$saveBtn = $('#save-btn');
       this.$birthdayInput = $('#birthday');
+      this.$emailInput = $('#email');
+      this.$mobileInput = $('#mobile');
     }
   }, {
     key: "initValidator",
     value: function initValidator() {
-      Object(_common_validator_rule__WEBPACK_IMPORTED_MODULE_0__["initValidatorRules"])();
+      Object(_common_validator_rule__WEBPACK_IMPORTED_MODULE_0__["init"])();
       this.$form.validate({
         rules: {
           mobile: {
             required: true,
             remote: {
-              url: $('#mobile').data('url'),
+              url: this.$mobileInput.data('url'),
               type: 'get',
               data: {
-                exclude: $('#mobile').val()
+                exclude: this.$mobileInput.val()
               }
             },
             mobile: true
@@ -166,10 +168,10 @@ function () {
           email: {
             required: true,
             remote: {
-              url: $('#email').data('url'),
+              url: this.$emailInput.data('url'),
               type: 'get',
               data: {
-                exclude: $('#email').val()
+                exclude: this.$emailInput.val()
               }
             },
             email: true
@@ -223,12 +225,11 @@ function () {
 
       this.$saveBtn.click(function () {
         if (_this.$form.valid()) {
-          // $.post(this.$form.attr('action'), this.$form.serialize(), (response) => {
-          //    if (!response.code) {
-          //        window.location.reload();
-          //    }
-          // });
-          _this.$form.submit();
+          $.post(_this.$form.attr('action'), _this.$form.serialize(), function (response) {
+            if (!response.code) {
+              window.location.reload();
+            }
+          });
         }
       });
     }

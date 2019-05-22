@@ -13,6 +13,8 @@ class MyHomepage
         this.$form = $('#my-profile-form');
         this.$saveBtn = $('#save-btn');
         this.$birthdayInput = $('#birthday');
+        this.$emailInput = $('#email');
+        this.$mobileInput = $('#mobile');
     }
 
     initValidator() {
@@ -22,18 +24,18 @@ class MyHomepage
                 mobile: {
                     required: true,
                     remote: {
-                        url: $('#mobile').data('url'),
+                        url: this.$mobileInput.data('url'),
                         type: 'get',
-                        data: { exclude: $('#mobile').val() }
+                        data: { exclude: this.$mobileInput.val() }
                     },
                     mobile: true
                 },
                 email: {
                     required: true,
                     remote: {
-                        url: $('#email').data('url'),
+                        url: this.$emailInput.data('url'),
                         type: 'get',
-                        data: { exclude: $('#email').val() }
+                        data: { exclude: this.$emailInput.val() }
                     },
                     email: true
                 },
@@ -83,12 +85,11 @@ class MyHomepage
     initEvent() {
         this.$saveBtn.click(() => {
             if (this.$form.valid()) {
-                // $.post(this.$form.attr('action'), this.$form.serialize(), (response) => {
-                //    if (!response.code) {
-                //        window.location.reload();
-                //    }
-                // });
-                this.$form.submit();
+                $.post(this.$form.attr('action'), this.$form.serialize(), (response) => {
+                   if (!response.code) {
+                       window.location.reload();
+                   }
+                });
             }
         });
     }
