@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Biz\User\Service\UserProfileService;
 use App\Biz\User\Service\UserService;
+use App\Common\Exception\InvalidArgumentException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,6 +30,8 @@ class MyController extends Controller
             unset($info['mobile']);
 
             $this->getUserService()->updateUserHomepage($user['id'], $info);
+
+            return $this->createJsonResponse([], 0, '个人数据保存成功');
         }
 
         return view('my.homepage', [
@@ -44,7 +47,15 @@ class MyController extends Controller
 
         if ('POST' == $request->getMethod()) {
             $fields = $request->request->all();
+            if (empty($fields['old_password'])) {
+                throw new InvalidArgumentException('缺少旧密码字段');
+            }
+            if (!Hash::check($fields['old_password'], $user->getAuthPassword())) {
+                throw new InvalidArgumentException('提交的旧密码于当前用户密码不匹配');
+            }
             $this->getUserService()->changeUserPassword($user['id'], $fields);
+
+            return $this->createJsonResponse([], 0, '修改密码成功');
         }
 
         return view('my.password-change', [
@@ -62,9 +73,8 @@ class MyController extends Controller
     {
         $currentUser = Auth::user();
         $checkedPW = $request->query->get('old_password');
-        $checkedPWHash = Hash::make($checkedPW);
 
-        if ($checkedPWHash != $currentUser->getAuthPassword()) {
+        if (!Hash::check($checkedPW, $currentUser->getAuthPassword())) {
             return JsonResponse::create(false);
         }
 

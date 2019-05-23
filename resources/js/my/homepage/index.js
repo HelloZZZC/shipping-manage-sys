@@ -1,4 +1,5 @@
 import { init } from '../../common/validator-rule';
+import { notify } from "../../common/notify";
 
 class MyHomepage
 {
@@ -87,7 +88,10 @@ class MyHomepage
             if (this.$form.valid()) {
                 $.post(this.$form.attr('action'), this.$form.serialize(), (response) => {
                    if (!response.code) {
-                       window.location.reload();
+                       notify('success', '主页数据保存成功');
+                       setTimeout("window.location.reload();",1000);
+                   } else {
+                       notify('danger', '主页数据保存失败，请联系网站管理员');
                    }
                 });
             }

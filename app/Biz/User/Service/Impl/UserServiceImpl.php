@@ -8,8 +8,10 @@ use App\Biz\BaseService;
 use App\Biz\User\Dao\UserDao;
 use App\Common\Exception\InvalidArgumentException;
 use App\Common\Utils\ArrayUtil;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class UserServiceImpl extends BaseService implements UserService
@@ -186,7 +188,7 @@ class UserServiceImpl extends BaseService implements UserService
 
             $validator = Validator::make($info, $rules);
             if ($validator->fails()) {
-                throw new InvalidArgumentException("缺少必要字段");
+                throw new InvalidArgumentException("表单数据验证不通过");
             }
             $user = $validator->validated();
             if ($currentUser->email != $user['email'] ||
@@ -209,6 +211,46 @@ class UserServiceImpl extends BaseService implements UserService
     }
 
     /**
+     * @param $id
+     * @param $fields
+     * @return mixed|void
+     * @throws InvalidArgumentException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function changeUserPassword($id, $fields)
+    {
+        $rules = $this->getChangePasswordRules();
+        $validator = Validator::make($fields, $rules);
+        if ($validator->fails()) {
+            throw new InvalidArgumentException("表单数据验证不通过");
+        }
+
+        $fields = $validator->validated();
+        $fields['password'] = Hash::make($fields['new_password']);
+        unset($fields['confirm_password']);
+        unset($fields['new_password']);
+
+        $this->getUserDao()->update($id, $fields);
+
+        $user = $this->getUserDao()->get($id);
+        event(new ResetPassword($user));
+        Auth::guard()->login($user);
+    }
+
+    /**
+     * 修改密码的规则
+     * @return array
+     */
+    protected function getChangePasswordRules()
+    {
+        return [
+            'new_password' => 'required',
+            'confirm_password' => 'required|same:new_password'
+        ];
+    }
+
+    /**
+     * 创建用户的规则
      * @return array
      */
     protected function getCreateUserRules()

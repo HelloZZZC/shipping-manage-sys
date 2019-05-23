@@ -1,3 +1,5 @@
+import { notify } from "../../common/notify";
+
 class ChangePassword
 {
     constructor() {
@@ -55,7 +57,14 @@ class ChangePassword
     initEvent() {
         this.$btn.click(() => {
             if (this.$form.valid()) {
-                this.$form.submit();
+                $.post(this.$form.attr('action'), this.$form.serialize(), (response) => {
+                    if (!response.code) {
+                        notify('success', '新密码保存成功过');
+                        setTimeout("window.location.reload();",1000);
+                    } else {
+                        notify('danger', '新密码保存失败，请联系网站管理员');
+                    }
+                });
             }
         });
     }

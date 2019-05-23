@@ -1,3 +1,5 @@
+import { notify } from "../../common/notify";
+
 class ImportFile
 {
     constructor() {
@@ -59,6 +61,7 @@ class ImportFile
                     if (!response.code) {
                         this.$progressBar.css('width', response.data.progress + '%');
                         this.$progressBar.attr('aria-valuenow', response.data.progress);
+                        notify('success', '删除历史数据成功，开始进行数据导入');
                         this.import();
                     } else {
                         this.showError(response.data.progress);
@@ -85,6 +88,7 @@ class ImportFile
                     this.$progressBar.addClass('bg-success');
                     let dismissBtn = `<button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>`;
                     this.$jsFooter.html(dismissBtn).show();
+                    notify('success', '导入物流数据成功');
                 } else {
                     this.showError(response.data.progress)
                 }
@@ -101,6 +105,7 @@ class ImportFile
         this.$progressBar.addClass('bg-danger');
         let dismissBtn = `<button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>`;
         this.$jsFooter.html(dismissBtn).show();
+        notify('danger', '导入出现错误,请联系开发人员');
     }
 }
 

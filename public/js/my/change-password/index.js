@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -121,10 +121,10 @@ function notify(type, msg) {
 
 /***/ }),
 
-/***/ "./resources/js/import/file/index.js":
-/*!*******************************************!*\
-  !*** ./resources/js/import/file/index.js ***!
-  \*******************************************/
+/***/ "./resources/js/my/change-password/index.js":
+/*!**************************************************!*\
+  !*** ./resources/js/my/change-password/index.js ***!
+  \**************************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -139,41 +139,56 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 
-var ImportFile =
+var ChangePassword =
 /*#__PURE__*/
 function () {
-  function ImportFile() {
-    _classCallCheck(this, ImportFile);
+  function ChangePassword() {
+    _classCallCheck(this, ChangePassword);
 
     this.initObject();
     this.initValidator();
     this.initEvent();
   }
 
-  _createClass(ImportFile, [{
+  _createClass(ChangePassword, [{
     key: "initObject",
     value: function initObject() {
-      this.$form = $('#import-form');
-      this.$selectFileInput = $('.js-select-file');
-      this.$fileInput = $('.js-file');
-      this.$showFileInput = $('.js-show-file');
-      this.$saveBtn = $('#save-btn');
-      this.$progress = $('.progress');
-      this.$progressBar = this.$progress.find('.progress-bar');
-      this.$formContainer = $('.js-form-container');
-      this.$jsFooter = $('.js-footer');
+      this.$form = $('#password-change-form');
+      this.$btn = $('#submit-btn');
     }
   }, {
     key: "initValidator",
     value: function initValidator() {
       this.$form.validate({
-        ignore: [],
         rules: {
-          file: "required"
+          old_password: {
+            required: true,
+            remote: {
+              url: $('#old_password').data('url'),
+              type: 'get'
+            }
+          },
+          new_password: {
+            required: true,
+            minlength: 6
+          },
+          confirm_password: {
+            required: true,
+            equalTo: "#new_password"
+          }
         },
         messages: {
-          file: {
-            required: '请选择一个excel文件'
+          old_password: {
+            required: '请输入你的当前密码',
+            remote: '输入的密码于你当前密码不匹配'
+          },
+          new_password: {
+            required: '请输入你的旧密码',
+            minlength: '密码长度不能小于6位'
+          },
+          confirm_password: {
+            required: '请输入确认密码',
+            equalTo: '两次输入的确认密码不一致，请重新输入'
           }
         },
         errorClass: 'invalid-tooltip',
@@ -188,102 +203,36 @@ function () {
     value: function initEvent() {
       var _this = this;
 
-      this.$selectFileInput.on('click', function () {
-        _this.$fileInput.click();
-      });
-      this.$fileInput.on('change', function () {
-        _this.$showFileInput.val(_this.$fileInput.val());
-
-        _this.$form.valid();
-      });
-      this.$saveBtn.on('click', function () {
+      this.$btn.click(function () {
         if (_this.$form.valid()) {
-          var importPrepareUrl = _this.$saveBtn.data('importPrepareUrl');
-
-          _this.$formContainer.hide();
-
-          _this.$jsFooter.hide();
-
-          _this.$progress.show();
-
-          $.post(importPrepareUrl, _this.$form.serialize(), function (response) {
+          $.post(_this.$form.attr('action'), _this.$form.serialize(), function (response) {
             if (!response.code) {
-              _this.$progressBar.css('width', response.data.progress + '%');
-
-              _this.$progressBar.attr('aria-valuenow', response.data.progress);
-
-              Object(_common_notify__WEBPACK_IMPORTED_MODULE_0__["notify"])('success', '删除历史数据成功，开始进行数据导入');
-
-              _this["import"]();
+              Object(_common_notify__WEBPACK_IMPORTED_MODULE_0__["notify"])('success', '新密码保存成功过');
+              setTimeout("window.location.reload();", 1000);
             } else {
-              _this.showError(response.data.progress);
+              Object(_common_notify__WEBPACK_IMPORTED_MODULE_0__["notify"])('danger', '新密码保存失败，请联系网站管理员');
             }
           });
         }
       });
     }
-  }, {
-    key: "import",
-    value: function _import() {
-      var _this2 = this;
-
-      var formData = new FormData(this.$form[0]);
-      var importUrl = this.$saveBtn.data('importUrl');
-      $.ajax({
-        url: importUrl,
-        type: 'POST',
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function success(response) {
-          if (!response.code) {
-            _this2.$progressBar.css('width', response.data.progress + '%');
-
-            _this2.$progressBar.attr('aria-valuenow', response.data.progress);
-
-            _this2.$progressBar.addClass('bg-success');
-
-            var dismissBtn = "<button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">\u786E\u5B9A</button>";
-
-            _this2.$jsFooter.html(dismissBtn).show();
-
-            Object(_common_notify__WEBPACK_IMPORTED_MODULE_0__["notify"])('success', '导入物流数据成功');
-          } else {
-            _this2.showError(response.data.progress);
-          }
-        },
-        error: function error(response) {
-          console.log(response);
-        }
-      });
-    }
-  }, {
-    key: "showError",
-    value: function showError(progress) {
-      this.$progressBar.css('width', progress + '%');
-      this.$progressBar.attr('aria-valuenow', progress);
-      this.$progressBar.addClass('bg-danger');
-      var dismissBtn = "<button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">\u786E\u5B9A</button>";
-      this.$jsFooter.html(dismissBtn).show();
-      Object(_common_notify__WEBPACK_IMPORTED_MODULE_0__["notify"])('danger', '导入出现错误,请联系开发人员');
-    }
   }]);
 
-  return ImportFile;
+  return ChangePassword;
 }();
 
-new ImportFile();
+new ChangePassword();
 
 /***/ }),
 
-/***/ 5:
-/*!*************************************************!*\
-  !*** multi ./resources/js/import/file/index.js ***!
-  \*************************************************/
+/***/ 12:
+/*!********************************************************!*\
+  !*** multi ./resources/js/my/change-password/index.js ***!
+  \********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /private/var/www/laravel-repository/shipping-manage-sys/resources/js/import/file/index.js */"./resources/js/import/file/index.js");
+module.exports = __webpack_require__(/*! /private/var/www/laravel-repository/shipping-manage-sys/resources/js/my/change-password/index.js */"./resources/js/my/change-password/index.js");
 
 
 /***/ })

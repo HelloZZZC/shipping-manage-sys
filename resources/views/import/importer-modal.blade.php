@@ -29,6 +29,7 @@
         <input type="hidden" value="{{ $type }}">
     </form>
     <script src="{{ mix('js/libs/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ mix('js/libs/bootstrap-notify/bootstrap-notify.min.js') }}"></script>
     <script src="{{ mix('js/import/file/index.js') }}"></script>
 @endsection
 
