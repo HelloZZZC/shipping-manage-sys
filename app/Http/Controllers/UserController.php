@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Biz\Auth\Service\AuthService;
+use App\Biz\User\Service\UserProfileService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Biz\User\Service\UserService;
@@ -148,6 +149,23 @@ class UserController extends Controller
     }
 
     /**
+     * 用户个人主页渲染
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function homepage($id)
+    {
+        $user = $this->getUserService()->getUser($id);
+        $profile = $this->getUserProfileService()->getUserProfile($id);
+
+        return view('user.homepage', [
+            'user' => $user,
+            'profile' => $profile
+        ]);
+    }
+
+    /**
      * 构建注册所需要的参数
      * @param $registration
      * @return mixed
@@ -178,6 +196,15 @@ class UserController extends Controller
             'mobile' => 'required',
             'confirm_password' => 'required|same:password'
         ];
+    }
+
+    /**
+     * @return UserProfileService
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    protected function getUserProfileService()
+    {
+        return $this->createService('User:UserProfileService');
     }
 
     /**

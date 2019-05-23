@@ -40,6 +40,16 @@ class UserProfileServiceImpl extends BaseService implements UserProfileService
     }
 
     /**
+     * @param $ids
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function findUserProfilesByIds($ids)
+    {
+        return $this->getUserProfileDao()->findByIds($ids);
+    }
+
+    /**
      * @return UserProfileDao
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */

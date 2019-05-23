@@ -25,4 +25,11 @@ interface UserProfileService
      * @return mixed
      */
     public function updateUserProfile($id, $profile);
+
+    /**
+     * 根据id获取用户简介数组
+     * @param $ids
+     * @return mixed
+     */
+    public function findUserProfilesByIds($ids);
 }

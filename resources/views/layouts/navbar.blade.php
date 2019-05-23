@@ -18,7 +18,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="./examples/maps.html">
+        <a class="nav-link" href="{{ route('roster') }}">
             <i class="ni ni-badge text-primary"></i>
             <span class="nav-link-text @if ($nav == 'roster') text-primary @endif">花名册</span>
         </a>

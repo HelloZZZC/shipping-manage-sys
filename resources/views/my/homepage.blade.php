@@ -2,7 +2,7 @@
 
 <?php $nav = ''; ?>
 
-@section('title', '我的简介')
+@section('title', '我的个人主页')
 
 @section('body')
     <!-- Header -->
@@ -60,7 +60,6 @@
                             </div>
                             <hr class="my-4" />
                             <p>{{ empty($profile->about) ? '你还没有向大家介绍你自己' : $profile->about }}</p>
-                            <a href="#">Show more</a>
                         </div>
                     </div>
                 </div>

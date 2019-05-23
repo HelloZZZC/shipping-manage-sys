@@ -34,4 +34,13 @@ class UserProfileDaoImpl implements UserProfileDao
     {
         return UserProfile::where('id', $id)->update($profile);
     }
+
+    /**
+     * @param $ids
+     * @return mixed
+     */
+    public function findByIds($ids)
+    {
+        return UserProfile::whereIn('id', $ids)->get();
+    }
 }
