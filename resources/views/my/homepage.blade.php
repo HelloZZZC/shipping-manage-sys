@@ -56,10 +56,10 @@
                                 <i class="ni location_pin mr-2"></i>管理员
                             </div>
                             <div>
-                                <i class="ni education_hat mr-2"></i>{{ empty($profile->job) ? '赶紧填上你的岗位吧' : $profile->job}}
+                                <i class="ni education_hat mr-2"></i>{{ empty($profile->job) ? '赶紧填上你的岗位吧~' : $profile->job}}
                             </div>
                             <hr class="my-4" />
-                            <p>{{ empty($profile->about) ? '你还没有向大家介绍你自己' : $profile->about }}</p>
+                            <p>{{ empty($profile->about) ? '你还没有向大家介绍你自己!' : $profile->about }}</p>
                         </div>
                     </div>
                 </div>
