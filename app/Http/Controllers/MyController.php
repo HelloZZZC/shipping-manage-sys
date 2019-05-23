@@ -15,6 +15,7 @@ class MyController extends Controller
     use BizAutoload;
 
     /**
+     * 我的个人主页渲染
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
@@ -40,6 +41,13 @@ class MyController extends Controller
         ]);
     }
 
+    /**
+     * 我的密码修改
+     * @param Request $request
+     * @return MyController|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws InvalidArgumentException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     public function changePassword(Request $request)
     {
         $user = Auth::user();

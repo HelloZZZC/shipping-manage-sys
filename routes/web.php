@@ -64,4 +64,14 @@ Route::middleware(['auth'])->group(function(){
     Route::match(['get', 'post'], '/my/homepage', 'MyController@homepage')->name('my_homepage');
     Route::match(['get', 'post'], '/my/password/change', 'MyController@changePassword')->name('my_password_change');
     Route::get('/my/password/check', 'MyController@checkCurrentPassword')->name('my_password_check');
+
+    /**
+     * 花名册相关路由
+     */
+    Route::get('/roster', 'RosterController@index')->name('roster');
+
+    /**
+     * 用户主页路由
+     */
+    Route::get('user/{id}/homepage', 'UserController@homepage')->name('user_homepage');
 });

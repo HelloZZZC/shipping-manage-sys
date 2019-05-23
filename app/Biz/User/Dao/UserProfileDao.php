@@ -22,4 +22,10 @@ interface UserProfileDao
      * @return mixed
      */
     public function update($id, $profile);
+
+    /**
+     * @param $ids
+     * @return mixed
+     */
+    public function findByIds($ids);
 }

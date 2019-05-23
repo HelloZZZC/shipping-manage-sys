@@ -21,7 +21,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form id="price-calculate-form" method="GET" novalidate>
+                        <form id="user-form" method="GET" novalidate>
                             <div class="form-row align-items-center">
                                 <div class="col-auto">
                                     <select class="form-control mb-2" id="type" name="keyword_type" id="keyword_type">
