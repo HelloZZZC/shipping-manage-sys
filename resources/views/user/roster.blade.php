@@ -18,25 +18,25 @@
                     </div>
                     <div class="card-body">
                         <form id="roster-form" method="GET" novalidate class="mb-4">
-                            <div class="form-row align-items-center">
-                                <div class="col-auto">
-                                    <select class="form-control mb-2" id="type" name="keyword_type" id="keyword_type">
-                                        <?php $select=['nickname' => '账号', 'email' => '邮箱', 'verified_mobile' => '手机号'] ?>
+                            <div class="form-row">
+                                <div class="col-md-2 mb-3">
+                                    <label for="type">关键词类型</label>
+                                    <select class="form-control" id="type" name="keyword_type" id="keyword_type">
+                                        <?php $select=['nickname' => '账号', 'email' => '邮箱', 'verified_mobile' => '手机号', 'real_name' => '真实姓名'] ?>
                                         <option value="">请选择关键词类型</option>
                                         @foreach($select as $index => $single)
                                             <option value="{{ $index }}" {{ Request::offsetGet('keyword_type') == $index ? 'selected' : '' }}>{{ $single }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-auto">
-                                    <div class="input-group mb-2">
+                                <div class="col-md-2 mb-3">
+                                    <label for="keyword">关键词</label>
+                                    <div class="input-group">
                                         <input type="text" class="form-control" id="keyword" name="keyword" value="{{ Request::offsetGet('keyword') }}" placeholder="请输入关键词">
                                     </div>
                                 </div>
-                                <div class="col-auto">
-                                    <button class="btn btn-primary mb-2" type="submit" id="search-btn">搜索</button>
-                                </div>
                             </div>
+                            <button class="btn btn-primary" type="submit" id="search-btn">搜索</button>
                         </form>
                         <div>
                             <div class="row">
