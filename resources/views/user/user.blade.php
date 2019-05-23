@@ -22,9 +22,10 @@
                     </div>
                     <div class="card-body">
                         <form id="user-form" method="GET" novalidate>
-                            <div class="form-row align-items-center">
-                                <div class="col-auto">
-                                    <select class="form-control mb-2" id="type" name="keyword_type" id="keyword_type">
+                            <div class="form-row">
+                                <div class="col-md-2 mb-3">
+                                    <label for="type">关键词类型</label>
+                                    <select class="form-control" id="type" name="keyword_type" id="keyword_type">
                                         <?php $select=['nickname' => '账号', 'email' => '邮箱', 'verified_mobile' => '手机号'] ?>
                                         <option value="">请选择关键词类型</option>
                                         @foreach($select as $index => $single)
@@ -32,13 +33,15 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-auto">
-                                    <div class="input-group mb-2">
+                                <div class="col-md-2 mb-3">
+                                    <label for="keyword">关键词类型</label>
+                                    <div class="input-group">
                                         <input type="text" class="form-control" id="keyword" name="keyword" value="{{ Request::offsetGet('keyword') }}" placeholder="请输入关键词">
                                     </div>
                                 </div>
-                                <div class="col-auto">
-                                    <select class="form-control mb-2" id="type" name="deleted_status" id="deleted_status">
+                                <div class="col-md-2 mb-3">
+                                    <label for="deleted_status">在职状态</label>
+                                    <select class="form-control" id="deleted_status" name="deleted_status" id="deleted_status">
                                         <?php $select=['without_deleted' => '在职', 'only_deleted' => '离职'] ?>
                                         <option value="">在职状态</option>
                                         @foreach($select as $index => $single)
@@ -46,10 +49,8 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-auto">
-                                    <button class="btn btn-primary mb-2" type="submit" id="search-btn">搜索</button>
-                                </div>
                             </div>
+                            <button class="btn btn-primary mb-3" type="submit" id="search-btn">搜索</button>
                         </form>
                         <div class="table-responsive">
                             <table class="table align-items-center table-dark">
