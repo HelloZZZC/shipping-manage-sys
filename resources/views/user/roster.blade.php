@@ -22,7 +22,7 @@
                                 <div class="col-md-2 mb-3">
                                     <label for="type">关键词类型</label>
                                     <select class="form-control" id="type" name="keyword_type" id="keyword_type">
-                                        <?php $select=['nickname' => '账号', 'email' => '邮箱', 'verified_mobile' => '手机号'] ?>
+                                        <?php $select=['nickname' => '账号', 'email' => '邮箱', 'verified_mobile' => '手机号', 'real_name' => '真实姓名'] ?>
                                         <option value="">请选择关键词类型</option>
                                         @foreach($select as $index => $single)
                                             <option value="{{ $index }}" {{ Request::offsetGet('keyword_type') == $index ? 'selected' : '' }}>{{ $single }}</option>

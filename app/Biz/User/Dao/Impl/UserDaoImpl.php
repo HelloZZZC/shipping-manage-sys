@@ -132,6 +132,10 @@ class UserDaoImpl implements UserDao
             $stmt = $stmt->where('verified_mobile', 'like', '%'.$conditions['like_verified_mobile'].'%');
         }
 
+        if (isset($conditions['like_real_name'])) {
+            $stmt = $stmt->select('users.*', 'user_profiles.real_name')->join('user_profiles', 'users.id', '=', 'user_profiles.id')->where('user_profiles.real_name', 'like', '%'.$conditions['like_real_name'].'%');
+        }
+
         return $stmt;
     }
 }
