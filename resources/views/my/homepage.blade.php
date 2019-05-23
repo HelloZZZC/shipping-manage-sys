@@ -214,6 +214,7 @@
     @parent
     <script src="{{ mix('js/libs/jquery-validation/jquery.validate.min.js') }}"></script>
     <script src="{{ mix('js/libs/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ mix('js/libs/bootstrap-notify/bootstrap-notify.min.js') }}"></script>
     <script src="{{ mix('js/my/homepage/index.js') }}"></script>
 @endsection
 

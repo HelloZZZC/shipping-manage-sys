@@ -86,6 +86,41 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./resources/js/common/notify.js":
+/*!***************************************!*\
+  !*** ./resources/js/common/notify.js ***!
+  \***************************************/
+/*! exports provided: notify */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "notify", function() { return notify; });
+function notify(type, msg) {
+  $.notify({
+    message: msg
+  }, {
+    element: 'body',
+    type: type,
+    allow_dismiss: false,
+    placement: {
+      from: "top",
+      align: "center"
+    },
+    offset: 10,
+    spacing: 10,
+    z_index: 1051,
+    delay: 1000,
+    timer: 1000,
+    animate: {
+      enter: 'animated fadeInDown',
+      exit: 'animated fadeOutUp'
+    }
+  });
+}
+
+/***/ }),
+
 /***/ "./resources/js/common/validator-rule.js":
 /*!***********************************************!*\
   !*** ./resources/js/common/validator-rule.js ***!
@@ -119,11 +154,13 @@ function init() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _common_validator_rule__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../common/validator-rule */ "./resources/js/common/validator-rule.js");
+/* harmony import */ var _common_notify__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../common/notify */ "./resources/js/common/notify.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
 
 
 
@@ -227,7 +264,10 @@ function () {
         if (_this.$form.valid()) {
           $.post(_this.$form.attr('action'), _this.$form.serialize(), function (response) {
             if (!response.code) {
-              window.location.reload();
+              Object(_common_notify__WEBPACK_IMPORTED_MODULE_1__["notify"])('success', '主页数据保存成功');
+              setTimeout("window.location.reload();", 1000);
+            } else {
+              Object(_common_notify__WEBPACK_IMPORTED_MODULE_1__["notify"])('danger', '主页数据保存失败，请联系网站管理员');
             }
           });
         }

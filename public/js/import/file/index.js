@@ -86,18 +86,58 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./resources/js/common/notify.js":
+/*!***************************************!*\
+  !*** ./resources/js/common/notify.js ***!
+  \***************************************/
+/*! exports provided: notify */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "notify", function() { return notify; });
+function notify(type, msg) {
+  $.notify({
+    message: msg
+  }, {
+    element: 'body',
+    type: type,
+    allow_dismiss: false,
+    placement: {
+      from: "top",
+      align: "center"
+    },
+    offset: 10,
+    spacing: 10,
+    z_index: 1051,
+    delay: 1000,
+    timer: 1000,
+    animate: {
+      enter: 'animated fadeInDown',
+      exit: 'animated fadeOutUp'
+    }
+  });
+}
+
+/***/ }),
+
 /***/ "./resources/js/import/file/index.js":
 /*!*******************************************!*\
   !*** ./resources/js/import/file/index.js ***!
   \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _common_notify__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../common/notify */ "./resources/js/common/notify.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
 
 var ImportFile =
 /*#__PURE__*/
@@ -172,6 +212,8 @@ function () {
 
               _this.$progressBar.attr('aria-valuenow', response.data.progress);
 
+              Object(_common_notify__WEBPACK_IMPORTED_MODULE_0__["notify"])('success', '删除历史数据成功，开始进行数据导入');
+
               _this["import"]();
             } else {
               _this.showError(response.data.progress);
@@ -204,6 +246,8 @@ function () {
             var dismissBtn = "<button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">\u786E\u5B9A</button>";
 
             _this2.$jsFooter.html(dismissBtn).show();
+
+            Object(_common_notify__WEBPACK_IMPORTED_MODULE_0__["notify"])('success', '导入物流数据成功');
           } else {
             _this2.showError(response.data.progress);
           }
@@ -221,6 +265,7 @@ function () {
       this.$progressBar.addClass('bg-danger');
       var dismissBtn = "<button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">\u786E\u5B9A</button>";
       this.$jsFooter.html(dismissBtn).show();
+      Object(_common_notify__WEBPACK_IMPORTED_MODULE_0__["notify"])('danger', '导入出现错误,请联系开发人员');
     }
   }]);
 

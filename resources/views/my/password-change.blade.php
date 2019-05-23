@@ -69,7 +69,8 @@
 @section('script')
     @parent
     <script src="{{ mix('js/libs/jquery-validation/jquery.validate.min.js') }}"></script>
-    <script src="{{ mix('js/user/change-password/index.js') }}"></script>
+    <script src="{{ mix('js/libs/bootstrap-notify/bootstrap-notify.min.js') }}"></script>
+    <script src="{{ mix('js/my/change-password/index.js') }}"></script>
 @endsection
 
 

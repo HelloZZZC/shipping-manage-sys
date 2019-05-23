@@ -82,4 +82,12 @@ interface UserService
      * @return mixed
      */
     public function updateUserHomepage($id, $info);
+
+    /**
+     * 修改用户密码
+     * @param $id
+     * @param $fields
+     * @return mixed
+     */
+    public function changeUserPassword($id, $fields);
 }
