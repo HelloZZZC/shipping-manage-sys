@@ -29,6 +29,17 @@ class UserProfileServiceImpl extends BaseService implements UserProfileService
     }
 
     /**
+     * @param $id
+     * @param $profile
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function updateUserProfile($id, $profile)
+    {
+        return $this->getUserProfileDao()->update($id, $profile);
+    }
+
+    /**
      * @return UserProfileDao
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */

@@ -24,4 +24,14 @@ class UserProfileDaoImpl implements UserProfileDao
     {
         return UserProfile::create($userProfile);
     }
+
+    /**
+     * @param $id
+     * @param $profile
+     * @return mixed
+     */
+    public function update($id, $profile)
+    {
+        return UserProfile::where('id', $id)->update($profile);
+    }
 }

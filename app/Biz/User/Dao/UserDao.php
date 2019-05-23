@@ -57,5 +57,12 @@ interface UserDao
      * @return mixed
      */
     public function create($user);
+
+    /**
+     * @param $id
+     * @param $fields
+     * @return mixed
+     */
+    public function update($id, $fields);
 }
 

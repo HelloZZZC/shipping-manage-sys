@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-lg-7 col-md-10">
                     <h1 class="display-2 text-white">Hello，</h1>
-                    <h1 class="display-2 text-white">管理员</h1>
+                    <h1 class="display-2 text-white">@if (empty($profile->real_name)) {{ $user->nickname }} @else {{ $profile->real_name }} @endif</h1>
                     <p class="text-white mt-0 mb-5">这里是你的个人主页，为了让你的其他同事能在花名册更好的认识你，你可以在这里编辑你的账号信息以及个人信息。</p>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                     </div>
                     <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
                         <div class="d-flex justify-content-between">
-                            <a href="#" class="btn btn-sm btn-info mr-4">密码修改</a>
+                            <a href="{{ route('my_password_change') }}" class="btn btn-sm btn-info mr-4">密码修改</a>
                             <a href="#" class="btn btn-sm btn-default float-right">上传头像</a>
                         </div>
                     </div>
@@ -50,19 +50,16 @@
                         </div>
                         <div class="text-center">
                             <h3>
-                                Jessica Jones<span class="font-weight-light">, 27</span>
+                                @if (empty($profile->real_name)) {{ $user->nickname }} @else {{ $profile->real_name }} @endif<span class="font-weight-light">, @if ($profile->gender == 'secret') 保密 @elseif ($profile->gender == 'female') 女 @else 男 @endif</span>
                             </h3>
                             <div class="h5 font-weight-300">
-                                <i class="ni location_pin mr-2"></i>Bucharest, Romania
-                            </div>
-                            <div class="h5 mt-4">
-                                <i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer
+                                <i class="ni location_pin mr-2"></i>管理员
                             </div>
                             <div>
-                                <i class="ni education_hat mr-2"></i>University of Computer Science
+                                <i class="ni education_hat mr-2"></i>{{ empty($profile->job) ? '赶紧填上你的岗位吧' : $profile->job}}
                             </div>
                             <hr class="my-4" />
-                            <p>Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music.</p>
+                            <p>{{ empty($profile->about) ? '你还没有向大家介绍你自己' : $profile->about }}</p>
                             <a href="#">Show more</a>
                         </div>
                     </div>
@@ -78,34 +75,35 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form id="my-profile-form" action="{{ route('my_homepage') }}" method="post">
+                            @csrf
                             <h6 class="heading-small text-muted mb-4">账号信息</h6>
                             <div class="pl-lg-4">
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="nickname">账号</label>
-                                            <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value="lucky.jesse">
+                                            <label class="form-control-label">账号</label>
+                                            <div>{{ $user->nickname }}</div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="input-email">角色</label>
-                                            <input type="email" id="input-email" class="form-control form-control-alternative" placeholder="jesse@example.com">
+                                            <label class="form-control-label">角色</label>
+                                            <div>管理员</div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="input-first-name">手机号</label>
-                                            <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="First name" value="Lucky">
+                                            <label class="form-control-label" for="mobile">手机号</label>
+                                            <input type="text" id="mobile" class="form-control form-control-alternative" data-url="{{ route('user_mobile_check') }}" name="mobile" value="{{ $user->verified_mobile ?? '' }}">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="input-first-name">邮箱</label>
-                                            <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="First name" value="Lucky">
+                                            <label class="form-control-label" for="email">邮箱</label>
+                                            <input type="text" id="email" class="form-control form-control-alternative" data-url="{{ route('user_email_check') }}" name="email" value="{{ $user->email ?? '' }}">
                                         </div>
                                     </div>
                                 </div>
@@ -117,48 +115,75 @@
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="input-city">真实姓名</label>
-                                            <input type="text" id="input-city" class="form-control form-control-alternative" placeholder="City" value="New York">
+                                            <label class="form-control-label" for="real_name">真实姓名</label>
+                                            <input type="text" id="real_name" class="form-control form-control-alternative" name="real_name" value="{{ $profile->real_name ?? '' }}">
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="input-country">年龄</label>
-                                            <input type="text" id="input-country" class="form-control form-control-alternative" placeholder="Country" value="United States">
+                                            <label class="form-control-label" for="age">年龄</label>
+                                            <input type="number" id="age" class="form-control form-control-alternative" name="age" value="{{ $profile->age ?? '' }}">
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="input-country">性别</label>
-                                            <input type="number" id="input-postal-code" class="form-control form-control-alternative" placeholder="Postal code">
+                                            <div>
+                                                <label class="form-control-label" for="gender">性别</label>
+                                            </div>
+                                            <div class="custom-control custom-radio custom-control-inline mt-2">
+                                                <input name="gender" class="custom-control-input" id="gender[0]" type="radio" value="male" @if($profile->gender == 'male') checked @endif>
+                                                <label class="custom-control-label" for="gender[0]">男</label>
+                                            </div>
+                                            <div class="custom-control custom-radio custom-control-inline mt-2">
+                                                <input name="gender" class="custom-control-input" id="gender[1]" type="radio" value="female" @if($profile->gender == 'female') checked @endif>
+                                                <label class="custom-control-label" for="gender[1]">女</label>
+                                            </div>
+                                            <div class="custom-control custom-radio custom-control-inline mt-2">
+                                                <input name="gender" class="custom-control-input" id="gender[2]" type="radio" value="secret" @if($profile->gender == 'secret') checked @endif>
+                                                <label class="custom-control-label" for="gender[2]">保密</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-7">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="input-address">现居地址</label>
-                                            <input id="input-address" class="form-control form-control-alternative" placeholder="Home Address" value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09" type="text">
+                                            <label class="form-control-label" for="address">现居地址</label>
+                                            <input id="address" class="form-control form-control-alternative" name="address" value="{{ $profile->address ?? '' }}" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="graduation">毕业院校</label>
+                                            <input id="graduation" class="form-control form-control-alternative" name="graduation" value="{{ $profile->graduation ?? '' }}" type="text">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="input-country">生日</label>
-                                            <input type="number" id="input-postal-code" class="form-control form-control-alternative" placeholder="Postal code">
+                                            <label class="form-control-label" for="birthday">生日</label>
+                                            <input type="text" id="birthday" class="form-control form-control-alternative" name="birthday" value="{{ $profile->birthday ?? '' }}" autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="input-city">QQ</label>
-                                            <input type="text" id="input-city" class="form-control form-control-alternative" placeholder="City" value="New York">
+                                            <label class="form-control-label" for="qq">QQ</label>
+                                            <input type="text" id="qq" class="form-control form-control-alternative" name="qq" value="{{ $profile->qq ?? '' }}">
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="input-country">微信号</label>
-                                            <input type="text" id="input-country" class="form-control form-control-alternative" placeholder="Country" value="United States">
+                                            <label class="form-control-label" for="wechat">微信号</label>
+                                            <input type="text" id="wechat" class="form-control form-control-alternative" name="wechat" value="{{ $profile->wechat ?? '' }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="job">岗位</label>
+                                            <input type="text" id="job" class="form-control form-control-alternative" name="job" value="{{ $profile->job ?? '' }}" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -169,11 +194,11 @@
                             <div class="pl-lg-4">
                                 <div class="form-group">
                                     <label>关于我</label>
-                                    <textarea rows="4" class="form-control form-control-alternative" placeholder="A few words about you ...">A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea>
+                                    <textarea rows="4" class="form-control form-control-alternative" name="about" placeholder="用一些话介绍你自己吧...">{{ $profile->about ?? '' }}</textarea>
                                 </div>
                             </div>
                             <div class="text-center">
-                                <button type="button" class="btn btn-primary">保存</button>
+                                <button type="button" class="btn btn-primary" id="save-btn">保存</button>
                             </div>
                         </form>
                     </div>
@@ -183,5 +208,12 @@
         <!-- Footer -->
         @include('layouts.footer')
     </div>
+@endsection
+
+@section('script')
+    @parent
+    <script src="{{ mix('js/libs/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ mix('js/libs/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ mix('js/my/homepage/index.js') }}"></script>
 @endsection
 

@@ -15,4 +15,11 @@ interface UserProfileDao
      * @return mixed
      */
     public function create($userProfile);
+
+    /**
+     * @param $id
+     * @param $profile
+     * @return mixed
+     */
+    public function update($id, $profile);
 }

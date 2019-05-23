@@ -61,5 +61,7 @@ Route::middleware(['auth'])->group(function(){
     /**
      * 我的相关路由
      */
-    Route::get('/my/homepage', 'MyController@homepage')->name('my_homepage');
+    Route::match(['get', 'post'], '/my/homepage', 'MyController@homepage')->name('my_homepage');
+    Route::match(['get', 'post'], '/my/password/change', 'MyController@changePassword')->name('my_password_change');
+    Route::get('/my/password/check', 'MyController@checkCurrentPassword')->name('my_password_check');
 });

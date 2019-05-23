@@ -1,12 +1,13 @@
 {
     "/js/app.js": "/js/app.js?id=e9422d3926c48bc23d95",
     "/css/app.css": "/css/app.css?id=d6412e1ed5aad39859a2",
-    "/css/main.css": "/css/main.css?id=75c2b5c7fb3a98a50cfb",
+    "/css/main.css": "/css/main.css?id=6816f38b417553440da8",
     "/js/app/index.js": "/js/app/index.js?id=f304a0fa7c42d4fe4fd9",
     "/js/homepage/index.js": "/js/homepage/index.js?id=369169afbb02659c2d71",
     "/js/import/file/index.js": "/js/import/file/index.js?id=8d3ac54d697c51c6c2bb",
     "/js/import/index.js": "/js/import/index.js?id=08ac3aff6107f2be5640",
     "/js/login/index.js": "/js/login/index.js?id=d90d2432c9f0c730aab6",
+    "/js/my/homepage/index.js": "/js/my/homepage/index.js?id=c815dad2e749818b9fca",
     "/js/setting/system/index.js": "/js/setting/system/index.js?id=2812991603e807d3c4d3",
     "/js/shipping/index.js": "/js/shipping/index.js?id=f436a9f8b484012cc0ea",
     "/js/user/create/index.js": "/js/user/create/index.js?id=b5df6bc83373f70846a8",
@@ -16,5 +17,6 @@
     "/vendor/fontawesome-free/css/main.css": "/vendor/fontawesome-free/css/main.css?id=10519cfd3206802f5831",
     "/js/main.js": "/js/main.js?id=e7f7a5a5b108dde37898",
     "/js/main.min.js": "/js/main.min.js?id=e7f7a5a5b108dde37898",
-    "/js/libs/jquery-validation/jquery.validate.min.js": "/js/libs/jquery-validation/jquery.validate.min.js?id=23d73c6bd6cbea8f06d0"
+    "/js/libs/jquery-validation/jquery.validate.min.js": "/js/libs/jquery-validation/jquery.validate.min.js?id=23d73c6bd6cbea8f06d0",
+    "/js/libs/bootstrap-datepicker/bootstrap-datepicker.min.js": "/js/libs/bootstrap-datepicker/bootstrap-datepicker.min.js?id=37807363a13de55c2184"
 }
