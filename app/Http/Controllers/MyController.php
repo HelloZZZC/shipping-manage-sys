@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Biz\User\Service\UserProfileService;
 use App\Biz\User\Service\UserService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class MyController extends Controller
 {
@@ -37,7 +39,36 @@ class MyController extends Controller
 
     public function changePassword(Request $request)
     {
+        $user = Auth::user();
+        $profile = $this->getUserProfileService()->getUserProfile($user->id);
 
+        if ('POST' == $request->getMethod()) {
+            $fields = $request->request->all();
+            $this->getUserService()->changeUserPassword($user['id'], $fields);
+        }
+
+        return view('my.password-change', [
+            'user' => $user,
+            'profile' => $profile,
+        ]);
+    }
+
+    /**
+     * 当前用户密码校验
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function checkCurrentPassword(Request $request)
+    {
+        $currentUser = Auth::user();
+        $checkedPW = $request->query->get('old_password');
+        $checkedPWHash = Hash::make($checkedPW);
+
+        if ($checkedPWHash != $currentUser->getAuthPassword()) {
+            return JsonResponse::create(false);
+        }
+
+        return JsonResponse::create(true);
     }
 
     /**

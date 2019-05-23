@@ -63,4 +63,5 @@ Route::middleware(['auth'])->group(function(){
      */
     Route::match(['get', 'post'], '/my/homepage', 'MyController@homepage')->name('my_homepage');
     Route::match(['get', 'post'], '/my/password/change', 'MyController@changePassword')->name('my_password_change');
+    Route::get('/my/password/check', 'MyController@checkCurrentPassword')->name('my_password_check');
 });
