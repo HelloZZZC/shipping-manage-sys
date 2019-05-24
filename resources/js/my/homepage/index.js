@@ -7,6 +7,7 @@ class MyHomepage
         this.initObject();
         this.initDatePicker();
         this.initValidator();
+        this.initUploader();
         this.initEvent();
     }
 
@@ -16,6 +17,41 @@ class MyHomepage
         this.$birthdayInput = $('#birthday');
         this.$emailInput = $('#email');
         this.$mobileInput = $('#mobile');
+        this.$uploadBtn = $('.js-avatar-uploader');
+        this.$fileInput = $('.js-avatar');
+        this.$uploadContainer = $('.js-upload-container');
+        this.$modal = $('#static-modal');
+    }
+
+    initUploader() {
+        let url = this.$uploadContainer.data('url');
+        this.$uploadContainer.dmUploader({
+            url: url,
+            multiple: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            allowedTypes: "image/*",
+            extFilter: ["jpg", "jpeg", "png", "gif"],
+            maxFileSize: 2097152, // 2M
+            onUploadError: (id, xhr, status, message) => {
+                notify('danger', '上传图片失败');
+            },
+            onUploadSuccess: (id, data) => {
+                let jsonResponse = JSON.stringify(data);
+                let response = JSON.parse(jsonResponse);
+                if (!response.code) {
+                    let gotoUrl = response.data.goto_url;
+                    let avatarUrl = response.data.avatar_url;
+                    $.get(gotoUrl, {avatar_url: avatarUrl} , (response) => {
+                        this.$modal.html(response);
+                        this.$modal.modal('show');
+                    });
+                } else {
+                    notify('danger', '服务处理上传图片失败');
+                }
+            }
+        });
     }
 
     initValidator() {
@@ -95,6 +131,10 @@ class MyHomepage
                    }
                 });
             }
+        });
+
+        this.$uploadBtn.click(() => {
+            this.$fileInput.click();
         });
     }
 

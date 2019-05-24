@@ -173,6 +173,7 @@ function () {
     this.initObject();
     this.initDatePicker();
     this.initValidator();
+    this.initUploader();
     this.initEvent();
   }
 
@@ -184,6 +185,49 @@ function () {
       this.$birthdayInput = $('#birthday');
       this.$emailInput = $('#email');
       this.$mobileInput = $('#mobile');
+      this.$uploadBtn = $('.js-avatar-uploader');
+      this.$fileInput = $('.js-avatar');
+      this.$uploadContainer = $('.js-upload-container');
+      this.$modal = $('#static-modal');
+    }
+  }, {
+    key: "initUploader",
+    value: function initUploader() {
+      var _this = this;
+
+      var url = this.$uploadContainer.data('url');
+      this.$uploadContainer.dmUploader({
+        url: url,
+        multiple: false,
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        allowedTypes: "image/*",
+        extFilter: ["jpg", "jpeg", "png", "gif"],
+        maxFileSize: 2097152,
+        // 2M
+        onUploadError: function onUploadError(id, xhr, status, message) {
+          Object(_common_notify__WEBPACK_IMPORTED_MODULE_1__["notify"])('danger', '上传图片失败');
+        },
+        onUploadSuccess: function onUploadSuccess(id, data) {
+          var jsonResponse = JSON.stringify(data);
+          var response = JSON.parse(jsonResponse);
+
+          if (!response.code) {
+            var gotoUrl = response.data.goto_url;
+            var avatarUrl = response.data.avatar_url;
+            $.get(gotoUrl, {
+              avatar_url: avatarUrl
+            }, function (response) {
+              _this.$modal.html(response);
+
+              _this.$modal.modal('show');
+            });
+          } else {
+            Object(_common_notify__WEBPACK_IMPORTED_MODULE_1__["notify"])('danger', '服务处理上传图片失败');
+          }
+        }
+      });
     }
   }, {
     key: "initValidator",
@@ -258,11 +302,11 @@ function () {
   }, {
     key: "initEvent",
     value: function initEvent() {
-      var _this = this;
+      var _this2 = this;
 
       this.$saveBtn.click(function () {
-        if (_this.$form.valid()) {
-          $.post(_this.$form.attr('action'), _this.$form.serialize(), function (response) {
+        if (_this2.$form.valid()) {
+          $.post(_this2.$form.attr('action'), _this2.$form.serialize(), function (response) {
             if (!response.code) {
               Object(_common_notify__WEBPACK_IMPORTED_MODULE_1__["notify"])('success', '主页数据保存成功');
               setTimeout("window.location.reload();", 1000);
@@ -271,6 +315,9 @@ function () {
             }
           });
         }
+      });
+      this.$uploadBtn.click(function () {
+        _this2.$fileInput.click();
       });
     }
   }, {

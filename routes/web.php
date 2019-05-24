@@ -74,4 +74,10 @@ Route::middleware(['auth'])->group(function(){
      * 用户主页路由
      */
     Route::get('user/{id}/homepage', 'UserController@homepage')->name('user_homepage');
+
+    /**
+     * 用户头像上传相关路由
+     */
+    Route::post('/user/avatar/upload', 'UserController@uploadAvatar')->name('user_avatar_upload');
+    Route::match(['get', 'post'], '/user/avatar/crop', 'UserController@cropAvatar')->name('user_avatar_crop');
 });

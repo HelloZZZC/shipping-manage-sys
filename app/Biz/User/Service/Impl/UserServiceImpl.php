@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
+use App\Common\Exception\NotFoundException;
+use Illuminate\Http\UploadedFile;
 
 class UserServiceImpl extends BaseService implements UserService
 {
@@ -235,6 +238,32 @@ class UserServiceImpl extends BaseService implements UserService
         $user = $this->getUserDao()->get($id);
         event(new ResetPassword($user));
         Auth::guard()->login($user);
+    }
+
+    /**
+     * @param $id
+     * @param UploadedFile $avatar
+     * @return mixed
+     * @throws InvalidArgumentException
+     * @throws NotFoundException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function changeAvatar($id, UploadedFile $avatar)
+    {
+        if (empty($avatar) || !is_object($avatar)) {
+            throw new InvalidArgumentException('头像参数异常');
+        }
+
+        $ext = $avatar->extension();
+        $timestamp = time();
+        $filePath = Storage::putFileAs('public/images/avatar', $avatar, "user_{$id}_{$timestamp}.{$ext}");
+        $absolutePath = storage_path().'/app/'.$filePath;
+        if (!is_file($absolutePath)) {
+            throw new NotFoundException("头像文件资源找不到");
+        }
+        $avatarLink = str_replace('public/', '', $filePath);
+
+        return $this->getUserDao()->update($id, ['avatar' => $avatarLink]);
     }
 
     /**

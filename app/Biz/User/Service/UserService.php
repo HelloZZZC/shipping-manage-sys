@@ -2,6 +2,8 @@
 
 namespace App\Biz\User\Service;
 
+use Illuminate\Http\UploadedFile;
+
 interface UserService
 {
     /**
@@ -90,4 +92,11 @@ interface UserService
      * @return mixed
      */
     public function changeUserPassword($id, $fields);
+
+    /**
+     * @param $id
+     * @param UploadedFile $avatar
+     * @return mixed
+     */
+    public function changeAvatar($id, UploadedFile $avatar);
 }

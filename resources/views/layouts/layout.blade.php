@@ -38,7 +38,7 @@
                         <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="media align-items-center">
                       <span class="avatar avatar-sm rounded-circle">
-                        <img alt="avatar" src="{{ asset('images/avatars/avatar.png') }}">
+                        <img alt="avatar" src="@if(!empty(Auth::user()->avatar)) {{ asset('storage/'.Auth::user()->avatar) }} @else {{ asset('images/avatars/avatar.png') }} @endif">
                       </span>
                             </div>
                         </a>
@@ -101,7 +101,7 @@
                             <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <div class="media align-items-center">
                                     <span class="avatar avatar-sm rounded-circle">
-                                      <img alt="avatar" src="{{ asset('images/avatars/avatar.png') }}">
+                                      <img alt="avatar" src="@if(!empty(Auth::user()->avatar)) {{ asset('storage/'.Auth::user()->avatar) }} @else {{ asset('images/avatars/avatar.png') }} @endif">
                                     </span>
                                     <div class="media-body ml-2 d-none d-lg-block">
                                         <span class="mb-0 text-sm  font-weight-bold">管理员</span>

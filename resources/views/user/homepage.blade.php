@@ -22,7 +22,7 @@
                         <div class="col-lg-3 order-lg-2">
                             <div class="card-profile-image">
                                 <a href="#">
-                                    <img src="{{ asset('images/avatars/avatar.png') }}" class="rounded-circle">
+                                    <img src="@if(!empty($user->avatar)) {{ asset('storage/'.$user->avatar) }} @else {{ asset('images/avatars/avatar.png') }} @endif" class="rounded-circle">
                                 </a>
                             </div>
                         </div>
