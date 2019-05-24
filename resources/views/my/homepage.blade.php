@@ -1,5 +1,11 @@
 @extends('layouts.layout')
 
+@section('css')
+    @parent
+    <link type="text/css" href="{{ mix('css/libs/dm-file-uploader/jquery.dm-uploader.min.css') }}" rel="stylesheet">
+    <link type="text/css" href="{{ mix('css/libs/cropperjs/cropper.min.css') }}" rel="stylesheet">
+@endsection
+
 <?php $nav = ''; ?>
 
 @section('title', '我的个人主页')
@@ -29,7 +35,7 @@
                         <div class="col-lg-3 order-lg-2">
                             <div class="card-profile-image">
                                 <a href="#">
-                                    <img src="{{ asset('images/avatars/avatar.png') }}" class="rounded-circle">
+                                    <img src="@if(!empty($user->avatar)) {{ asset('storage/'.$user->avatar) }} @else {{ asset('images/avatars/avatar.png') }} @endif" class="rounded-circle">
                                 </a>
                             </div>
                         </div>
@@ -37,7 +43,12 @@
                     <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
                         <div class="d-flex justify-content-between">
                             <a href="{{ route('my_password_change') }}" class="btn btn-sm btn-info mr-4">密码修改</a>
-                            <a href="#" class="btn btn-sm btn-default float-right">上传头像</a>
+                            <button class="btn btn-sm btn-default float-right js-avatar-uploader">
+                                上传头像
+                            </button>
+                            <div class="js-upload-container" data-url="{{ route('user_avatar_upload') }}" hidden>
+                                <input type="file" name="file" class="js-avatar" hidden>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body pt-0 pt-md-4">
@@ -214,6 +225,7 @@
     <script src="{{ mix('js/libs/jquery-validation/jquery.validate.min.js') }}"></script>
     <script src="{{ mix('js/libs/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ mix('js/libs/bootstrap-notify/bootstrap-notify.min.js') }}"></script>
+    <script src="{{ mix('js/libs/dm-file-uploader/jquery.dm-uploader.min.js') }}"></script>
     <script src="{{ mix('js/my/homepage/index.js') }}"></script>
 @endsection
 

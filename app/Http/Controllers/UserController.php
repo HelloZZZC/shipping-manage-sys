@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Biz\Auth\Service\AuthService;
+use App\Biz\File\Service\FileService;
 use App\Biz\User\Service\UserProfileService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Biz\User\Service\UserService;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use App\Common\Exception\InvalidArgumentException;
 use Illuminate\Support\Facades\Hash;
@@ -166,6 +169,52 @@ class UserController extends Controller
     }
 
     /**
+     * 头像上传
+     * @param Request $request
+     * @return UserController
+     */
+    public function uploadAvatar(Request $request)
+    {
+        $tmpAvatar = $request->file('file');
+        $avatarPath = Storage::putFile('public/files/tmp', $tmpAvatar);
+        $absolutePath = storage_path().'/app/'.$avatarPath;
+
+        if (!is_file($absolutePath)) {
+            return $this->createJsonResponse([], 500, '服务器保存头像失败');
+        }
+        $avatarLink = str_replace('public/', '', $avatarPath);
+
+        return $this->createJsonResponse(
+            ['avatar_url' => $avatarLink, 'goto_url' => route('user_avatar_crop')],
+            0,
+            '头像保存成功'
+        );
+    }
+
+    /**
+     * 头像切割
+     * @param Request $request
+     * @return UserController|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function cropAvatar(Request $request)
+    {
+        $user = Auth::user();
+        $avatarUrl = $request->query->get('avatar_url');
+        if ('POST' == $request->getMethod()) {
+            $avatar = $request->file('crop_avatar');
+            $tmpAvatar = $request->request->get('tmp_avatar');
+            $this->getUserService()->changeAvatar($user->id, $avatar);
+            $this->getFileService()->remove(storage_path().'/app/'.$tmpAvatar);
+            return $this->createJsonResponse([], 0, '头像保存成功过');
+        }
+
+        return view('user.crop-modal', [
+            'avatar_url' => $avatarUrl
+        ]);
+    }
+
+    /**
      * 构建注册所需要的参数
      * @param $registration
      * @return mixed
@@ -196,6 +245,15 @@ class UserController extends Controller
             'mobile' => 'required',
             'confirm_password' => 'required|same:password'
         ];
+    }
+
+    /**
+     * @return FileService
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    protected function getFileService()
+    {
+        return $this->createService('File:FileService');
     }
 
     /**

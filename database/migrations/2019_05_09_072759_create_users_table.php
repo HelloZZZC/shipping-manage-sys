@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('nickname', 64)->unique()->comment('用户名');
             $table->string('email', 128)->unique()->comment('用户邮箱');
             $table->string('verified_mobile', 32)->unique()->comment('用户手机号');
+            $table->string('avatar', 255)->default('')->comment('用户头像');
             $table->string('password', 255)->comment('用户密码');
             $table->rememberToken();
             $table->softDeletes();

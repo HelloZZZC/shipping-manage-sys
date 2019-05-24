@@ -59,7 +59,7 @@ abstract class BaseImporter
      */
     public function import(UploadedFile $file)
     {
-        $filePath = Storage::putFile('files/tmp', $file);
+        $filePath = Storage::putFile('public/files/tmp', $file);
         $absolutePath = storage_path().'/app/'.$filePath;
         if (!is_file($absolutePath)) {
             throw new NotFoundException("Import File #{$absolutePath} Not Found");
