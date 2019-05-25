@@ -267,6 +267,36 @@ class UserServiceImpl extends BaseService implements UserService
     }
 
     /**
+     * @param $nickname
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function getUserByNickname($nickname)
+    {
+        return $this->getUserDao()->getByNickname($nickname);
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function lockUser($id)
+    {
+        return $this->getUserDao()->lock($id);
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function unlockUser($id)
+    {
+        return $this->getUserDao()->unlock($id);
+    }
+
+    /**
      * 修改密码的规则
      * @return array
      */
