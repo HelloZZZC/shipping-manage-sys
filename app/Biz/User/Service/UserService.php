@@ -99,4 +99,24 @@ interface UserService
      * @return mixed
      */
     public function changeAvatar($id, UploadedFile $avatar);
+
+    /**
+     * @param $nickname
+     * @return mixed
+     */
+    public function getUserByNickname($nickname);
+
+    /**
+     * 封禁用户
+     * @param $id
+     * @return mixed
+     */
+    public function lockUser($id);
+
+    /**
+     * 解封用户
+     * @param $id
+     * @return mixed
+     */
+    public function unlockUser($id);
 }

@@ -11,7 +11,7 @@
         <?php $calcMode = empty(Request::offsetGet('calc_mode')) ? 'fixed_gross_margin' : Request::offsetGet('calc_mode') ?>
         <div class="row">
             <div class="col">
-                <div class="card bg-secondary shadow">
+                <div class="card shadow">
                     <div class="card-header bg-white border-0">
                         <div class="row align-items-center">
                             <h3 class="mb-0">价格计算器</h3>

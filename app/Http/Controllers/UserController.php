@@ -215,6 +215,50 @@ class UserController extends Controller
     }
 
     /**
+     * 将用户设置成离职状态
+     * @param $id
+     * @return UserController
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function lockUser($id)
+    {
+        $this->getUserService()->lockUser($id);
+
+        return $this->createJsonResponse([] , 0, '封禁用户成功');
+    }
+
+    /**
+     * 解除用户离职状态
+     * @param $id
+     * @return UserController
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function unlockUser($id)
+    {
+        $this->getUserService()->unlockUser($id);
+
+        return $this->createJsonResponse([] , 0, '解除封禁用户成功');
+    }
+
+    /**
+     * 修改用户密码
+     * @param Request $request
+     * @param $id
+     * @return UserController|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function changePassword(Request $request, $id)
+    {
+        if ('POST' == $request->getMethod()) {
+            $fields = $request->request->all();
+            $this->getUserService()->changeUserPassword($id, $fields);
+            return $this->createJsonResponse([], 0, '修改密码成功');
+        }
+
+        return view('user.password-change');
+    }
+
+    /**
      * 构建注册所需要的参数
      * @param $registration
      * @return mixed

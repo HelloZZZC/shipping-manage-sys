@@ -64,5 +64,17 @@ interface UserDao
      * @return mixed
      */
     public function update($id, $fields);
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function lock($id);
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function unlock($id);
 }
 
