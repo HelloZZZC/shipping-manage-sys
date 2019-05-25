@@ -45,7 +45,7 @@
                                         <div class="card card-float">
                                             <img class="card-img-top" src="{{ asset('images/roster-cover.jpg') }}">
                                             <span class="avatar avatar-lg rounded-circle roster-card-img">
-                                                <img src="{{ asset('images/avatars/avatar.png') }}" class="rounded-circle">
+                                                <img src="@if(!empty($user->avatar)) {{ asset('storage/'.$user->avatar) }} @else {{ asset('images/avatars/avatar.png') }} @endif" class="rounded-circle">
                                             </span>
                                             <div class="card-body">
                                                 <h3 class="card-title text-center">
