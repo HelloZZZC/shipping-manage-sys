@@ -55,7 +55,7 @@
                                                     {{ $roles[$user->getRoleNames()->toArray()[0]] }}
                                                 </div>
                                                 <h4 class="text-center">
-                                                    {{ $profiles[$user->id]['job'] ?? '' }}
+                                                    {{ empty($profiles[$user->id]['job']) ? '尚未填写岗位资料' : $profiles[$user->id]['job']}}
                                                 </h4>
                                                 <div class="text-center">
                                                     <a href="{{ route('user_homepage', ['id' => $user->id]) }}">Show more</a>
