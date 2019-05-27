@@ -64,7 +64,7 @@
                                 @if (empty($profile->real_name)) {{ $user->nickname }} @else {{ $profile->real_name }} @endif<span class="font-weight-light">, @if ($profile->gender == 'secret') 保密 @elseif ($profile->gender == 'female') 女 @else 男 @endif</span>
                             </h3>
                             <div class="h5 font-weight-300">
-                                <i class="ni location_pin mr-2"></i>管理员
+                                <i class="ni location_pin mr-2"></i>{{ $role }}
                             </div>
                             <div>
                                 <i class="ni education_hat mr-2"></i>{{ empty($profile->job) ? '赶紧填上你的岗位吧~' : $profile->job}}

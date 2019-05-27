@@ -1,3 +1,5 @@
+import {notify} from "../common/notify";
+
 class User {
     constructor() {
         this.initObject();
@@ -11,6 +13,9 @@ class User {
         this.$importBtn = $('#import-user-btn');
         this.$modal = $('#modal');
         this.$staticModal = $('#static-modal');
+        this.$lockUserBtn = $('.js-lock-user');
+        this.$unlockUserBtn = $('.js-unlock-user');
+        this.$changePasswordBtn = $('.js-change-password');
     }
 
     initEvent() {
@@ -27,6 +32,66 @@ class User {
             $.get(importUrl, (response) => {
                 this.$staticModal.html(response);
                 this.$staticModal.modal('show');
+            });
+        });
+
+        this.$changePasswordBtn.click(() => {
+            let url = this.$changePasswordBtn.data('url');
+            $.get(url, (response) => {
+                this.$modal.html(response);
+                this.$modal.modal('show');
+            });
+        });
+
+        this.$lockUserBtn.click(() => {
+            if (!confirm('确定要将该用户设置成离职吗?')) {
+                return false;
+            }
+
+            let url = this.$lockUserBtn.data('url');
+            $.ajax({
+                url: url,
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                method: 'POST',
+                contentType: false,
+                processData: false,
+                success: (response) => {
+                    if (!response.code) {
+                        notify('success', '设置用户离职成功');
+                        setTimeout("window.location.reload();",1000);
+                    } else {
+                        notify('danger', '操作执行失败，请联系管理员');
+                    }
+                },
+                error: (response) => {
+                    console.log(response);
+                }
+            });
+        });
+
+        this.$unlockUserBtn.click(() => {
+            if (!confirm('确定要将该用户设置成在职吗?')) {
+                return false;
+            }
+
+            let url = this.$unlockUserBtn.data('url');
+            $.ajax({
+                url: url,
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                method: 'POST',
+                contentType: false,
+                processData: false,
+                success: (response) => {
+                    if (!response.code) {
+                        notify('success', '设置用户在职成功');
+                        setTimeout("window.location.reload();",1000);
+                    } else {
+                        notify('danger', '操作执行失败，请联系管理员');
+                    }
+                },
+                error: (response) => {
+                    console.log(response);
+                }
             });
         });
     }

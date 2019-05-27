@@ -79,12 +79,12 @@
                                                         <i class="fas fa-ellipsis-v"></i>
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                        <a class="dropdown-item" href="">修改密码</a>
+                                                        <a class="dropdown-item js-change-password" href="javascript:" data-url="{{ route('user_password_change', ['id' => $user->id]) }}">修改密码</a>
                                                         <a class="dropdown-item" href="">设置角色</a>
                                                         @if(!empty($user->deleted_at))
-                                                            <a class="dropdown-item" href="">设置在职</a>
+                                                            <a class="dropdown-item js-unlock-user" href="javascript:" data-url="{{ route('user_unlock', ['id' => $user->id]) }}">设置在职</a>
                                                         @else
-                                                            <a class="dropdown-item" href="">设置离职</a>
+                                                            <a class="dropdown-item js-lock-user" href="javascript:" data-url="{{ route('user_lock', ['id' => $user->id]) }}">设置离职</a>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -119,5 +119,6 @@
 
 @section('script')
     @parent
+    <script src="{{ mix('js/libs/bootstrap-notify/bootstrap-notify.min.js') }}"></script>
     <script src="{{ mix('js/user/index.js') }}"></script>
 @endsection

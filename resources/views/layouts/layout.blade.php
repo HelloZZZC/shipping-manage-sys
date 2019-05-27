@@ -104,7 +104,7 @@
                                       <img alt="avatar" src="@if(!empty(Auth::user()->avatar)) {{ asset('storage/'.Auth::user()->avatar) }} @else {{ asset('images/avatars/avatar.png') }} @endif">
                                     </span>
                                     <div class="media-body ml-2 d-none d-lg-block">
-                                        <span class="mb-0 text-sm  font-weight-bold">管理员</span>
+                                        <span class="mb-0 text-sm  font-weight-bold">@if(Auth::check()) {{ Auth::user()->nickname }} @else '尚未登录' @endif </span>
                                     </div>
                                 </div>
                             </a>

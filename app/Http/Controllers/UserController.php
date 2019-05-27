@@ -15,6 +15,7 @@ use App\Common\Exception\InvalidArgumentException;
 use Illuminate\Support\Facades\Hash;
 use App\Biz\Importer\ImporterFactory;
 use Illuminate\Support\Facades\Log;
+use App\Common\Utils\RoleUtil;
 
 class UserController extends Controller
 {
@@ -161,10 +162,12 @@ class UserController extends Controller
     {
         $user = $this->getUserService()->getUser($id);
         $profile = $this->getUserProfileService()->getUserProfile($id);
+        $userRole = $user->getRoleNames()->toArray();
 
         return view('user.homepage', [
             'user' => $user,
-            'profile' => $profile
+            'profile' => $profile,
+            'role' => RoleUtil::transRole($userRole[0]),
         ]);
     }
 
@@ -249,13 +252,17 @@ class UserController extends Controller
      */
     public function changePassword(Request $request, $id)
     {
+        $user = $this->getUserService()->getUser($id);
+
         if ('POST' == $request->getMethod()) {
             $fields = $request->request->all();
             $this->getUserService()->changeUserPassword($id, $fields);
             return $this->createJsonResponse([], 0, '修改密码成功');
         }
 
-        return view('user.password-change');
+        return view('user.password-change-modal', [
+            'user' => $user,
+        ]);
     }
 
     /**

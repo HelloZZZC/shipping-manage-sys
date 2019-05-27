@@ -52,7 +52,7 @@
                                                     @if (empty($profiles[$user->id]['real_name'])) {{ $user->nickname }} @else {{ $profiles[$user->id]['real_name'] }} @endif<span class="font-weight-light">, @if ($profiles[$user->id]['gender'] == 'secret') 保密 @elseif ($profiles[$user->id]['gender'] == 'female') 女 @else 男 @endif</span>
                                                 </h3>
                                                 <div class="h5 font-weight-light text-center">
-                                                    管理员
+                                                    {{ $roles[$user->getRoleNames()->toArray()[0]] }}
                                                 </div>
                                                 <h4 class="text-center">
                                                     {{ $profiles[$user->id]['job'] ?? '' }}

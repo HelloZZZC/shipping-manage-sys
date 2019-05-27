@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Biz\User\Service\UserProfileService;
 use App\Biz\User\Service\UserService;
 use App\Common\Utils\ArrayUtil;
+use App\Common\Utils\RoleUtil;
 use Illuminate\Http\Request;
 
 class RosterController extends Controller
@@ -31,6 +32,7 @@ class RosterController extends Controller
             'count' => $count,
             'users' => $users,
             'profiles' => $userProfiles,
+            'roles' => RoleUtil::roleMap(),
         ]);
     }
 
