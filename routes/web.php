@@ -70,6 +70,7 @@ Route::middleware(['auth'])->group(function(){
         Route::post('/user/{id}/lock', 'UserController@lockUser')->name('user_lock');
         Route::post('/user/{id}/unlock', 'UserController@unlockUser')->name('user_unlock');
         Route::match(['get', 'post'], '/user/{id}/password/change', 'UserController@changePassword')->name('user_password_change');
+        Route::match(['get', 'post'], '/user/{id}/role/change', 'UserController@changeRole')->name('user_role_change');
     });
 
     Route::middleware(['permit:viewRoster'])->group(function(){
@@ -82,7 +83,14 @@ Route::middleware(['auth'])->group(function(){
         /**
          * 用户主页路由
          */
-        Route::get('user/{id}/homepage', 'UserController@homepage')->name('user_homepage');
+        Route::get('/user/{id}/homepage', 'UserController@homepage')->name('user_homepage');
+    });
+
+    Route::middleware(['permit:viewRole'])->group(function(){
+        /**
+         * 角色管理路由
+         */
+        Route::get('/role', 'RoleController@index')->name('role');
     });
 
     /**

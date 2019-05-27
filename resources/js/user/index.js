@@ -16,6 +16,7 @@ class User {
         this.$lockUserBtn = $('.js-lock-user');
         this.$unlockUserBtn = $('.js-unlock-user');
         this.$changePasswordBtn = $('.js-change-password');
+        this.$changeRoleBtn = $('.js-change-role');
     }
 
     initEvent() {
@@ -35,20 +36,28 @@ class User {
             });
         });
 
-        this.$changePasswordBtn.click(() => {
-            let url = this.$changePasswordBtn.data('url');
+        this.$changePasswordBtn.click((event) => {
+            let url = $(event.currentTarget).data('url');
             $.get(url, (response) => {
                 this.$modal.html(response);
                 this.$modal.modal('show');
             });
         });
 
-        this.$lockUserBtn.click(() => {
+        this.$changeRoleBtn.click((event) => {
+            let url = $(event.currentTarget).data('url');
+            $.get(url, (response) => {
+                this.$modal.html(response);
+                this.$modal.modal('show');
+            });
+        });
+
+        this.$lockUserBtn.click((event) => {
             if (!confirm('确定要将该用户设置成离职吗?')) {
                 return false;
             }
 
-            let url = this.$lockUserBtn.data('url');
+            let url = $(event.currentTarget).data('url');
             $.ajax({
                 url: url,
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -69,12 +78,12 @@ class User {
             });
         });
 
-        this.$unlockUserBtn.click(() => {
+        this.$unlockUserBtn.click((event) => {
             if (!confirm('确定要将该用户设置成在职吗?')) {
                 return false;
             }
 
-            let url = this.$unlockUserBtn.data('url');
+            let url = $(event.currentTarget).data('url');
             $.ajax({
                 url: url,
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},

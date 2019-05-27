@@ -6,6 +6,7 @@ use App\Biz\User\Service\UserProfileService;
 use App\Biz\User\Service\UserService;
 use App\Biz\BaseService;
 use App\Biz\User\Dao\UserDao;
+use App\Common\Exception\AccessDeniedException;
 use App\Common\Exception\InvalidArgumentException;
 use App\Common\Utils\ArrayUtil;
 use Illuminate\Auth\Notifications\ResetPassword;
@@ -294,6 +295,26 @@ class UserServiceImpl extends BaseService implements UserService
     public function unlockUser($id)
     {
         return $this->getUserDao()->unlock($id);
+    }
+
+    /**
+     * @param $id
+     * @param $role
+     * @return mixed
+     * @throws AccessDeniedException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function changeRole($id, $role)
+    {
+        $currentUser = Auth::user();
+        //针对role为超级管理员判断下权限
+        if ($role == 'superAdmin' && !$currentUser->hasRole('superAdmin')) {
+            throw new AccessDeniedException();
+        }
+
+        $user = $this->getUser($id);
+
+        return $user->syncRoles([$role]);
     }
 
     /**

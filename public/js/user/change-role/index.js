@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 15);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -121,16 +121,16 @@ function notify(type, msg) {
 
 /***/ }),
 
-/***/ "./resources/js/user/index.js":
-/*!************************************!*\
-  !*** ./resources/js/user/index.js ***!
-  \************************************/
+/***/ "./resources/js/user/change-role/index.js":
+/*!************************************************!*\
+  !*** ./resources/js/user/change-role/index.js ***!
+  \************************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _common_notify__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../common/notify */ "./resources/js/common/notify.js");
+/* harmony import */ var _common_notify__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../common/notify */ "./resources/js/common/notify.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -139,154 +139,55 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 
-var User =
+var ChangeRole =
 /*#__PURE__*/
 function () {
-  function User() {
-    _classCallCheck(this, User);
+  function ChangeRole() {
+    _classCallCheck(this, ChangeRole);
 
     this.initObject();
     this.initEvent();
-    this.fixTableColumn();
   }
 
-  _createClass(User, [{
+  _createClass(ChangeRole, [{
     key: "initObject",
     value: function initObject() {
-      this.$table = $('.table');
-      this.$createBtn = $('#create-user-btn');
-      this.$importBtn = $('#import-user-btn');
-      this.$modal = $('#modal');
-      this.$staticModal = $('#static-modal');
-      this.$lockUserBtn = $('.js-lock-user');
-      this.$unlockUserBtn = $('.js-unlock-user');
-      this.$changePasswordBtn = $('.js-change-password');
-      this.$changeRoleBtn = $('.js-change-role');
+      this.$form = $('#role-change-form');
+      this.$btn = $('#submit-btn');
     }
   }, {
     key: "initEvent",
     value: function initEvent() {
       var _this = this;
 
-      var url = this.$createBtn.data('url');
-      this.$createBtn.click(function () {
-        $.get(url, function (response) {
-          _this.$modal.html(response);
-
-          _this.$modal.modal('show');
-        });
-      });
-      var importUrl = this.$importBtn.data('url');
-      this.$importBtn.click(function () {
-        $.get(importUrl, function (response) {
-          _this.$staticModal.html(response);
-
-          _this.$staticModal.modal('show');
-        });
-      });
-      this.$changePasswordBtn.click(function (event) {
-        var url = $(event.currentTarget).data('url');
-        $.get(url, function (response) {
-          _this.$modal.html(response);
-
-          _this.$modal.modal('show');
-        });
-      });
-      this.$changeRoleBtn.click(function (event) {
-        var url = $(event.currentTarget).data('url');
-        $.get(url, function (response) {
-          _this.$modal.html(response);
-
-          _this.$modal.modal('show');
-        });
-      });
-      this.$lockUserBtn.click(function (event) {
-        if (!confirm('确定要将该用户设置成离职吗?')) {
-          return false;
-        }
-
-        var url = $(event.currentTarget).data('url');
-        $.ajax({
-          url: url,
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
-          method: 'POST',
-          contentType: false,
-          processData: false,
-          success: function success(response) {
-            if (!response.code) {
-              Object(_common_notify__WEBPACK_IMPORTED_MODULE_0__["notify"])('success', '设置用户离职成功');
-              setTimeout("window.location.reload();", 1000);
-            } else {
-              Object(_common_notify__WEBPACK_IMPORTED_MODULE_0__["notify"])('danger', '操作执行失败，请联系管理员');
-            }
-          },
-          error: function error(response) {
-            console.log(response);
+      this.$btn.click(function () {
+        $.post(_this.$form.attr('action'), _this.$form.serialize(), function (response) {
+          if (!response.code) {
+            Object(_common_notify__WEBPACK_IMPORTED_MODULE_0__["notify"])('success', '角色设置成功');
+            setTimeout("window.location.reload();", 1000);
+          } else {
+            Object(_common_notify__WEBPACK_IMPORTED_MODULE_0__["notify"])('danger', '角色设置失败，请联系管理员');
           }
         });
-      });
-      this.$unlockUserBtn.click(function (event) {
-        if (!confirm('确定要将该用户设置成在职吗?')) {
-          return false;
-        }
-
-        var url = $(event.currentTarget).data('url');
-        $.ajax({
-          url: url,
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
-          method: 'POST',
-          contentType: false,
-          processData: false,
-          success: function success(response) {
-            if (!response.code) {
-              Object(_common_notify__WEBPACK_IMPORTED_MODULE_0__["notify"])('success', '设置用户在职成功');
-              setTimeout("window.location.reload();", 1000);
-            } else {
-              Object(_common_notify__WEBPACK_IMPORTED_MODULE_0__["notify"])('danger', '操作执行失败，请联系管理员');
-            }
-          },
-          error: function error(response) {
-            console.log(response);
-          }
-        });
-      });
-    }
-    /**
-     * 将第一列固定在最左侧仅在手机下显示
-     */
-
-  }, {
-    key: "fixTableColumn",
-    value: function fixTableColumn() {
-      var _this2 = this;
-
-      var $fixedColumn = this.$table.clone().insertBefore(this.$table).addClass('fixed-column');
-      $fixedColumn.find('th:not(:first-child),td:not(:first-child)').remove();
-      $fixedColumn.find('tr').each(function (i) {
-        $(_this2).height(_this2.$table.find('tr:eq(' + i + ')').height());
       });
     }
   }]);
 
-  return User;
+  return ChangeRole;
 }();
 
-new User();
+new ChangeRole();
 
 /***/ }),
 
-/***/ 8:
-/*!******************************************!*\
-  !*** multi ./resources/js/user/index.js ***!
-  \******************************************/
+/***/ 15:
+/*!******************************************************!*\
+  !*** multi ./resources/js/user/change-role/index.js ***!
+  \******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /private/var/www/laravel-repository/shipping-manage-sys/resources/js/user/index.js */"./resources/js/user/index.js");
+module.exports = __webpack_require__(/*! /private/var/www/laravel-repository/shipping-manage-sys/resources/js/user/change-role/index.js */"./resources/js/user/change-role/index.js");
 
 
 /***/ })
