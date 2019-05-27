@@ -19,7 +19,7 @@
 
     @can('viewRole')
         <li class="nav-item">
-            <a class="nav-link" href="./examples/icons.html">
+            <a class="nav-link" href="{{ route('role') }}">
                 <i class="ni ni-single-02 text-primary"></i>
                 <span class="nav-link-text @if ($nav == 'role') text-primary @endif">角色</span>
             </a>

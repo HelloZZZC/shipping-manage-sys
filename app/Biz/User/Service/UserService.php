@@ -119,4 +119,12 @@ interface UserService
      * @return mixed
      */
     public function unlockUser($id);
+
+    /**
+     * 修改用户角色
+     * @param $id
+     * @param $role
+     * @return mixed
+     */
+    public function changeRole($id, $role);
 }

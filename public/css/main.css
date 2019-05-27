@@ -86,3 +86,8 @@
   opacity: 1;
 }
 
+.role-radio {
+  padding-top: calc(.625rem + 1px);
+  padding-bottom: calc(.625rem + 1px);
+}
+

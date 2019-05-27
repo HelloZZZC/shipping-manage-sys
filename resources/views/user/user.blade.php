@@ -74,13 +74,13 @@
                                             <td>@if(!empty($user->deleted_at)) 离职 @else 在职 @endif</td>
                                             <td>{{ $user->created_at }}</td>
                                             <td>
-                                                <div class="dropdown">
+                                                <div class="dropdown" @if($user->hasRole('superAdmin') && !Auth::user()->hasRole('superAdmin')) style="display: none" @endif>
                                                     <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         <i class="fas fa-ellipsis-v"></i>
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                                         <a class="dropdown-item js-change-password" href="javascript:" data-url="{{ route('user_password_change', ['id' => $user->id]) }}">修改密码</a>
-                                                        <a class="dropdown-item" href="">设置角色</a>
+                                                        <a class="dropdown-item js-change-role" href="javascript:" data-url="{{ route('user_role_change', ['id' => $user->id]) }}">设置角色</a>
                                                         @if(!empty($user->deleted_at))
                                                             <a class="dropdown-item js-unlock-user" href="javascript:" data-url="{{ route('user_unlock', ['id' => $user->id]) }}">设置在职</a>
                                                         @else

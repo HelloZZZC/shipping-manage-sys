@@ -63,6 +63,7 @@ mix.js('resources/js/my/homepage/index.js', 'js/my/homepage');
 mix.js('resources/js/my/change-password/index.js', 'js/my/change-password');
 mix.js('resources/js/user/crop-avatar/index.js', 'js/user/crop-avatar');
 mix.js('resources/js/user/change-password/index.js', 'js/user/change-password');
+mix.js('resources/js/user/change-role/index.js', 'js/user/change-role');
 
 /**
  * 整合需要的字体

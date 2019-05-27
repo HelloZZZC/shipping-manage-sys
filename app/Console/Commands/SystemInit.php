@@ -103,7 +103,7 @@ class SystemInit extends BaseCommands
     {
         $admin = $this->arguments();
         $user = $this->getUserService()->getUserByNickname($admin['nickname']);
-        $user->assignRole('superAdmin');
+        $user->syncRoles(['superAdmin']);
     }
 
     /**

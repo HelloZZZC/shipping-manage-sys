@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Biz\Auth\Service\AuthService;
 use App\Biz\File\Service\FileService;
+use App\Biz\Role\Service\RoleService;
 use App\Biz\User\Service\UserProfileService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -266,6 +267,39 @@ class UserController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @param $id
+     * @return UserController|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws InvalidArgumentException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function changeRole(Request $request, $id)
+    {
+        $user = $this->getUserService()->getUser($id);
+        $currentRole = $user->getRoleNames()->toArray()[0];
+        $roles = $this->getRoleService()->findAll();
+        $roleMap = RoleUtil::roleMap();
+
+        if ('POST' == $request->getMethod()) {
+            $rules = $this->getUserRules();
+            $validator = Validator::make($request->all(), ['role' => 'required']);
+            if ($validator->fails()) {
+                throw new InvalidArgumentException('非法提交');
+            }
+            $validated = $validator->validated();
+            $this->getUserService()->changeRole($id, $validated['role']);
+            return $this->createJsonResponse([], 0, '修改用户角色成功');
+        }
+
+        return view('user.change-role-modal', [
+            'user' => $user,
+            'current_role' => $currentRole,
+            'roles' => $roles,
+            'map' => $roleMap,
+        ]);
+    }
+
+    /**
      * 构建注册所需要的参数
      * @param $registration
      * @return mixed
@@ -296,6 +330,15 @@ class UserController extends Controller
             'mobile' => 'required',
             'confirm_password' => 'required|same:password'
         ];
+    }
+
+    /**
+     * @return RoleService
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    protected function getRoleService()
+    {
+        return $this->createService('Role:RoleService');
     }
 
     /**
