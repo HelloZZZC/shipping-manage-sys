@@ -45,14 +45,14 @@
                                         <div class="card card-float">
                                             <img class="card-img-top" src="{{ asset('images/roster-cover.jpg') }}">
                                             <span class="avatar avatar-lg rounded-circle roster-card-img">
-                                                <img src="{{ asset('images/avatars/avatar.png') }}" class="rounded-circle">
+                                                <img src="@if(!empty($user->avatar)) {{ asset('storage/'.$user->avatar) }} @else {{ asset('images/avatars/avatar.png') }} @endif" class="rounded-circle">
                                             </span>
                                             <div class="card-body">
                                                 <h3 class="card-title text-center">
                                                     @if (empty($profiles[$user->id]['real_name'])) {{ $user->nickname }} @else {{ $profiles[$user->id]['real_name'] }} @endif<span class="font-weight-light">, @if ($profiles[$user->id]['gender'] == 'secret') 保密 @elseif ($profiles[$user->id]['gender'] == 'female') 女 @else 男 @endif</span>
                                                 </h3>
                                                 <div class="h5 font-weight-light text-center">
-                                                    管理员
+                                                    {{ $roles[$user->getRoleNames()->toArray()[0]] }}
                                                 </div>
                                                 <h4 class="text-center">
                                                     {{ $profiles[$user->id]['job'] ?? '' }}

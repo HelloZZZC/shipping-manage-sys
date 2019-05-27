@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Biz\User\Service\UserProfileService;
 use App\Biz\User\Service\UserService;
 use App\Common\Exception\InvalidArgumentException;
+use App\Common\Utils\RoleUtil;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,10 +35,12 @@ class MyController extends Controller
 
             return $this->createJsonResponse([], 0, '个人数据保存成功');
         }
+        $userRole = $user->getRoleNames()->toArray();
 
         return view('my.homepage', [
             'user' => $user,
-            'profile' => $profile
+            'profile' => $profile,
+            'role' => RoleUtil::transRole($userRole[0]),
         ]);
     }
 

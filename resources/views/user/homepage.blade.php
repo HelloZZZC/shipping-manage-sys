@@ -43,7 +43,7 @@
                                 @if (empty($profile->real_name)) {{ $user->nickname }} @else {{ $profile->real_name }} @endif<span class="font-weight-light">, @if ($profile->gender == 'secret') 保密 @elseif ($profile->gender == 'female') 女 @else 男 @endif</span>
                             </h3>
                             <div class="h5 font-weight-300">
-                                <i class="ni location_pin mr-2"></i>管理员
+                                <i class="ni location_pin mr-2"></i>{{ $role }}
                             </div>
                             <div>
                                 <i class="ni education_hat mr-2"></i>{{ empty($profile->job) ? '资料尚未填写' : $profile->job}}
@@ -75,18 +75,12 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="form-control-label">角色</label>
-                                        <div>管理员</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
                                         <label class="form-control-label">手机号</label>
                                         <div>{{ $user->verified_mobile }}</div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="form-control-label">邮箱</label>
