@@ -16,7 +16,7 @@
                     <a href="javascript:" class="btn btn-link d-sm-none">下载示例文件</a>
                 </div>
                 <div class="form-group">
-                    <a href="javascript:" class="btn btn-link d-none d-sm-block">下载示例文件</a>
+                    <a href="{{ asset('files/user-import.xlsx') }}" class="btn btn-link d-none d-sm-block">下载示例文件</a>
                 </div>
             </div>
             <div class="form-group">
@@ -29,6 +29,7 @@
         </div>
     </form>
     <script src="{{ mix('js/libs/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ mix('js/libs/bootstrap-notify/bootstrap-notify.min.js') }}"></script>
     <script src="{{ mix('js/user/import-file/index.js') }}"></script>
 @endsection
 
