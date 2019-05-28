@@ -36,6 +36,27 @@ class UserProfileServiceImpl extends BaseService implements UserProfileService
      */
     public function updateUserProfile($id, $profile)
     {
+        $profile = array_filter($profile, function($value) {
+            if (0 === $value) {
+                return true;
+            }
+
+            return !empty($value);
+        });
+
+        $default = [
+            'real_name' => '',
+            'age' => null,
+            'gender' => 'secret',
+            'address' => '',
+            'graduation' => '',
+            'birthday' => '',
+            'qq' => '',
+            'wechat' => '',
+            'job' => '',
+            'about' => '',
+        ];
+        $profile = array_merge($default, $profile);
         return $this->getUserProfileDao()->update($id, $profile);
     }
 
