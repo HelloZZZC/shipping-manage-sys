@@ -62,9 +62,6 @@ Route::middleware(['auth'])->group(function(){
          */
         Route::get('/user', 'UserController@index')->name('user');
         Route::match(['get', 'post'], '/user/create', 'UserController@create')->name('user_create');
-        Route::get('/user/nickname/check', 'UserController@checkNickname')->name('user_nickname_check');
-        Route::get('/user/mobile/check', 'UserController@checkMobile')->name('user_mobile_check');
-        Route::get('/user/email/check', 'UserController@checkEmail')->name('user_email_check');
         Route::get('/user/importer/show', 'UserController@userImporterShow')->name('user_importer_show');
         Route::post('/user/import', 'UserController@userImport')->name('user_import');
         Route::post('/user/{id}/lock', 'UserController@lockUser')->name('user_lock');
@@ -99,6 +96,10 @@ Route::middleware(['auth'])->group(function(){
     Route::match(['get', 'post'], '/my/homepage', 'MyController@homepage')->name('my_homepage');
     Route::match(['get', 'post'], '/my/password/change', 'MyController@changePassword')->name('my_password_change');
     Route::get('/my/password/check', 'MyController@checkCurrentPassword')->name('my_password_check');
+
+    Route::get('/user/nickname/check', 'UserController@checkNickname')->name('user_nickname_check');
+    Route::get('/user/mobile/check', 'UserController@checkMobile')->name('user_mobile_check');
+    Route::get('/user/email/check', 'UserController@checkEmail')->name('user_email_check');
 
     /**
      * 用户头像上传相关路由
