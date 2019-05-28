@@ -39,8 +39,8 @@ class SystemInit extends BaseCommands
     public function handle()
     {
         try {
-            $this->initSuperAdmin();
             $this->initRoles();
+            $this->initSuperAdmin();
             $this->initUserSuperAdmin();
         } catch (\Throwable $t) {
             $this->error($t->getMessage());
