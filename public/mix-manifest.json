@@ -10,7 +10,7 @@
     "/js/my/change-password/index.js": "/js/my/change-password/index.js?id=e871a02e67cbd984648c",
     "/js/my/homepage/index.js": "/js/my/homepage/index.js?id=741e5109e51fe3132c8e",
     "/js/setting/system/index.js": "/js/setting/system/index.js?id=ef27081fbf938e01d371",
-    "/js/shipping/index.js": "/js/shipping/index.js?id=d77349a6d0a2fcbadbb0",
+    "/js/shipping/index.js": "/js/shipping/index.js?id=2ed01b0cfa722fe43e50",
     "/js/user/change-password/index.js": "/js/user/change-password/index.js?id=df6ccddc7e17c53f5b44",
     "/js/user/change-role/index.js": "/js/user/change-role/index.js?id=69f9f98268f267c727e0",
     "/js/user/create/index.js": "/js/user/create/index.js?id=470297f04a2cd0076fd6",
@@ -21,6 +21,8 @@
     "/vendor/fontawesome-free/css/main.css": "/vendor/fontawesome-free/css/main.css?id=10519cfd3206802f5831",
     "/css/libs/dm-file-uploader/jquery.dm-uploader.min.css": "/css/libs/dm-file-uploader/jquery.dm-uploader.min.css?id=0280109189d3fa80505a",
     "/css/libs/cropperjs/cropper.min.css": "/css/libs/cropperjs/cropper.min.css?id=dabfa6c5383a28f0c9e2",
+    "/css/libs/bootstrap-table/bootstrap-table.min.css": "/css/libs/bootstrap-table/bootstrap-table.min.css?id=e5cfb117a6af624b97d9",
+    "/css/libs/bootstrap-table/bootstrap-table-fixed-columns.min.css": "/css/libs/bootstrap-table/bootstrap-table-fixed-columns.min.css?id=e516cacbe6c99668dca6",
     "/js/main.js": "/js/main.js?id=e7f7a5a5b108dde37898",
     "/js/main.min.js": "/js/main.min.js?id=e7f7a5a5b108dde37898",
     "/js/libs/jquery-validation/jquery.validate.min.js": "/js/libs/jquery-validation/jquery.validate.min.js?id=23d73c6bd6cbea8f06d0",
@@ -28,5 +30,7 @@
     "/js/libs/bootstrap-notify/bootstrap-notify.min.js": "/js/libs/bootstrap-notify/bootstrap-notify.min.js?id=a02f92a4990bdbdce951",
     "/js/libs/dm-file-uploader/jquery.dm-uploader.min.js": "/js/libs/dm-file-uploader/jquery.dm-uploader.min.js?id=b44fa36a5a1022f5d5d0",
     "/js/libs/cropperjs/cropper.min.js": "/js/libs/cropperjs/cropper.min.js?id=433e986fc39c9e15aa09",
-    "/js/libs/jquery-cropper/jquery-cropper.min.js": "/js/libs/jquery-cropper/jquery-cropper.min.js?id=a7145437ebe311b8556d"
+    "/js/libs/jquery-cropper/jquery-cropper.min.js": "/js/libs/jquery-cropper/jquery-cropper.min.js?id=a7145437ebe311b8556d",
+    "/js/libs/bootstrap-table/bootstrap-table.min.js": "/js/libs/bootstrap-table/bootstrap-table.min.js?id=d5bf664f09fa963e6c68",
+    "/js/libs/bootstrap-table/bootstrap-table-fixed-columns.min.js": "/js/libs/bootstrap-table/bootstrap-table-fixed-columns.min.js?id=a100269d67c5bd100d8d"
 }
