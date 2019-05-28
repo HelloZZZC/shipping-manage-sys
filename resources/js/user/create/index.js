@@ -1,3 +1,5 @@
+import {notify} from "../../common/notify";
+
 class CreateUser {
     constructor() {
         this.initObject();
@@ -95,7 +97,10 @@ class CreateUser {
             if (this.$form.valid()) {
                 $.post(this.$form.attr('action'), this.$form.serialize(), (response) => {
                     if (!response.code) {
-                        window.location.reload();
+                        notify('success', '新用户创建成功');
+                        setTimeout("window.location.reload();",1000);
+                    } else {
+                        notify('danger', '用户创建失败，请联系管理员');
                     }
                 });
             }

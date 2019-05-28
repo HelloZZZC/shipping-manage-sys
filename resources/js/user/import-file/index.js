@@ -1,3 +1,5 @@
+import {notify} from "../../common/notify";
+
 class UserImportFile
 {
     constructor() {
@@ -77,6 +79,7 @@ class UserImportFile
                     this.$jsImportMessage.html(response.data.importMsg);
                     let dismissBtn = `<button type="button" class="btn btn-primary" onClick="window.location.reload();">确定</button>`;
                     this.$jsFooter.html(dismissBtn).show();
+                    notify('success', '导入用户数据成功');
                 } else {
                     this.showError(response.data.progress)
                 }
@@ -93,6 +96,7 @@ class UserImportFile
         this.$progressBar.addClass('bg-danger');
         let dismissBtn = `<button type="button" class="btn btn-primary" onClick="window.location.reload();">确定</button>`;
         this.$jsFooter.html(dismissBtn).show();
+        notify('danger', '导入出现错误,请联系开发人员');
     }
 }
 
