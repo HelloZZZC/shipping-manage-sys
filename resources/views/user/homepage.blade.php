@@ -103,7 +103,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="form-control-label">生日</label>
-                                        <div>{{ $profile->birthday ?? '资料尚未填写' }}</div>
+                                        <div>{{ empty($profile->birthday) ? '资料尚未填写' : $profile->birthday }}</div>
                                     </div>
                                 </div>
                             </div>
@@ -111,13 +111,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-control-label">现居地址</label>
-                                        <div>{{ $profile->address ?? '资料尚未填写' }}</div>
+                                        <div>{{ empty($profile->address) ? '资料尚未填写' : $profile->address }}</div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-control-label">毕业院校</label>
-                                        <div>{{ $profile->graduation ?? '资料尚未填写' }}</div>
+                                        <div>{{ empty($profile->graduation) ? '资料尚未填写' : $profile->graduation }}</div>
                                     </div>
                                 </div>
                             </div>
@@ -125,13 +125,13 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="form-control-label">QQ</label>
-                                        <div>{{ $profile->qq ?? '资料尚未填写' }}</div>
+                                        <div>{{ empty($profile->qq) ? '资料尚未填写' : $profile->qq}}</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="form-control-label">微信号</label>
-                                        <div>{{ $profile->wechat ?? '资料尚未填写' }}</div>
+                                        <div>{{ empty($profile->wechat) ? '资料尚未填写' : $profile->wechat }}</div>
                                     </div>
                                 </div>
                             </div>
