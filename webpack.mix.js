@@ -59,11 +59,11 @@ mix.js('resources/js/homepage/index.js', 'public/js/homepage');
 mix.js('resources/js/user/index.js', 'public/js/user');
 mix.js('resources/js/user/create/index.js', 'public/js/user/create');
 mix.js('resources/js/user/import-file/index.js', 'public/js/user/import-file');
-mix.js('resources/js/my/homepage/index.js', 'js/my/homepage');
-mix.js('resources/js/my/change-password/index.js', 'js/my/change-password');
-mix.js('resources/js/user/crop-avatar/index.js', 'js/user/crop-avatar');
-mix.js('resources/js/user/change-password/index.js', 'js/user/change-password');
-mix.js('resources/js/user/change-role/index.js', 'js/user/change-role');
+mix.js('resources/js/my/homepage/index.js', 'public/js/my/homepage');
+mix.js('resources/js/my/change-password/index.js', 'public/js/my/change-password');
+mix.js('resources/js/user/crop-avatar/index.js', 'public/js/user/crop-avatar');
+mix.js('resources/js/user/change-password/index.js', 'public/js/user/change-password');
+mix.js('resources/js/user/change-role/index.js', 'public/js/user/change-role');
 
 /**
  * 整合需要的字体
