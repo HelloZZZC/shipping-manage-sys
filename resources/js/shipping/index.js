@@ -74,14 +74,10 @@ class Shipping
         });
     }
 
-    /**
-     * 将第一列固定在最左侧仅在手机下显示
-     */
     fixTableColumn() {
-        let $fixedColumn = this.$table.clone().insertBefore(this.$table).addClass('fixed-column');
-        $fixedColumn.find('th:not(:first-child),td:not(:first-child)').remove();
-        $fixedColumn.find('tr').each((i) => {
-            $(this).height(this.$table.find('tr:eq(' + i + ')').height());
+        this.$table.bootstrapTable('destroy').bootstrapTable({
+            fixedColumns: true,
+            fixedNumber: 1
         });
     }
 }

@@ -2,6 +2,12 @@
 
 <?php $nav = 'shipping'; ?>
 
+@section('css')
+    @parent
+    <link type="text/css" href="{{ mix('css/libs/bootstrap-table/bootstrap-table.min.css') }}" rel="stylesheet">
+    <link type="text/css" href="{{ mix('css/libs/bootstrap-table/bootstrap-table-fixed-columns.min.css') }}" rel="stylesheet">
+@endsection
+
 @section('title', '物流计算')
 
 @section('body')
@@ -63,16 +69,26 @@
                         </form>
                         <div class="table-responsive">
                             <table class="table align-items-center table-dark">
+                                <colgroup>
+                                    <col style="width:10%">
+                                    <col style="width:15%">
+                                    <col style="width:25%">
+                                    <col style="width:15%">
+                                    <col style="width:15%">
+                                    <col style="width:15%">
+                                    <col style="width:5%">
+                                    <col style="width:5%">
+                                </colgroup>
                                 <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">国家名称</th>
-                                    <th scope="col">物流名称</th>
-                                    <th scope="col">运费(¥)</th>
-                                    <th scope="col">固定毛利率(%)</th>
-                                    <th scope="col">售价($)</th>
-                                    <th scope="col">平台售价($)</th>
-                                    <th scope="col">毛利利润($)</th>
-                                    <th scope="col">毛利利润(¥)</th>
+                                    <th>国家名称</th>
+                                    <th>物流名称</th>
+                                    <th>运费(¥)</th>
+                                    <th>固定毛利率(%)</th>
+                                    <th>售价($)</th>
+                                    <th>平台售价($)</th>
+                                    <th>毛利利润($)</th>
+                                    <th>毛利利润(¥)</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -112,5 +128,7 @@
 @section('script')
     @parent
     <script src="{{ mix('js/libs/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ mix('js/libs/bootstrap-table/bootstrap-table.min.js') }}"></script>
+    <script src="{{ mix('js/libs/bootstrap-table/bootstrap-table-fixed-columns.min.js') }}"></script>
     <script src="{{ mix('js/shipping/index.js') }}"></script>
 @endsection

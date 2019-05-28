@@ -26,6 +26,8 @@ mix.copy('node_modules/@creative-tim-official/argon-dashboard-free/assets/vendor
  */
 mix.copy('node_modules/dm-file-uploader/dist/css/jquery.dm-uploader.min.css', 'public/css/libs/dm-file-uploader/jquery.dm-uploader.min.css');
 mix.copy('node_modules/cropperjs/dist/cropper.min.css', 'public/css/libs/cropperjs/cropper.min.css');
+mix.copy('node_modules/bootstrap-table/dist/bootstrap-table.min.css', 'public/css/libs/bootstrap-table/bootstrap-table.min.css');
+mix.copy('node_modules/bootstrap-table/dist/extensions/fixed-columns/bootstrap-table-fixed-columns.min.css', 'public/css/libs/bootstrap-table/bootstrap-table-fixed-columns.min.css');
 
 /**
  * 将node_modules中的前端模版相关依赖的js打包成main.js
@@ -49,6 +51,8 @@ mix.copy('node_modules/bootstrap-notify/bootstrap-notify.min.js', 'public/js/lib
 mix.copy('node_modules/dm-file-uploader/dist/js/jquery.dm-uploader.min.js', 'public/js/libs/dm-file-uploader/jquery.dm-uploader.min.js');
 mix.copy('node_modules/cropperjs/dist/cropper.min.js', 'public/js/libs/cropperjs/cropper.min.js');
 mix.copy('node_modules/jquery-cropper/dist/jquery-cropper.min.js', 'public/js/libs/jquery-cropper/jquery-cropper.min.js');
+mix.copy('node_modules/bootstrap-table/dist/bootstrap-table.min.js', 'public/js/libs/bootstrap-table/bootstrap-table.min.js');
+mix.copy('node_modules/bootstrap-table/dist/extensions/fixed-columns/bootstrap-table-fixed-columns.min.js', 'public/js/libs/bootstrap-table/bootstrap-table-fixed-columns.min.js');
 mix.js('resources/js/app/index', 'public/js/app');
 mix.js('resources/js/login/index.js', 'public/js/login');
 mix.js('resources/js/setting/system/index.js', 'public/js/setting/system');
