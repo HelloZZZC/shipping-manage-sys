@@ -70,14 +70,14 @@
                         <div class="table-responsive">
                             <table class="table align-items-center table-dark">
                                 <colgroup>
-                                    <col style="width:10%">
-                                    <col style="width:15%">
-                                    <col style="width:25%">
-                                    <col style="width:15%">
-                                    <col style="width:15%">
-                                    <col style="width:15%">
                                     <col style="width:5%">
-                                    <col style="width:5%">
+                                    <col style="width:20%">
+                                    <col style="width:20%">
+                                    <col style="width:15%">
+                                    <col style="width:15%">
+                                    <col style="width:15%">
+                                    <col style="width:15%">
+                                    <col style="width:15%">
                                 </colgroup>
                                 <thead class="thead-dark">
                                 <tr>
