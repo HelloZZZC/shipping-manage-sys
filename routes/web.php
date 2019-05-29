@@ -72,7 +72,6 @@ Route::middleware(['auth'])->group(function(){
 
     Route::middleware(['permit:viewRoster'])->group(function(){
         /**
-        /**
          * 花名册相关路由
          */
         Route::get('/roster', 'RosterController@index')->name('roster');
