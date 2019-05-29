@@ -41,7 +41,7 @@
                         <div>
                             <div class="row">
                                 @foreach($users as $user)
-                                    <div class="col col-md-4 mb-4">
+                                    <div class="col col-md-4 mb-4 roster-card">
                                         <div class="card card-float">
                                             <img class="card-img-top" src="{{ asset('images/roster-cover.jpg') }}">
                                             <span class="avatar avatar-lg rounded-circle roster-card-img">
