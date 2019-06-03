@@ -14,3 +14,4 @@ resources/views/.DS_Store
 .DS_Store
 storage/.DS_Store
 /config/systeminititems.php
+package-lock.json
