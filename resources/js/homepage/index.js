@@ -2,18 +2,112 @@ class Homepage {
     constructor() {
         this.initObject();
         this.initTimer();
+        this.initChart();
     }
 
     initObject() {
         this.$beijingTimer = $('.js-beijing-time');
         this.$moscowTimer = $('.js-moscow-time');
         this.$USATimer = $('.js-usa-time');
+        this.$todayRateChat = $('#chart-today-rate');
+        this.$sevenDayRate = $('#chart-seven-day-rate');
     }
 
     initTimer() {
         setInterval(() => {
             this.setHomepageDate();
         }, 1000);
+    }
+
+    initChart() {
+        let $todayRateChart = new Chart(this.$todayRateChat, {
+            type: 'bar',
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            callback: function(value) {
+                                if (!(value % 10)) {
+                                    return value
+                                }
+                            }
+                        }
+                    }]
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function(item, data) {
+                            let label = data.datasets[item.datasetIndex].label || '';
+                            let yLabel = item.yLabel;
+                            let content = '';
+
+                            if (data.datasets.length > 1) {
+                                content += '<span class="popover-body-label mr-auto">' + label + '</span>';
+                            }
+
+                            content += '<span class="popover-body-value">' + yLabel + '</span>';
+
+                            return content;
+                        }
+                    }
+                }
+            },
+            data: {
+                labels: this.$todayRateChat.data('xAxis'),
+                datasets: [{
+                    label: 'Sales',
+                    data: this.$todayRateChat.data('yAxis')
+                }]
+            }
+        });
+
+        this.$todayRateChat.data('chart', $todayRateChart);
+
+        let $sevenDayChart = new Chart(this.$sevenDayRate, {
+            type: 'line',
+            options: {
+                scales: {
+                    yAxes: [{
+                        gridLines: {
+                            color: Charts.colors.gray[900],
+                            zeroLineColor: Charts.colors.gray[900]
+                        },
+                        ticks: {
+                            callback: function(value) {
+                                if (!(value % 10)) {
+                                    return '$' + value;
+                                }
+                            }
+                        }
+                    }]
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function(item, data) {
+                            let label = data.datasets[item.datasetIndex].label || '';
+                            let yLabel = item.yLabel;
+                            let content = '';
+
+                            if (data.datasets.length > 1) {
+                                content += '<span class="popover-body-label mr-auto">' + label + '</span>';
+                            }
+
+                            content += '<span class="popover-body-value">$' + yLabel + '</span>';
+                            return content;
+                        }
+                    }
+                }
+            },
+            data: {
+                labels: this.$sevenDayRate.data('xAxis'),
+                datasets: [{
+                    label: 'Performance',
+                    data: this.$sevenDayRate.data('yAxis')
+                }]
+            }
+        });
+
+        this.$sevenDayRate.data('chart', $sevenDayChart);
     }
 
     setHomepageDate() {
