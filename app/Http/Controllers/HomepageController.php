@@ -52,8 +52,11 @@ class HomepageController extends Controller
         for ($index = 0; $index < 7; $index++) {
             $sevenDaysXAxis[] = date('m-d', strtotime("{$conditions['created_at_GET']} +{$index}day"));
         }
-        $USDSevenDayYAxis = $this->buildSevenDayYAxis($group['美元'], $sevenDaysXAxis);
-        $SURSevenDayYAxis = $this->buildSevenDayYAxis($group['卢布'], $sevenDaysXAxis);
+
+        $USARates = empty($group['美元']) ? [] : $group['美元'];
+        $USDSevenDayYAxis = $this->buildSevenDayYAxis($USARates, $sevenDaysXAxis);
+        $SURRates = empty($group['卢布']) ? [] : $group['卢布'];
+        $SURSevenDayYAxis = $this->buildSevenDayYAxis($SURRates, $sevenDaysXAxis);
 
         return view('homepage', [
             'userCount' => $userCount,
