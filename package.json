@@ -31,6 +31,6 @@
         "cropperjs": "^1.5.1",
         "dm-file-uploader": "^1.0.2",
         "jquery-cropper": "^1.0.0",
-        "jquery-validation": "^1.19.0"
+        "jquery-validation": "^1.19.4"
     }
 }
